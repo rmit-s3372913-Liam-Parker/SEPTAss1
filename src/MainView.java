@@ -1,4 +1,5 @@
 import java.awt.*;
+import model.*;
 import javax.swing.*;
 
 import controller.MainViewController;
@@ -19,10 +20,11 @@ public class MainView extends JFrame
 	
 	
 
-	public MainView()
+	public MainView(WeatherSystem system)
 	{
+
 		WeatherStations station = new WeatherStations();
-		MainViewController controller = new MainViewController(station, null);
+		MainViewController controller = new MainViewController(station, null, system);
 		
 		buttonWeather.addActionListener(controller);
 		buttonFavourites.addActionListener(controller);

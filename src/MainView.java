@@ -5,24 +5,25 @@ import controller.MainViewController;
 
 public class MainView extends JFrame 
 {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	
+	JPanel panel = new JPanel(new BorderLayout());
+	JPanel topPanel = new JPanel();
+	JPanel bottomPanel = new JPanel();
+	JLabel weather = new JLabel();
+
+	JButton buttonWeather = new JButton("Weather Stations");
+	JButton buttonFavourites = new JButton("Favourites");
+	JButton buttonRefresh = new JButton("Refresh");
+	
+	
 
 	public MainView()
 	{
 		WeatherStations station = new WeatherStations();
 		MainViewController controller = new MainViewController(station, null);
 		
-		JPanel panel = new JPanel(new BorderLayout());
-		JPanel topPanel = new JPanel();
-		JPanel bottomPanel = new JPanel();
-		JLabel weather = new JLabel();
-		
-		JButton buttonWeather = new JButton("Weather Stations");
-		JButton buttonFavourites = new JButton("Favourites");
-		JButton buttonRefresh = new JButton("Refresh");
 		buttonWeather.addActionListener(controller);
 		buttonFavourites.addActionListener(controller);
 		buttonRefresh.addActionListener(controller);

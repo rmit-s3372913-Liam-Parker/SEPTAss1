@@ -5,11 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import model.WeatherSystem;
+
 public class MainViewController implements ActionListener 
 {
 	JFrame stations, favorites;
+	WeatherSystem weatherSystem;
 	
-	public MainViewController(JFrame stations, JFrame favorites)
+	public MainViewController(JFrame stations, JFrame favorites, WeatherSystem system)
 	{
 		this.stations = stations;
 		this.favorites = favorites;
@@ -26,6 +29,9 @@ public class MainViewController implements ActionListener
 			break;
 		case "Favourites":
 			favorites.setVisible(!favorites.isVisible());
+			break;
+		case "Refresh":
+			weatherSystem.RefreshWeatherData();
 			break;
 		}
 	}

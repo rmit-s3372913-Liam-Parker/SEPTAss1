@@ -15,18 +15,17 @@ public class MainViewController implements ActionListener
 		this.favorites = favorites;
 	}
 	
-	// Lazy with a switch, should probably extract each
-	// button to its own listener at some point.
+	// TODO: Implement these as anonymous inner classes instead.
 	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{
 		switch(arg0.getActionCommand())
 		{
 		case "Weather Stations":
-			stations.setVisible(true);
+			stations.setVisible(!stations.isVisible());
 			break;
 		case "Favourites":
-			favorites.setVisible(true);
+			favorites.setVisible(!favorites.isVisible());
 			break;
 		}
 	}

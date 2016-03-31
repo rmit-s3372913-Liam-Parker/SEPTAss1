@@ -5,9 +5,16 @@ import controller.MainViewController;
 
 public class MainView extends JFrame 
 {
-	public void ShowBorderLayout()
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MainView()
 	{
-		MainViewController controller = new MainViewController(null, null);
+		WeatherStations station = new WeatherStations();
+		MainViewController controller = new MainViewController(station, null);
+		
 		JPanel panel = new JPanel(new BorderLayout());
 		JPanel topPanel = new JPanel();
 		JPanel bottomPanel = new JPanel();
@@ -37,8 +44,8 @@ public class MainView extends JFrame
 		
 		this.add(panel);
 		this.setTitle("Weather App");
-		this.setSize(400,400);
-		this.setLocationRelativeTo(null); //centre the frame
+		this.setSize(400,400); //needs to be changed
+		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setMinimumSize(new Dimension(400,400));

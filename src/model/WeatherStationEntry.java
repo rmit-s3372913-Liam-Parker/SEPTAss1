@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-/*
+/**
  * Weather Stations store an entry for each day of the month with data
  * related to the climate on that particular day.
  * 
@@ -38,25 +38,33 @@ public class WeatherStationEntry
 		this.time = time;
 	}
 	
-	/*
-	 * Returns a ClimateTimeSample with data on the 9 AM climate sample from this station on this date.
+	/**
+	 * Get the 9AM time sample for this entry.
+	 * @return A ClimateTimeSample representing the sample.
+	 * @see ClimateTimeSample
 	 */
 	public ClimateTimeSample GetNineAMTimeSample()
 	{
 		return nineAMSample;
 	}
 	
+	/**
+	 * Get the 3PM time sample for this entry.
+	 * @return A ClimateTimeSample representing the sample.
+	 * @see ClimateTimeSample
+	 */
 	public ClimateTimeSample GetThreePMTimeSample()
 	{
 		return threePMSample;
 	}
 	
-	/*
+	/**
 	 * Sample data is taken twice a day by BOM. At 9AM and again at 3PM.
 	 * We store these samples if available
 	 * 
 	 * @param nineAM The nine AM climate sample data for this station.
 	 * @param threePM The three PM climate sample data for this station.
+	 * @see ClimateTimeSample
 	 */
 	public void SetTimeSamples(ClimateTimeSample nineAM, ClimateTimeSample threePM)
 	{

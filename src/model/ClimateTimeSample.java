@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Represents sample data from a specific point in time during the day. Measures
+ * by a weather station.
+ * @author Liam
+ */
 public class ClimateTimeSample 
 {
 	// Variables are named as they appear in raw bom data.

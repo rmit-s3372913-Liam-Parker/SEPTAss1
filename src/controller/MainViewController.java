@@ -18,7 +18,7 @@ public class MainViewController implements ActionListener
 		this.favorites = favorites;
 	}
 	
-	// TODO: Implement these as anonymous inner classes instead.
+	// Potentially unwanted coupling here to View
 	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{
@@ -36,10 +36,9 @@ public class MainViewController implements ActionListener
 		}
 	}
 	
-	/*
-	 * Toggles a JFrames visibility.
-	 * 
-	 * @param frame The JFrame to toggle visibility on.
+	/**
+	 * Toggles visibility of a JFrame.
+	 * @param frame The JFrame to toggle.
 	 */
 	private void ToggleWindowVisibility(JFrame frame)
 	{

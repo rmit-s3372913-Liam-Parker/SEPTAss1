@@ -4,7 +4,7 @@ public class ProgramEntry
 {
 	public static void main(String[] args) 
 	{
-		ShowBorderLayout frame = new ShowBorderLayout();
+		MainView frame = new MainView();
 		frame.ShowBorderLayout();
 		
 		Color c = new Color(255,255,255);

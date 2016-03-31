@@ -3,7 +3,7 @@ import javax.swing.*;
 
 import controller.MainViewController;
 
-public class ShowBorderLayout extends JFrame 
+public class MainView extends JFrame 
 {
 	public void ShowBorderLayout()
 	{

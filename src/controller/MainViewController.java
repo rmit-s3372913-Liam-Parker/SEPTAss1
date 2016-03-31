@@ -25,14 +25,24 @@ public class MainViewController implements ActionListener
 		switch(arg0.getActionCommand())
 		{
 		case "Weather Stations":
-			stations.setVisible(!stations.isVisible());
+			ToggleWindowVisibility(stations);
 			break;
 		case "Favourites":
-			favorites.setVisible(!favorites.isVisible());
+			ToggleWindowVisibility(favorites);
 			break;
 		case "Refresh":
 			weatherSystem.RefreshWeatherData();
 			break;
 		}
+	}
+	
+	/*
+	 * Toggles a JFrames visibility.
+	 * 
+	 * @param frame The JFrame to toggle visibility on.
+	 */
+	private void ToggleWindowVisibility(JFrame frame)
+	{
+		frame.setVisible(!frame.isVisible());
 	}
 }

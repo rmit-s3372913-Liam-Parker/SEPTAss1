@@ -1,21 +1,28 @@
 import java.awt.*;
 import javax.swing.*;
 
+import controller.MainViewController;
+
 public class ShowBorderLayout extends JFrame 
 {
 	public void ShowBorderLayout()
 	{
-		
+		MainViewController controller = new MainViewController(null, null);
 		JPanel panel = new JPanel(new BorderLayout());
 		JPanel topPanel = new JPanel();
 		JPanel bottomPanel = new JPanel();
 		JLabel weather = new JLabel();
 		
-		JButton buttonLeft = new JButton("Weather Stations");
-		JButton buttonRight = new JButton("Favourites");
+		JButton buttonWeather = new JButton("Weather Stations");
+		JButton buttonFavourites = new JButton("Favourites");
+		JButton buttonRefresh = new JButton("Refresh");
+		buttonWeather.addActionListener(controller);
+		buttonFavourites.addActionListener(controller);
+		buttonRefresh.addActionListener(controller);
 		
-		bottomPanel.add(buttonLeft);
-		bottomPanel.add(buttonRight);
+		bottomPanel.add(buttonWeather);
+		bottomPanel.add(buttonFavourites);
+		bottomPanel.add(buttonRefresh);
 		
 		bottomPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
@@ -35,7 +42,6 @@ public class ShowBorderLayout extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setMinimumSize(new Dimension(400,400));
-		
 		
 	}
 

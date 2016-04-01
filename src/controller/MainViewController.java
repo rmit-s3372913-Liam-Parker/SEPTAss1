@@ -31,7 +31,7 @@ public class MainViewController implements ActionListener
 			ToggleWindowVisibility(favorites);
 			break;
 		case "Refresh":
-			weatherSystem.RefreshWeatherData();
+			weatherSystem.refreshWeatherData();
 			break;
 		}
 	}

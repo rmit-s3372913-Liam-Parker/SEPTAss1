@@ -1,8 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import model.*;
 import javax.swing.*;
-
-import controller.MainViewController;
 
 public class MainView extends JFrame 
 {
@@ -24,11 +25,29 @@ public class MainView extends JFrame
 	{
 
 		WeatherStations station = new WeatherStations();
-		MainViewController controller = new MainViewController(station, null, system);
 		
-		buttonWeather.addActionListener(controller);
-		buttonFavourites.addActionListener(controller);
-		buttonRefresh.addActionListener(controller);
+		// Button event listeners
+		buttonWeather.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				station.setVisible(!station.isVisible());
+			}
+		});
+		
+		buttonFavourites.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO
+				//favorites.setVisible(!favorites.isVisible());
+			}
+		});
+		
+		buttonRefresh.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				system.refreshWeatherData();
+			}
+		});
 		
 		bottomPanel.add(buttonWeather);
 		bottomPanel.add(buttonFavourites);

@@ -7,8 +7,10 @@ import javax.swing.*;
 
 public class MainView extends JFrame 
 {
-
 	private static final long serialVersionUID = 1L;
+	
+	WeatherSystem system;
+	WeatherStations station = new WeatherStations(); // WeatherStation View
 	
 	JPanel panel = new JPanel(new BorderLayout());
 	JPanel topPanel = new JPanel();
@@ -19,36 +21,16 @@ public class MainView extends JFrame
 	JButton buttonFavourites = new JButton("Favourites");
 	JButton buttonRefresh = new JButton("Refresh");
 	
-	
-
 	public MainView(WeatherSystem system)
+	{	
+		this.system = system;
+		
+		InitializeWindow();
+		AttachActionListeners();
+	}
+	
+	private void InitializeWindow()
 	{
-
-		WeatherStations station = new WeatherStations();
-		
-		// Button event listeners
-		buttonWeather.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				station.setVisible(!station.isVisible());
-			}
-		});
-		
-		buttonFavourites.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				//TODO
-				//favorites.setVisible(!favorites.isVisible());
-			}
-		});
-		
-		buttonRefresh.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				system.refreshWeatherData();
-			}
-		});
-		
 		bottomPanel.add(buttonWeather);
 		bottomPanel.add(buttonFavourites);
 		bottomPanel.add(buttonRefresh);
@@ -71,8 +53,31 @@ public class MainView extends JFrame
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setMinimumSize(new Dimension(400,400));
-		
 	}
-
 	
+	private void AttachActionListeners()
+	{
+		// Button event listeners
+				buttonWeather.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						station.setVisible(!station.isVisible());
+					}
+				});
+				
+				buttonFavourites.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						//TODO
+						//favorites.setVisible(!favorites.isVisible());
+					}
+				});
+				
+				buttonRefresh.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						system.refreshWeatherData();
+					}
+				});
+	}
 }

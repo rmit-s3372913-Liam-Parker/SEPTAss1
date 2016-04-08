@@ -13,6 +13,8 @@ import java.util.Map;
 public class WeatherStation 
 {
 	String name;
+	String bomLink;
+	
 	HashMap<Date, WeatherStationEntry> entries = new HashMap<Date, WeatherStationEntry>();
 	
 	/**

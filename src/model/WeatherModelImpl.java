@@ -7,28 +7,27 @@ import java.util.ArrayList;
 
 public class WeatherModelImpl implements WeatherSystem 
 {
-	
-	
 	@Override
 	public void refreshWeatherData() 
 	{
 		//Read stations
-        String fileName = "stations.json";
+        String filePath = "stations.json";
         String line = null;
         
 		try 
 		{
-			// FileReader reads text files in the default encoding.
-            FileReader fileReader = new FileReader("stations.json");
+            FileReader reader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(reader);
 
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
+            while((line = bufferedReader.readLine()) != null) 
+            {
                 System.out.println(line);
             }   
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+            
+            bufferedReader.close();
+            
+		} catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 		

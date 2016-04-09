@@ -51,8 +51,11 @@ public class MainView extends JFrame
 		this.setSize(400,400); //needs to be changed
 		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
 		this.setMinimumSize(new Dimension(400,400));
+		
+		this.getContentPane().setBackground(new Color(255,255,255));
+		
+		this.setVisible(true);
 	}
 	
 	private void AttachActionListeners()

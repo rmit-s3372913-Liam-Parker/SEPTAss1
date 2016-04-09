@@ -10,8 +10,5 @@ public class ProgramEntry
 		WeatherSystem weatherSystem = new WeatherModelImpl();
 		weatherSystem.refreshWeatherData();
 		MainView frame = new MainView(weatherSystem);
-
-		Color c = new Color(255,255,255);
-		frame.getContentPane().setBackground(c);
 	}
 }

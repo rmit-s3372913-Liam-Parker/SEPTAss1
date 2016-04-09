@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import org.json.*;
 
 public class WeatherModelImpl implements WeatherSystem 
 {
@@ -18,7 +19,7 @@ public class WeatherModelImpl implements WeatherSystem
 		{
             FileReader reader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(reader);
-
+            
             while((line = bufferedReader.readLine()) != null) 
             {
                 System.out.println(line);

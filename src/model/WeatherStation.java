@@ -29,7 +29,6 @@ public class WeatherStation
 	}
 	
 	/**
-	 * 
 	 * @param name The name of this station ie. "Laverton, Victoria"
 	 * @param entries A map of entries to their dates.
 	 */

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -21,7 +22,9 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	public WeatherModelImpl()
 	{
+		//TODO: Only populate if existing stations observations don't exist
 		PopulateStations(stationLinksFP);
+		AddTestData();
 	}
 	
 	@Override
@@ -42,6 +45,13 @@ public class WeatherModelImpl implements WeatherSystem
 		return null;
 	}
 	
+	/**
+	 * Populates the stations hashmap with data from the json file
+	 * passed in. The expected format is an array of state objects each containing
+	 * a number of stations.
+	 * 
+	 * @param stationFilePath The filepath to the json file
+	 */
 	private void PopulateStations(String stationFilePath)
 	{
 		//Read stations
@@ -60,7 +70,8 @@ public class WeatherModelImpl implements WeatherSystem
             
             bufferedReader.close();
             
-		} catch (IOException e) 
+		} 
+		catch (IOException e) 
 		{
 			System.out.println("ERROR - Couldn't read stations.json, check the file exists.");
 		}
@@ -93,5 +104,14 @@ public class WeatherModelImpl implements WeatherSystem
 	    	stations.put(stateName, stationList);
 	    }
 	    System.out.println("");
+	}
+	
+	private void AddTestData()
+	{
+		HashMap<String, WeatherStation> testStations = new HashMap<String, WeatherStation>();
+		HashMap<Date, WeatherStationEntry> entries = new HashMap<Date, WeatherStationEntry>();
+		
+		//Populate some randomly chosen stations with mock data.
+		stations.get("Antarctica").get("Macquarie Island");
 	}
 }

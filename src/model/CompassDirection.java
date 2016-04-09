@@ -2,6 +2,7 @@ package model;
 
 public enum CompassDirection 
 {
+	CALM,
 	N,
 	NNE,
 	NE,

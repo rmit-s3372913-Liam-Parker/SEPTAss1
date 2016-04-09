@@ -1,5 +1,7 @@
+
 import model.WeatherModelImpl;
 import model.WeatherSystem;
+import view.MainView;
 
 public class ProgramEntry 
 {

@@ -55,7 +55,7 @@ public class WeatherModelImpl implements WeatherSystem
 				}
 			}
 		}
-		return null;
+		return foundStation;
 	}
 
 	@Override

@@ -13,8 +13,12 @@ import java.util.Map;
 public class WeatherStation 
 {
 	private String name;
+	/**
+	 * True if this station has been selected as a favorite
+	 * by the user. False otherwise.
+	 */
 	public boolean isFavorite = false;
-	String bomLink;
+	private String bomLink;
 	
 	HashMap<Date, WeatherStationEntry> entries = new HashMap<Date, WeatherStationEntry>();
 	
@@ -64,7 +68,11 @@ public class WeatherStation
 	{
 		return Collections.unmodifiableMap(entries);
 	}
-
+	
+	/**
+	 * Returns the name and
+	 * @return
+	 */
 	public String getName() 
 	{
 		return name;

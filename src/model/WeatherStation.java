@@ -12,7 +12,8 @@ import java.util.Map;
  */
 public class WeatherStation 
 {
-	String name;
+	private String name;
+	public boolean isFavorite = false;
 	String bomLink;
 	
 	HashMap<Date, WeatherStationEntry> entries = new HashMap<Date, WeatherStationEntry>();
@@ -40,11 +41,37 @@ public class WeatherStation
 	}
 	
 	/**
+	 * Entries can be added to a station provided the station doesn't
+	 * already have an entry for the provided date.
+	 * @param date The date associated to the entry
+	 * @param entry The entry to add into this stations list.
+	 * @return Returns true if the entry was added, false otherwise.
+	 */
+	public boolean addEntry(Date date, WeatherStationEntry entry)
+	{
+		if(entries.containsKey(date) || date == null || entry == null)
+			return false;
+		
+		entries.put(date, entry);
+		return true;
+	}
+	
+	/**
 	 * Gets entries for station.
 	 * @return An unmodifiable map of entries for this station.
 	 */
-	public Map<Date, WeatherStationEntry> GetEntries()
+	public Map<Date, WeatherStationEntry> getEntries()
 	{
 		return Collections.unmodifiableMap(entries);
+	}
+
+	public String getName() 
+	{
+		return name;
+	}
+	
+	public String getBomLink()
+	{
+		return bomLink;
 	}
 }

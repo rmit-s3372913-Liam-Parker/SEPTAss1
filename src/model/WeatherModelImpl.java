@@ -13,6 +13,13 @@ import org.json.*;
 public class WeatherModelImpl implements WeatherSystem 
 {
 	static final String stationLinksFP = "stations.json";
+	
+	/**
+	 * Just to make it clear, this hashmap stores asutralian
+	 * states as a key and a hashmap of weatherstations as a value.
+	 * The weather stations hashmap uses the town name as a key and the actual weather
+	 * station object itself as a value.
+	 */
 	HashMap<String, HashMap<String, WeatherStation>> stations =
 			new HashMap<String, HashMap<String, WeatherStation>>();
 	
@@ -24,7 +31,6 @@ public class WeatherModelImpl implements WeatherSystem
 	{
 		//TODO: Only populate if existing stations observations don't exist
 		PopulateStations(stationLinksFP);
-		AddTestData();
 	}
 	
 	@Override
@@ -34,15 +40,35 @@ public class WeatherModelImpl implements WeatherSystem
 	}
 
 	@Override
-	public WeatherStation getWeatherStation(String name) {
-		// TODO Auto-generated method stub
+	public WeatherStation getWeatherStation(String name) 
+	{
+		WeatherStation foundStation = null;
+		for(HashMap<String, WeatherStation> stationList : stations.values())
+		{
+			// We add all stations from each state in the map.
+			for(WeatherStation station : stationList.values())
+			{
+				if(station.getName() == name)
+				{
+					foundStation = station;
+					break;
+				}
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public ArrayList<WeatherStation> getAllWeatherStations() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<WeatherStation> getAllWeatherStations() 
+	{
+		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
+		for(HashMap<String, WeatherStation> stationList : stations.values())
+		{
+			// We add all stations from each state in the map.
+			for(WeatherStation station : stationList.values())
+				allStations.add(station);
+		}
+		return allStations;
 	}
 	
 	/**
@@ -103,15 +129,5 @@ public class WeatherModelImpl implements WeatherSystem
 	    	
 	    	stations.put(stateName, stationList);
 	    }
-	    System.out.println("");
-	}
-	
-	private void AddTestData()
-	{
-		HashMap<String, WeatherStation> testStations = new HashMap<String, WeatherStation>();
-		HashMap<Date, WeatherStationEntry> entries = new HashMap<Date, WeatherStationEntry>();
-		
-		//Populate some randomly chosen stations with mock data.
-		stations.get("Antarctica").get("Macquarie Island");
 	}
 }

@@ -4,9 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.*;
 
@@ -15,13 +18,18 @@ public class WeatherModelImpl implements WeatherSystem
 	static final String stationLinksFP = "stations.json";
 	
 	/**
-	 * Just to make it clear, this hashmap stores asutralian
+	 * Just to make it clear, this hashmap stores australian
 	 * states as a key and a hashmap of weatherstations as a value.
 	 * The weather stations hashmap uses the town name as a key and the actual weather
 	 * station object itself as a value.
 	 */
-	HashMap<String, HashMap<String, WeatherStation>> stations =
+	private HashMap<String, HashMap<String, WeatherStation>> stations =
 			new HashMap<String, HashMap<String, WeatherStation>>();
+	
+	/**
+	 * List of all favorited weather stations for easy access.
+	 */
+	private ArrayList<WeatherStation> favorites = new ArrayList<WeatherStation>();
 	
 	/**
 	 * Constructs a new weatherModel. Will attempt to instantiate
@@ -157,5 +165,18 @@ public class WeatherModelImpl implements WeatherSystem
 	    	
 	    	stations.put(stateName, stationList);
 	    }
+	}
+
+	@Override
+	public boolean addFavoriteStation(String name) 
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<WeatherStation> getFavoriteStations() 
+	{
+		return Collections.unmodifiableList(favorites);
 	}
 }

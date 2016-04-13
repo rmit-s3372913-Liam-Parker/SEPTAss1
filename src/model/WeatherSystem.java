@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface WeatherSystem 
 {
@@ -11,6 +12,19 @@ public interface WeatherSystem
 	 * go for the thread safety challenge.
 	 */
 	void refreshWeatherData();
+	
+	/**
+	 * Adds a station to the fovrites list by name.
+	 * @param name of the station to add to favorites.
+	 */
+	boolean addFavoriteStation(String name);
+	
+	/**
+	 * Gets favorite station.
+	 * @return A list of favorite stations NOTE: This list is unmodifiable, attempts
+	 * to modify the data will result in an exception being thrown.
+	 */
+	List<WeatherStation> getFavoriteStations();
 	
 	/**
 	 * Gets data for a weather station.

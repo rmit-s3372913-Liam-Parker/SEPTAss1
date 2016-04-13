@@ -29,7 +29,6 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	public WeatherModelImpl()
 	{
-		//TODO: Only populate if existing stations observations don't exist
 		PopulateStations(stationLinksFP);
 	}
 	
@@ -45,7 +44,6 @@ public class WeatherModelImpl implements WeatherSystem
 		WeatherStation foundStation = null;
 		for(HashMap<String, WeatherStation> stationList : stations.values())
 		{
-			// We add all stations from each state in the map.
 			for(WeatherStation station : stationList.values())
 			{
 				if(station.getName() == name)
@@ -57,9 +55,39 @@ public class WeatherModelImpl implements WeatherSystem
 		}
 		return foundStation;
 	}
+	
+	@Override
+	public ArrayList<WeatherStation> getWeatherStations(State state) 
+	{
+		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
+		for(String curState : stations.keySet())
+		{
+			if(curState == state.getString())
+			{
+				allStations.addAll(stations.get(curState).values());
+			}
+		}
+		return allStations;
+	}
 
 	@Override
-	public ArrayList<WeatherStation> getAllWeatherStations() 
+	public ArrayList<WeatherStation> getWeatherStations(String subStr) 
+	{
+		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
+		for(HashMap<String, WeatherStation> stationList : stations.values())
+		{
+			// We add all stations from each state in the map.
+			for(WeatherStation station : stationList.values())
+			{
+				if(station.getName().contains(subStr))
+					allStations.add(station);
+			}
+		}
+		return allStations;
+	}
+	
+	@Override
+	public ArrayList<WeatherStation> getWeatherStations() 
 	{
 		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
 		for(HashMap<String, WeatherStation> stationList : stations.values())

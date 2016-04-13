@@ -12,6 +12,7 @@ public class FavouritesView extends JFrame
 	JTable table;
 	JScrollPane scrollPane;
 	JPanel panel = new JPanel(new GridLayout());
+	JButton buttonGraph = new JButton("Graph");
 	
 	
 	public FavouritesView()

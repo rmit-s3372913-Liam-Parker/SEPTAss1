@@ -2,17 +2,31 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import model.*;
 
 import javax.swing.*;
 
-public class MainView extends JFrame 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+public class MainView extends JFrame implements IJsonSerializable
 {
 	private static final long serialVersionUID = 1L;
 	
 	WeatherSystem system;
-	WeatherStations station = new WeatherStations(); // WeatherStation View
+	WeatherStations weatherStationView; // WeatherStation View
 	
 	JPanel panel = new JPanel(new BorderLayout());
 	JPanel topPanel = new JPanel();
@@ -26,6 +40,7 @@ public class MainView extends JFrame
 	public MainView(WeatherSystem system)
 	{	
 		this.system = system;
+		weatherStationView = new WeatherStations(system);
 		
 		InitializeWindow();
 		AttachActionListeners();
@@ -56,11 +71,13 @@ public class MainView extends JFrame
 		this.setTitle("Weather App");
 		this.setSize(400,400); //needs to be changed
 		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setMinimumSize(new Dimension(400,400));
 		//this.setMaximumSize(new Dimension(450,500));
 		this.setResizable(false);
-
+		
+		//Load the stub of sub windows
+		loadProgramState();
 		
 		this.setVisible(true);
 	}
@@ -68,26 +85,113 @@ public class MainView extends JFrame
 	private void AttachActionListeners()
 	{
 		// Button event listeners
-				buttonWeather.addActionListener(new ActionListener(){
+				buttonWeather.addActionListener(new ActionListener()
+				{
 					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						station.setVisible(!station.isVisible());
+					public void actionPerformed(ActionEvent arg0) 
+					{
+						weatherStationView.setVisible(!weatherStationView.isVisible());
 					}
 				});
 				
-				buttonFavourites.addActionListener(new ActionListener(){
+				buttonFavourites.addActionListener(new ActionListener()
+				{
 					@Override
-					public void actionPerformed(ActionEvent arg0) {
+					public void actionPerformed(ActionEvent arg0) 
+					{
 						//TODO
 						//favorites.setVisible(!favorites.isVisible());
 					}
 				});
 				
-				buttonRefresh.addActionListener(new ActionListener(){
+				buttonRefresh.addActionListener(new ActionListener()
+				{
 					@Override
-					public void actionPerformed(ActionEvent arg0) {
+					public void actionPerformed(ActionEvent arg0) 
+					{
 						system.refreshWeatherData();
 					}
 				});
+				
+				this.addWindowListener( new WindowAdapter() 
+				{
+				    @Override
+				    public void windowClosing(WindowEvent e) 
+				    {
+				    	saveProgramState();
+				    	System.exit(0);
+				    }
+				});
+	}
+	
+	private void loadProgramState()
+	{
+		String windowStatesJson = "";
+		
+		try 
+		{
+            FileReader reader = new FileReader("WindowStates.json");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line = "";
+            
+            while((line = bufferedReader.readLine()) != null) 
+            {
+            	windowStatesJson += line;
+            }   
+            
+            bufferedReader.close();
+            
+		} 
+		catch (IOException e) { return; }
+		
+		JSONTokener tokener = new JSONTokener(windowStatesJson);
+		JSONArray stateArray = new JSONArray(tokener);
+		
+		//TODO for now we assume indexes until we can
+		// find a way to save objects with window name.
+		LoadFromJsonObject(stateArray.getJSONObject(0));
+		weatherStationView.LoadFromJsonObject(stateArray.getJSONObject(1));
+		
+	}
+	
+	private void saveProgramState()
+	{
+		JSONArray windowArray = new JSONArray();
+		windowArray.put(SaveToJsonObject());
+    	windowArray.put(weatherStationView.SaveToJsonObject());
+    	
+    	try 
+    	{
+			PrintWriter writer = new PrintWriter("WindowStates.json");
+			writer.print(windowArray.toString());
+			writer.close();
+		} 
+    	catch (FileNotFoundException e1) 
+    	{
+    		
+		}
+	}
+
+	@Override
+	public JSONObject SaveToJsonObject() 
+	{
+		JSONObject object = new JSONObject();
+		
+		object.put("windowPosX", this.getX());
+		object.put("windowPosY", this.getY());
+		
+		object.put("windowWidth", this.getWidth());
+		object.put("windowHeight", this.getHeight());
+		
+		//TODO any other values to save?
+		
+		return object;
+	}
+
+	@Override
+	public void LoadFromJsonObject(JSONObject obj) 
+	{
+		this.setBounds(obj.getInt("windowPosX"), obj.getInt("windowPosY"),
+				obj.getInt("windowWidth"), obj.getInt("windowHeight"));
 	}
 }

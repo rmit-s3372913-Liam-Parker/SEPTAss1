@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * A state enumeration storing the states of Australian territory.
+ * Used in conjunction with the weather model to access
+ * weather stations among other things.
+ * @author Liam
+ */
 public enum State 
 {
 	Antarctica("Antarctica"),

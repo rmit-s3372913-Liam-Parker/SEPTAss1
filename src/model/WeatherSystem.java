@@ -20,6 +20,12 @@ public interface WeatherSystem
 	boolean addFavoriteStation(String name);
 	
 	/**
+	 * Removes a station from the fovrites list by name.
+	 * @param name of the station to remove from favorites.
+	 */
+	boolean removeFavoriteStation(String name);
+	
+	/**
 	 * Gets favorite station.
 	 * @return A list of favorite stations NOTE: This list is unmodifiable, attempts
 	 * to modify the data will result in an exception being thrown.

@@ -173,6 +173,13 @@ public class WeatherModelImpl implements WeatherSystem
 	}
 
 	@Override
+	public boolean removeFavoriteStation(String name) 
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
 	public List<WeatherStation> getFavoriteStations() 
 	{
 		return Collections.unmodifiableList(favorites);

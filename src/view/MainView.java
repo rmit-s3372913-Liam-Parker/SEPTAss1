@@ -42,20 +42,25 @@ public class MainView extends JFrame
 		panel.add(topPanel, BorderLayout.NORTH);
 		panel.add(bottomPanel, BorderLayout.SOUTH);
 		
-		JLabel label = new JLabel("Welcome to the Weather App");
+		JLabel label = new JLabel("Welcome to the Weather App", SwingConstants.CENTER);
 		topPanel.add(label);
-		
+
 		weather.setIcon(new ImageIcon("images/weather.png"));
 		topPanel.add(weather);
 		
+		//There is a bug where you set the minSize and maxSize 
+		//It will minSize the frame but not maxSize
+		//http://bugs.java.com/bugdatabase/view_bug.do;?bug_id=6200438
+		//so I set the resizable to false
 		this.add(panel);
 		this.setTitle("Weather App");
 		this.setSize(400,400); //needs to be changed
 		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(400,400));
-		
-		this.getContentPane().setBackground(new Color(255,255,255));
+		//this.setMaximumSize(new Dimension(450,500));
+		this.setResizable(false);
+
 		
 		this.setVisible(true);
 	}

@@ -4,17 +4,18 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
-public class WeatherStations extends JFrame
+
+public class FavouritesView extends JFrame
 {
+	
 	private static final long serialVersionUID = 1L;
 	JTable table;
 	JScrollPane scrollPane;
 	JPanel panel = new JPanel(new GridLayout());
-	JButton buttonFavourite = new JButton("Favourite");
 	
-	public WeatherStations()
+	
+	public FavouritesView()
 	{
-		
 		String[] columns = {"Name", "Age", "Gender"};
 		
 		String[][] data = {{"John", "18", "Male"},
@@ -48,7 +49,6 @@ public class WeatherStations extends JFrame
 				{"Dave", "23", "Male"},
 				{"Dave", "23", "Male"},
 				};
-		Button[][][] buttons = {};
 		
 		table = new JTable(data, columns)
 		{
@@ -75,7 +75,7 @@ public class WeatherStations extends JFrame
 				
 				if(isCellSelected(data, columns))
 				{
-					cell.setBackground(Color.ORANGE);
+					cell.setBackground(Color.MAGENTA);
 				}
 				
 				return cell;
@@ -87,7 +87,7 @@ public class WeatherStations extends JFrame
             }
 		};
 		
-		table.setPreferredScrollableViewportSize(new Dimension(63, 500));
+		table.setPreferredScrollableViewportSize(new Dimension(400, 400));
 		table.setFillsViewportHeight(true);
 
 		
@@ -99,9 +99,6 @@ public class WeatherStations extends JFrame
 		this.setSize(400,400); //needs to be changed
 		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
 		this.setMinimumSize(new Dimension(400,400));
-		
 	}
-	
-	
-	
+
 }

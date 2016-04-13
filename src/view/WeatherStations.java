@@ -5,7 +5,9 @@ import javax.swing.table.TableCellRenderer;
 
 public class WeatherStations extends JFrame
 {
+	private static final long serialVersionUID = 1L;
 	JTable table;
+	JScrollPane scrollPane;
 	JPanel panel = new JPanel();
 	JFrame frame = new JFrame();
 	
@@ -46,8 +48,12 @@ public class WeatherStations extends JFrame
 				{"Dave", "23", "Male"},
 				};
 		
+		
 		table = new JTable(data, columns)
 		{
+	
+			private static final long serialVersionUID = 1L;
+
 			public boolean isCellEditable(int data, int columns)
 			{
 				return false;
@@ -75,32 +81,15 @@ public class WeatherStations extends JFrame
 			}
 		};
 		
-		table.setPreferredScrollableViewportSize(new Dimension(450, 63));
+		table.setPreferredScrollableViewportSize(new Dimension(400, 400));
 		table.setFillsViewportHeight(true);
 		
-//		JScrollPane scrollPane = new JScrollPane(table);
-//		add(scrollPane);
+
 		
 	
-		
-		
-		
-		
-		
-		
-//		panel1.setLayout(new GridLayout(6,2));
-//		setBounds(5,5,100,100);
-//		panel1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//		JScrollPane scrollPane = new JScrollPane();
-//		
-//		
-//		for(int i= 0; i<=9; i++)
-//		{
-//			panel1.add(new JLabel("" + i)); //numbers each cell
-//		}
-		
-		this.add(new JScrollPane(table));
-		this.add(table);
+		scrollPane = new JScrollPane(table);
+		panel.add(scrollPane);
+		this.add(new JScrollPane(panel));
 		this.setTitle("Weather Stations | Weather App");
 		this.setSize(400,400); //needs to be changed
 		this.setLocationRelativeTo(null); //centre the frame - needs to be changed

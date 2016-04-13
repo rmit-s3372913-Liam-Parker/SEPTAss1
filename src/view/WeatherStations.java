@@ -8,8 +8,7 @@ public class WeatherStations extends JFrame
 	private static final long serialVersionUID = 1L;
 	JTable table;
 	JScrollPane scrollPane;
-	JPanel panel = new JPanel();
-	JFrame frame = new JFrame();
+	JPanel panel = new JPanel(new GridLayout());
 	
 	public WeatherStations()
 	{
@@ -79,11 +78,16 @@ public class WeatherStations extends JFrame
 				
 				return cell;
 			}
+			
+			public boolean getScrollableTracksViewportWidth()
+            {
+                return getPreferredSize().width < getParent().getWidth();
+            }
 		};
 		
 		table.setPreferredScrollableViewportSize(new Dimension(400, 400));
 		table.setFillsViewportHeight(true);
-		
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		
 	

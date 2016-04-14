@@ -7,7 +7,6 @@ import javax.swing.table.TableCellRenderer;
 
 public class FavouritesView extends JFrame
 {
-	
 	private static final long serialVersionUID = 1L;
 	JTable table;
 	JScrollPane scrollPane;

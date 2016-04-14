@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import model.WeatherStation;
 import model.WeatherSystem;
 
+
 public class WeatherStations extends JFrame implements IRefreshable, IJsonSerializable
 {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +31,9 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 		initializeWindow();
 	}
 	
+	/**
+	 * Initialises the window/frame.
+	 */
 	private void initializeWindow()
 	{
 		buildTable();
@@ -42,6 +46,9 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 		this.setMinimumSize(new Dimension(400,400));
 	}
 	
+	/**
+	 * Represents the view of the weather stations through a table.
+	 */
 	private void buildTable()
 	{	
 		String[] columns = {"", "Station"};
@@ -59,12 +66,27 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 		table = new JTable(data, columns)
 		{
 			private static final long serialVersionUID = 1L;
-
+			
+			/**
+			 * Disables editing the table.
+			 * @return False to stop users from editing data.
+			 * @param data Collect the number of cells from the array.
+			 * @param columns Collects the number of cells from the array.
+			 */
+		
 			public boolean isCellEditable(int data, int columns)
 			{
 				return false;
 			}
 			
+			/**
+			 * Represents the colour of the table.
+			 * @param r Object rendered for cells in JTable.
+			 * @param data Collects the number of cells from the array.
+			 * @param columns Collects the number of cells from the array.
+			 * @return Cells of the table and applies the colours.
+			 * 
+			 */
 			public Component prepareRenderer(TableCellRenderer r, int data, int columns)
 			{
 				Component cell = super.prepareRenderer(r, data, columns);
@@ -86,6 +108,7 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 				return cell;
 			}
 			
+			@Override
 			public boolean getScrollableTracksViewportWidth()
             {
                 return getPreferredSize().width < getParent().getWidth();

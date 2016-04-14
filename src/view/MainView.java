@@ -46,6 +46,9 @@ public class MainView extends JFrame implements IJsonSerializable
 		AttachActionListeners();
 	}
 	
+	/**
+	 * Initialises the view of the window/frame.
+	 */
 	private void InitializeWindow()
 	{
 		bottomPanel.add(buttonWeather);

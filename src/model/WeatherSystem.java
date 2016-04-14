@@ -7,20 +7,20 @@ public interface WeatherSystem
 {
 	/**
 	 * A request to the system to download latest
-	 * weather information for all favorited stations.
+	 * weather information for all favourited stations.
 	 * NOTE: This should probably be thread safe if we decide to
 	 * go for the thread safety challenge.
 	 */
 	void refreshWeatherData();
 	
 	/**
-	 * Adds a station to the fovrites list by name.
+	 * Adds a station to the favourites list by name.
 	 * @param name of the station to add to favorites.
 	 */
 	boolean addFavoriteStation(String name);
 	
 	/**
-	 * Removes a station from the fovrites list by name.
+	 * Removes a station from the favourites list by name.
 	 * @param name of the station to remove from favorites.
 	 */
 	boolean removeFavoriteStation(String name);

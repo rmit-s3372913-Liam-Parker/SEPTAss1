@@ -24,6 +24,7 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 	JTable table;
 	JScrollPane scrollPane;
 	JPanel panel = new JPanel(new GridLayout());
+	JButton buttonFavourite = new JButton("Favourite");
 	
 	public WeatherStations(WeatherSystem system)
 	{
@@ -51,17 +52,22 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 	 */
 	private void buildTable()
 	{	
-		String[] columns = {"", "Station"};
+		String[] columns = {"", "Station", "Favourite"};
 		
 		ArrayList<WeatherStation> stations = system.getWeatherStations();
 		int stationCount = stations.size();
-		String[][] data = new String[stationCount][2];
+		String[][] data = new String[stationCount][3];
 		
 		// Set station data column
 		for(int i = 0; i < stationCount; ++i)
 		{
 			data[i][1] = stations.get(i).getName();
 		}
+		
+//		for(int i = 0; i < stationCount; i++)
+//		{
+//			data[i][3] = stations.get(i);
+//		}
 		
 		table = new JTable(data, columns)
 		{
@@ -79,14 +85,16 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 				return false;
 			}
 			
+			
 			/**
 			 * Represents the colour of the table.
 			 * @param r Object rendered for cells in JTable.
-			 * @param data Collects the number of cells from the array.
-			 * @param columns Collects the number of cells from the array.
+			 * @param data The row of the cell to render.
+			 * @param columns The column of the cell to render.
 			 * @return Cells of the table and applies the colours.
 			 * 
 			 */
+					
 			public Component prepareRenderer(TableCellRenderer r, int data, int columns)
 			{
 				Component cell = super.prepareRenderer(r, data, columns);
@@ -108,7 +116,12 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 				return cell;
 			}
 			
-			@Override
+			/**
+			 * Indicates the width of the viewport that determines the 
+			 * width of the table.
+			 * @return 
+			 */
+			
 			public boolean getScrollableTracksViewportWidth()
             {
                 return getPreferredSize().width < getParent().getWidth();

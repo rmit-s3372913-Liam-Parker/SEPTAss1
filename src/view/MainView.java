@@ -27,6 +27,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	
 	WeatherSystem system;
 	WeatherStations weatherStationView; // WeatherStation View
+	FavouritesView favoritesView;
 	
 	JPanel panel = new JPanel(new BorderLayout());
 	JPanel topPanel = new JPanel();
@@ -41,7 +42,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	{	
 		this.system = system;
 		weatherStationView = new WeatherStations(system);
-		
+		favoritesView = new FavouritesView(system);
 		InitializeWindow();
 		AttachActionListeners();
 	}
@@ -102,8 +103,7 @@ public class MainView extends JFrame implements IJsonSerializable
 					@Override
 					public void actionPerformed(ActionEvent arg0) 
 					{
-						//TODO
-						//favorites.setVisible(!favorites.isVisible());
+						favoritesView.setVisible(!favoritesView.isVisible());
 					}
 				});
 				

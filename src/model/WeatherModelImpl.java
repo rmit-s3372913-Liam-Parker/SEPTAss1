@@ -41,7 +41,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public void refreshWeatherData() 
 	{
-		
+		//TODO
 	}
 
 	@Override
@@ -180,8 +180,8 @@ public class WeatherModelImpl implements WeatherSystem
 	}
 	
 	@Override
-	public List<WeatherStation> getFavoriteStations() 
+	public ArrayList<WeatherStation> getFavoriteStations() 
 	{
-		return Collections.unmodifiableList(favorites);
+		return new ArrayList<WeatherStation>(Collections.unmodifiableList(favorites));
 	}
 }

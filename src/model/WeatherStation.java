@@ -132,8 +132,9 @@ public class WeatherStation
 			JSONObject entry = (JSONObject)entriesItr.next();
 			
 			/* Code for reference; ideally we want to populate each of these variables the same way city and url are done. However the roadblock 
-			 * is that the JSON does not contain all of these values and hence we must work out the best way to either calculate or scrape these
-			 *
+			 * is that the JSON does not contain all of these values and hence we must work out the best way to either calculate or scrape these with 
+			 * a different method
+			 * 
 	    	String city = entry.getString("city");
 	    	String url = entry.getString("url");
 	    	
@@ -153,7 +154,12 @@ public class WeatherStation
 			//For each recording, grab the relevant info
 			
 			
-			//Then call addEntry() using the grabbed info
+			//Then call WeatherStationEntry(Date date, float minTemp, float maxTemp, float mmRain, float mmEvap, int sun, CompassDirection dir, int spd, Date time)
+			
+			
+			//and addEntry() using the grabbed info
+			
+			
 			
 			
 		}

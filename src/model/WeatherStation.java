@@ -1,9 +1,18 @@
 package model;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 /**
  * Stores all information on a specific weather station, its name and all day to day entries.
@@ -82,4 +91,73 @@ public class WeatherStation
 	{
 		return bomLink;
 	}
+	
+	
+	public void scrapeEntries()
+	{
+
+		String entriesJson = "";
+	
+		try
+		{
+			//Scrapes from the JSON file URL that has been assigned to WeatherStation
+			Scanner sc = new Scanner(new URL(bomLink).openStream());
+			
+			while(sc.hasNext())
+			{
+				entriesJson += sc.nextLine();
+		
+			}
+				
+			sc.close();
+		} catch (MalformedURLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+		JSONArray scrapedArray = new JSONArray(entriesJson);
+		JSONArray entriesArray = scrapedArray.getJSONArray(0).getJSONArray(2);
+		
+		Iterator<Object> entriesItr = entriesArray.iterator();
+		
+		//Loop for all recording entries the station has (including those on the same day)
+		while(entriesItr.hasNext())
+		{
+			JSONObject entry = (JSONObject)entriesItr.next();
+			
+			/* Code for reference; ideally we want to populate each of these variables the same way city and url are done. However the roadblock 
+			 * is that the JSON does not contain all of these values and hence we must work out the best way to either calculate or scrape these
+			 *
+	    	String city = entry.getString("city");
+	    	String url = entry.getString("url");
+	    	
+	    	Date date;
+	    	float minTemp, maxTemp;
+	    	float mmRain, mmEvap;
+	    	int sun; // Bright sunlight in hours per day
+	    	
+	    	// Max Wind data
+	    	CompassDirection dir;
+	    	int spd;
+	    	Date time;
+			*/
+			
+			
+			
+			//For each recording, grab the relevant info
+			
+			
+			//Then call addEntry() using the grabbed info
+			
+			
+		}
+		
+	}
+	
 }

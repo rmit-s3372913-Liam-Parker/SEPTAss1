@@ -4,14 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import model.*;
 
@@ -169,10 +166,7 @@ public class MainView extends JFrame implements IJsonSerializable
 			writer.print(windowArray.toString());
 			writer.close();
 		} 
-    	catch (FileNotFoundException e1) 
-    	{
-    		
-		}
+    	catch (FileNotFoundException e1) { }
 	}
 
 	@Override

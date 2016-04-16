@@ -1,8 +1,10 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -164,7 +166,33 @@ public class WeatherModelImpl implements WeatherSystem
 	    	stations.put(stateName, stationList);
 	    }
 	}
-
+	
+	/**
+	 * Loads user selected favorite stations from disk ready
+	 * to be refreshed.
+	 */
+	private void LoadFavoritesFromDisk()
+	{
+		//TODO
+	}
+	
+	/**
+	 * Saves user selected favorite stations to disk
+	 * ready to be loaded on next application start.
+	 */
+	private void SaveFavoritesToDisk()
+	{
+		//TODO
+		
+		//try 
+    	//{
+		//	PrintWriter writer = new PrintWriter("WindowStates.json");
+		//	writer.print(windowArray.toString());
+		//	writer.close();
+		//} 
+    	//catch (FileNotFoundException e1){ }
+	}
+	
 	@Override
 	public boolean addFavoriteStation(String name) 
 	{

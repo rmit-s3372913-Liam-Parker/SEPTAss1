@@ -168,14 +168,32 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public boolean addFavoriteStation(String name) 
 	{
-		// TODO Auto-generated method stub
+		for(String curState : stations.keySet())
+		{
+			for(WeatherStation station : stations.get(curState).values())
+			{
+				if(station.getName() == name)
+				{
+					favorites.add(station);
+					return true;
+				}
+			}
+		}
+		
 		return false;
 	}
 
 	@Override
 	public boolean removeFavoriteStation(String name) 
 	{
-		// TODO Auto-generated method stub
+		for(WeatherStation station : favorites)
+		{
+			if(station.getName() == name)
+			{
+				favorites.remove(station);
+				return true;
+			}
+		}
 		return false;
 	}
 	

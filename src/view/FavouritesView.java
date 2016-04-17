@@ -21,7 +21,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 	WeatherSystem system;
 	
 	JScrollPane scrollPane;
-	JPanel panel = new JPanel(new GridLayout(1,0));
+	JPanel panel = new JPanel(new GridLayout(0,1));
 	
 	public FavouritesView(WeatherSystem system)
 	{
@@ -35,7 +35,8 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 	 */
 	private void initializeWindow()
 	{
-		scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane(panel);
+		this.add(scrollPane);
 		this.setTitle("Favorite Stations");
 		this.setSize(800,400); //needs to be changed
 		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
@@ -72,7 +73,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 		
 		for(WeatherStation station : favorites)
 		{
-			this.add(new FavoriteWeatherStationView(station));
+			panel.add(new FavoriteWeatherStationView(station));
 		}
 	}
 }

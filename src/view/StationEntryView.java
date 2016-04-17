@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.StationFavoriteButtonController;
 import model.WeatherStation;
 import model.WeatherSystem;
 
@@ -26,17 +27,15 @@ public class StationEntryView extends JPanel
 	
 	JPanel leftPanel;
 	JButton favoriteButton;
+	StationFavoriteButtonController controller;
 	
-	WeatherStation station;
-	WeatherSystem system;
-	
-	public StationEntryView(WeatherStation station,
-			WeatherSystem system)
+	public StationEntryView(WeatherStation station, WeatherSystem system)
 	{	
-		this.station = station;
-		this.system = system;
+		
 		InitializeStationView(station.getName());
-		AttachActionListeners();
+		
+		favoriteButton.addActionListener(
+				new StationFavoriteButtonController(station,system, favoriteButton));
 	}
 	
 	private void InitializeStationView(String station)
@@ -48,27 +47,5 @@ public class StationEntryView extends JPanel
 		
 		
 		this.add(favoriteButton, BorderLayout.WEST);
-	}
-	
-	private void AttachActionListeners()
-	{
-		favoriteButton.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				WeatherStation temp = system.getFavoriteStation(station.getName());
-				if(temp == null)
-				{
-					system.addFavoriteStation(station.getName());
-					favoriteButton.setText("Unfavorite");
-				}
-				else
-				{
-					system.removeFavoriteStation(station.getName());
-					favoriteButton.setText("Favorite");
-				}
-			}
-		});
 	}
 }

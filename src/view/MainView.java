@@ -25,6 +25,10 @@ public class MainView extends JFrame implements IJsonSerializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	public static final String STATIONS_LABEL = "Weather Stations";
+	public static final String FAVS_LABEL = "Favourite";
+	public static final String REFRESH_LABEL = "Refresh";
+	
 	WeatherSystem system;
 	WeatherStationsView weatherStationView; // WeatherStation View
 	FavouritesView favoritesView;
@@ -35,9 +39,9 @@ public class MainView extends JFrame implements IJsonSerializable
 	JLabel weather = new JLabel();
 	Font font = new Font("Calibri", Font.PLAIN, 15);
 
-	JButton buttonWeather = new JButton("Weather Stations");
-	JButton buttonFavourites = new JButton("Favourites");
-	JButton buttonRefresh = new JButton("Refresh");
+	JButton buttonWeather = new JButton(STATIONS_LABEL);
+	JButton buttonFavourites = new JButton(FAVS_LABEL);
+	JButton buttonRefresh = new JButton(REFRESH_LABEL);
 	
 	
 	public MainView(WeatherSystem system)
@@ -134,6 +138,8 @@ public class MainView extends JFrame implements IJsonSerializable
 					public void actionPerformed(ActionEvent arg0) 
 					{
 						system.refreshWeatherData();
+						
+						JOptionPane.showMessageDialog(panel, "Latest data pulled from BOM.");
 					}
 				});
 				

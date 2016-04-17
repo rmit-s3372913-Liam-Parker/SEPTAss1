@@ -168,25 +168,25 @@ public class WeatherStation
 				Date date = format.parse(dateString);	
 			
 			//Temperatures and humidity
-			float temp = (float)entry.getDouble("air_temp");
-			float appTemp = (float)entry.getDouble("apparent_t");
-			float dewPoint = (float)entry.getDouble("dewpt");
-			int relHum = entry.getInt("rel_hum");
-			float deltaT = (float)entry.getDouble("delta_t");
+			float temp = (float)entry.optDouble("air_temp");
+			float appTemp = (float)entry.optDouble("apparent_t");
+			float dewPoint = (float)entry.optDouble("dewpt");
+			int relHum = entry.optInt("rel_hum");
+			float deltaT = (float)entry.optDouble("delta_t");
 			
 			//Wind & gust
-			CompassDirection windDir = entry.getEnum(CompassDirection.class, "wind_dir");		
-			int windSpeedKmh = entry.getInt("wind_spd_kmh");
-			int gustSpeedKmh = entry.getInt("gust_kmh");
-			int windSpeedKts = entry.getInt("wind_spd_kt");
-			int gustSpeedKts = entry.getInt("gust_kt");
+			CompassDirection windDir = entry.optEnum(CompassDirection.class, "wind_dir");		
+			int windSpeedKmh = entry.optInt("wind_spd_kmh");
+			int gustSpeedKmh = entry.optInt("gust_kmh");
+			int windSpeedKts = entry.optInt("wind_spd_kt");
+			int gustSpeedKts = entry.optInt("gust_kt");
 			
 			//Pressure
-			float pressQNH = (float)entry.getDouble("press_qnh");
-			float pressMSL = (float)entry.getDouble("press_msl");
+			float pressQNH = (float)entry.optDouble("press_qnh");
+			float pressMSL = (float)entry.optDouble("press_msl");
 			
 			//Precipitation
-			float rainSinceNineAM = (float)entry.getDouble("rain_trace");
+			float rainSinceNineAM = (float)entry.optDouble("rain_trace");
 			
 			
 			

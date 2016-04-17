@@ -13,7 +13,7 @@ import model.WeatherStation;
 import model.WeatherSystem;
 
 
-public class WeatherStations extends JFrame implements IRefreshable, IJsonSerializable
+public class WeatherStationsView extends JFrame implements IRefreshable, IJsonSerializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -28,7 +28,7 @@ public class WeatherStations extends JFrame implements IRefreshable, IJsonSerial
 	
 	JButton buttonFavourite = new JButton("Favourite");
 	
-	public WeatherStations(WeatherSystem system)
+	public WeatherStationsView(WeatherSystem system)
 	{
 		this.system = system;
 		initializeWindow();

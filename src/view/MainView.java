@@ -23,7 +23,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	private static final long serialVersionUID = 1L;
 	
 	WeatherSystem system;
-	WeatherStations weatherStationView; // WeatherStation View
+	WeatherStationsView weatherStationView; // WeatherStation View
 	FavouritesView favoritesView;
 	
 	JPanel panel = new JPanel(new BorderLayout());
@@ -40,7 +40,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	public MainView(WeatherSystem system)
 	{	
 		this.system = system;
-		weatherStationView = new WeatherStations(system);
+		weatherStationView = new WeatherStationsView(system);
 		favoritesView = new FavouritesView(system);
 		InitializeWindow();
 		AttachActionListeners();

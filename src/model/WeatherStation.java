@@ -17,7 +17,7 @@ import org.json.JSONTokener;
 /**
  * Stores all information on a specific weather station, its name and all day to day entries.
  * 
- *  @see WeatherStationEntry
+ *  @see WeatherStationDailyEntry
  */
 public class WeatherStation 
 {
@@ -29,7 +29,7 @@ public class WeatherStation
 	 */
 	public boolean isFavorite = false;
 	
-	HashMap<Date, WeatherStationEntry> entries = new HashMap<Date, WeatherStationEntry>();
+	HashMap<Date, WeatherStationDailyEntry> entries = new HashMap<Date, WeatherStationDailyEntry>();
 	
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class WeatherStation
 	 * @param name The name of this station ie. "Laverton, Victoria"
 	 * @param entries A map of entries to their dates.
 	 */
-	public WeatherStation(String name, String bomLink, HashMap<Date, WeatherStationEntry> entries)
+	public WeatherStation(String name, String bomLink, HashMap<Date, WeatherStationDailyEntry> entries)
 	{
 		this(name, bomLink);
 		if(entries != null)
@@ -60,7 +60,7 @@ public class WeatherStation
 	 * @param entry The entry to add into this stations list.
 	 * @return Returns true if the entry was added, false otherwise.
 	 */
-	public boolean addEntry(Date date, WeatherStationEntry entry)
+	public boolean addEntry(Date date, WeatherStationDailyEntry entry)
 	{
 		if(entries.containsKey(date) || date == null || entry == null)
 			return false;
@@ -73,7 +73,7 @@ public class WeatherStation
 	 * Gets entries for station.
 	 * @return An unmodifiable map of entries for this station.
 	 */
-	public Map<Date, WeatherStationEntry> getEntries()
+	public Map<Date, WeatherStationDailyEntry> getEntries()
 	{
 		return Collections.unmodifiableMap(entries);
 	}

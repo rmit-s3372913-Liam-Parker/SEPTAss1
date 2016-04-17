@@ -9,7 +9,7 @@ import java.util.Date;
  * TODO: Getters for data.
  * TODO: Decide how to store Time for time variable.
  */
-public class WeatherStationEntry 
+public class WeatherStationDailyEntry 
 {
 	private Date date;
 	private float minTemp, maxTemp;
@@ -23,7 +23,7 @@ public class WeatherStationEntry
 	
 	private ClimateTimeSample nineAMSample, threePMSample;
 	
-	public WeatherStationEntry(Date date, float minTemp, float maxTemp,
+	public WeatherStationDailyEntry(Date date, float minTemp, float maxTemp,
 			float mmRain, float mmEvap, int sun, CompassDirection dir, int spd, Date time)
 	{
 		this.date = date;

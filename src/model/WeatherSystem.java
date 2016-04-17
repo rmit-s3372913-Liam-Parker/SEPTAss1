@@ -43,10 +43,19 @@ public interface WeatherSystem
 	WeatherStation getFavoriteStation(String name);
 	
 	/**
-	 * Gets data for a weather station.
+	 * Gets data for the first weather station with name found.
 	 * @param name the string name for the station ie. "Laverton, Victoria"
 	 */
 	WeatherStation getWeatherStation(String name);
+	
+	/**
+	 * Gets a weather station froma specific state and containing a substring in
+	 * its name.
+	 * @param state The state to search for the station
+	 * @param subStr The substring to match against the station name
+	 * @return A List of stations matching the search
+	 */
+	ArrayList<WeatherStation> getWeatherStations(State state, String subStr);
 	
 	/**
 	 * Sources all stations available in a specified state.

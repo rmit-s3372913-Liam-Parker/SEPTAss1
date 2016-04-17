@@ -13,6 +13,9 @@ import java.io.PrintWriter;
 import model.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -59,15 +62,26 @@ public class MainView extends JFrame implements IJsonSerializable
 		buttonFavourites.setFont(font);
 		buttonRefresh.setFont(font);
 		
+		Border lineBorder = BorderFactory.createLineBorder(new Color(255,180,0));
+		Border emptyBorder = new EmptyBorder(5,5,5,5);
+		CompoundBorder border = new CompoundBorder(lineBorder, emptyBorder);
+		buttonWeather.setBorder(border);
+		buttonFavourites.setBorder(border);
+		buttonRefresh.setBorder(border);
+		
+		buttonWeather.setBackground(new Color(227,227,227));
+		buttonFavourites.setBackground(new Color(227,227,227));
+		buttonRefresh.setBackground(new Color(227,227,227));
+
 		bottomPanel.setBackground(new Color(219,238,254));
 		bottomPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		panel.add(topPanel, BorderLayout.NORTH);
 		panel.add(bottomPanel, BorderLayout.SOUTH);
 		panel.setBackground(new Color(219,238,254));
-		
+
 		JLabel label = new JLabel("Welcome to the Weather App", SwingConstants.CENTER);
-		label.setFont(new Font("Calibri", Font.PLAIN, 21));
+		label.setFont(new Font("Myriad Pro", Font.PLAIN, 21));
 		topPanel.setBackground(new Color(219,238,254));
 		topPanel.add(label);
 

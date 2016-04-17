@@ -23,6 +23,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 	public FavouritesView(WeatherSystem system)
 	{
 		this.system = system;
+		system.registerRefreshableCallback(this);
 		initializeWindow();
 		Refresh();
 	}
@@ -71,7 +72,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 		
 		for(WeatherStation station : favorites)
 		{
-			panel.add(new FavoriteWeatherStationView(station));
+			panel.add(new FavoriteStationView(station));
 		}
 	}
 }

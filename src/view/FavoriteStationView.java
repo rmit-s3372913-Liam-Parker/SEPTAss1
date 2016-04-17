@@ -20,7 +20,7 @@ import model.WeatherStation;
  * alngside a graph and other related information.
  * @author Liam
  */
-public class FavoriteWeatherStationView extends JPanel 
+public class FavoriteStationView extends JPanel 
 {	
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class FavoriteWeatherStationView extends JPanel
 	JPanel leftPanel;
 	JButton graphButton;
 	
-	public FavoriteWeatherStationView(WeatherStation station)
+	public FavoriteStationView(WeatherStation station)
 	{	
 		InitializeStationView(station.getName());
 		AttachActionListeners();

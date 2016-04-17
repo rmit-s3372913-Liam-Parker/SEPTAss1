@@ -200,6 +200,9 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public boolean addFavoriteStation(String name) 
 	{
+		if(getFavoriteStation(name) != null)
+			return false;
+		
 		for(String curState : stations.keySet())
 		{
 			for(WeatherStation station : stations.get(curState).values())

@@ -42,12 +42,17 @@ public class WeatherModelImpl implements WeatherSystem
 	public WeatherModelImpl()
 	{
 		PopulateStations(stationLinksFP);
+		
 	}
 	
 	@Override
-	public void refreshWeatherData() 
+	public void refreshFavoriteWeatherData() 
 	{
-		//TODO
+		for(WeatherStation station : favorites)
+		{
+			station.scrapeEntries();		
+		}
+				
 	}
 
 	@Override

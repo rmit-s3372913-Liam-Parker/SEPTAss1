@@ -10,7 +10,7 @@ public class ProgramEntry
 	public static void main(String[] args) 
 	{
 		WeatherSystem weatherSystem = new WeatherModelImpl();
-		weatherSystem.refreshWeatherData();
+		weatherSystem.refreshFavoriteWeatherData();
 		MainView frame = new MainView(weatherSystem);
 	}
 }

@@ -46,7 +46,7 @@ public class MainViewController implements ActionListener
 			favoritesView.setVisible(!favoritesView.isVisible());
 			break;
 		case MainView.REFRESH_LABEL:
-			system.refreshWeatherData();
+			system.refreshFavoriteWeatherData();
 			JOptionPane.showMessageDialog(mainPanel, "Latest data pulled from BOM.");
 			break;
 		}

@@ -13,7 +13,7 @@ public interface WeatherSystem
 	 * NOTE: This should probably be thread safe if we decide to
 	 * go for the thread safety challenge.
 	 */
-	void refreshWeatherData();
+	void refreshFavoriteWeatherData();
 	
 	/**
 	 * Adds a station to the favourites list by name.

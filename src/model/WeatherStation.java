@@ -195,22 +195,17 @@ public class WeatherStation
 					relHum, deltaT, windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL, 
 					rainSinceNineAM);
 			
+			
+			//Add the entry to this station's hashmap
+			addSnapshotEntry(date, snapshotEntry);
+			
+			
 			} catch (ParseException e)
 			{
 				//Invalid date format
 				e.printStackTrace();
 			}
-			
-			
-			
-			
-			
-			
-			
-			//and addEntry() using the grabbed info
-			
-			
-			
+					
 			
 		}
 		

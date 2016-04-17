@@ -227,16 +227,7 @@ public class WeatherModelImpl implements WeatherSystem
 	
 	@Override
 	public ArrayList<WeatherStation> getFavoriteStations() 
-	{
-		//TODO POPULATING FAVS WITH ALL STATIONS FOR TESTING
-		for(String curState : stations.keySet())
-		{
-			for(WeatherStation station : stations.get(curState).values())
-			{
-				favorites.add(station);
-			}
-		}
-		
+	{	
 		return new ArrayList<WeatherStation>(Collections.unmodifiableList(favorites));
 	}
 }

@@ -111,47 +111,23 @@ public class MainView extends JFrame implements IJsonSerializable
 		this.setVisible(true);
 	}
 	
+	/**
+	 * This function would ideally be removed
+	 * we need to transition this window listener to controller.
+	 * However we're reliant on functionality in this class. 
+	 * TODO:
+	 */
 	private void AttachActionListeners()
 	{
-		// Button event listeners
-				buttonWeather.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent arg0) 
-					{
-						weatherStationView.setVisible(!weatherStationView.isVisible());
-					}
-				});
-				
-				buttonFavourites.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent arg0) 
-					{
-						favoritesView.setVisible(!favoritesView.isVisible());
-					}
-				});
-				
-				buttonRefresh.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent arg0) 
-					{
-						system.refreshWeatherData();
-						
-						JOptionPane.showMessageDialog(panel, "Latest data pulled from BOM.");
-					}
-				});
-				
-				this.addWindowListener( new WindowAdapter() 
-				{
-				    @Override
-				    public void windowClosing(WindowEvent e) 
-				    {
-				    	saveProgramState();
-				    	System.exit(0);
-				    }
-				});
+		this.addWindowListener( new WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				saveProgramState();
+				System.exit(0);
+			}
+		});
 	}
 	
 	private void loadProgramState()
@@ -198,7 +174,7 @@ public class MainView extends JFrame implements IJsonSerializable
 		} 
     	catch (FileNotFoundException e1) { }
 	}
-
+	
 	@Override
 	public JSONObject SaveToJsonObject() 
 	{

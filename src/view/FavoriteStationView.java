@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.jfree.ui.RefineryUtilities;
+
 import model.WeatherStation;
 
 /**
@@ -47,7 +49,10 @@ public class FavoriteStationView extends JPanel
 		graphButton = new JButton("Graph");
 		
 		dataTable = new WeatherStationDataTable();
-		graph = new WeatherStationDataGraph();
+		
+		graph = new WeatherStationDataGraph("Test", null);
+		graph.pack();
+		RefineryUtilities.centerFrameOnScreen(graph);
 		
 		this.add(graphButton, BorderLayout.WEST);
 		

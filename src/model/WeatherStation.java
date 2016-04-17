@@ -25,16 +25,32 @@ import org.json.JSONTokener;
  */
 public class WeatherStation 
 {
+	/**
+	 * The name of the station.
+	 */
 	private String name;
+	
+	/**
+	 * The link to this stations weather observations
+	 * on the bom website.
+	 */
 	private String bomLink;
+	
 	/**
 	 * True if this station has been selected as a favorite
 	 * by the user. False otherwise.
 	 */
 	public boolean isFavorite = false;
 	
+	/**
+	 * Unused currently, use snapshotEntries instead, we're leaving this
+	 * here for code extensibility in the future.
+	 */
 	HashMap<Date, WeatherStationDailyEntry> dailyEntries = new HashMap<Date, WeatherStationDailyEntry>();
 	
+	/**
+	 * 
+	 */
 	HashMap<Date, WeatherStationSnapshotEntry> snapshotEntries = new HashMap<Date, WeatherStationSnapshotEntry>();
 		
 	
@@ -102,6 +118,15 @@ public class WeatherStation
 	}
 	
 	/**
+	 * Gets entries for station.
+	 * @return An unmodifiable map of entries for this station.
+	 */
+	public Map<Date, WeatherStationSnapshotEntry> getSnapshots()
+	{
+		return Collections.unmodifiableMap(snapshotEntries);
+	}
+	
+	/**
 	 * Returns the name and
 	 * @return
 	 */
@@ -115,7 +140,9 @@ public class WeatherStation
 		return bomLink;
 	}
 	
-	
+	/**
+	 * Scrapes weather snapshots from the bomlink and stores them internally.
+	 */
 	public void scrapeEntries()
 	{
 

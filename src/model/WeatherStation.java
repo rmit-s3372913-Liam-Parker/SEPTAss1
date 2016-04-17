@@ -33,7 +33,10 @@ public class WeatherStation
 	 */
 	public boolean isFavorite = false;
 	
-	HashMap<Date, WeatherStationDailyEntry> entries = new HashMap<Date, WeatherStationDailyEntry>();
+	HashMap<Date, WeatherStationDailyEntry> dailyEntries = new HashMap<Date, WeatherStationDailyEntry>();
+	
+	HashMap<Date, WeatherStationSnapshotEntry> snapshotEntries = new HashMap<Date, WeatherStationSnapshotEntry>();
+		
 	
 	/**
 	 * 
@@ -54,24 +57,40 @@ public class WeatherStation
 	{
 		this(name, bomLink);
 		if(entries != null)
-			this.entries = entries;
+			this.dailyEntries = entries;
 	}
 	
 	/**
-	 * Entries can be added to a station provided the station doesn't
+	 * Daily entries can be added to a station provided the station doesn't
 	 * already have an entry for the provided date.
 	 * @param date The date associated to the entry
-	 * @param entry The entry to add into this stations list.
+	 * @param dailyEntry The entry to add into this stations list.
 	 * @return Returns true if the entry was added, false otherwise.
 	 */
-	public boolean addEntry(Date date, WeatherStationDailyEntry entry)
+	public boolean addDailyEntry(Date date, WeatherStationDailyEntry dailyEntry)
 	{
-		if(entries.containsKey(date) || date == null || entry == null)
+		if(dailyEntries.containsKey(date) || date == null || dailyEntry == null)
 			return false;
 		
-		entries.put(date, entry);
+		dailyEntries.put(date, dailyEntry);
 		return true;
-	}
+	}	
+	
+	/**
+	 * Snapshot entries can be added to a station provided the station doesn't
+	 * already have an entry for the provided date.
+	 * @param date The date associated to the entry
+	 * @param snapshotEntry The entry to add into this stations list.
+	 * @return Returns true if the entry was added, false otherwise.
+	 */
+	public boolean addSnapshotEntry(Date date, WeatherStationSnapshotEntry snapshotEntry)
+	{
+		if(snapshotEntries.containsKey(date) || date == null || snapshotEntry == null)
+			return false;
+		
+		snapshotEntries.put(date, snapshotEntry);
+		return true;
+	}	
 	
 	/**
 	 * Gets entries for station.
@@ -79,7 +98,7 @@ public class WeatherStation
 	 */
 	public Map<Date, WeatherStationDailyEntry> getEntries()
 	{
-		return Collections.unmodifiableMap(entries);
+		return Collections.unmodifiableMap(dailyEntries);
 	}
 	
 	/**
@@ -186,7 +205,6 @@ public class WeatherStation
 			
 			
 			
-			//Then call WeatherStationEntry(Date date, float minTemp, float maxTemp, float mmRain, float mmEvap, int sun, CompassDirection dir, int spd, Date time)
 			
 			
 			//and addEntry() using the grabbed info

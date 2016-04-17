@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import controller.MainViewController;
+
 public class MainView extends JFrame implements IJsonSerializable
 {
 	private static final long serialVersionUID = 1L;
@@ -119,6 +121,13 @@ public class MainView extends JFrame implements IJsonSerializable
 	 */
 	private void AttachActionListeners()
 	{
+		MainViewController controller = new MainViewController(bottomPanel, system,
+				weatherStationView, favoritesView);
+		
+		buttonWeather.addActionListener(controller);
+		buttonFavourites.addActionListener(controller);
+		buttonRefresh.addActionListener(controller);
+		
 		this.addWindowListener( new WindowAdapter() 
 		{
 			@Override
@@ -147,7 +156,7 @@ public class MainView extends JFrame implements IJsonSerializable
             
             bufferedReader.close();
             
-		} 
+		}
 		catch (IOException e) { return; }
 		
 		JSONTokener tokener = new JSONTokener(windowStatesJson);
@@ -157,7 +166,6 @@ public class MainView extends JFrame implements IJsonSerializable
 		// find a way to save objects with window name.
 		LoadFromJsonObject(stateArray.getJSONObject(0));
 		weatherStationView.LoadFromJsonObject(stateArray.getJSONObject(1));
-		
 	}
 	
 	private void saveProgramState()

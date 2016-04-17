@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -151,7 +153,11 @@ public class WeatherModelImpl implements WeatherSystem
 		} 
 		catch (IOException e) 
 		{
-			System.out.println("ERROR - Couldn't read stations.json, check the file exists.");
+			JOptionPane.showMessageDialog(null,
+				    "stations.json couldn't be found, check your"
+				    + " installation. Terminating program!",
+				    "CRITICAL ERROR",
+				    JOptionPane.ERROR_MESSAGE);
 		}
 		
 		//TODO: Needs cleaning up, loads of obscure variable names.
@@ -270,7 +276,11 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	private void invokeCallbacks()
 	{
-		for(IWeatherSystemCallback cb : cbList)
+		// We close the callback array because during refresh objects may register themselves
+		// thus modifying the length of the callbackList before refresh is complete.
+		List<IWeatherSystemCallback> clone = new ArrayList<IWeatherSystemCallback>(cbList);
+		
+		for(IWeatherSystemCallback cb : clone)
 		{
 			cb.Refresh();
 		}

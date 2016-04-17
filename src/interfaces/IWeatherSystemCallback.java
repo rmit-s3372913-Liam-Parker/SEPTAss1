@@ -9,5 +9,9 @@ package interfaces;
  */
 public interface IWeatherSystemCallback 
 {
+	/**
+	 * Called when they system modifies data, or whenever else
+	 * the user may need to refresh their view of the model.
+	 */
 	public void Refresh();
 }

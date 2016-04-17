@@ -15,7 +15,7 @@ public interface IJsonSerializable
 	 * This Object can load state from a json object. This is expected
 	 * to be used in conjuction with SaveToJsonObject.
 	 * @see SaveToJsonObject
-	 * @param obj
+	 * @param obj The json object to load from.
 	 */
 	void LoadFromJsonObject(JSONObject obj);
 }

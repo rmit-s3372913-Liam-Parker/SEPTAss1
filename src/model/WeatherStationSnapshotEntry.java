@@ -53,7 +53,7 @@ public class WeatherStationSnapshotEntry
 	}
 	
 	/**
-	 * @return The date & time of this snapshot
+	 * @return The date and time of this snapshot
 	 */
 	public Date getDate()
 	{

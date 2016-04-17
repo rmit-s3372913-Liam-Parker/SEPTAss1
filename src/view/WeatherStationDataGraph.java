@@ -44,7 +44,6 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		ChartPanel panel = new ChartPanel(graph);
 		panel.setPreferredSize(new Dimension(600,600));
 		this.setContentPane(panel);
-		dataSet.clear();
 	}
 	
 	/**

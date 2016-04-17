@@ -45,7 +45,7 @@ public class WeatherStation
 	 * Unused currently, use snapshotEntries instead, we're leaving this
 	 * here for code extensibility in the future.
 	 */
-	HashMap<Date, WeatherStationDailyEntry> dailyEntries = new HashMap<Date, WeatherStationDailyEntry>();
+	//HashMap<Date, WeatherStationDailyEntry> dailyEntries = new HashMap<Date, WeatherStationDailyEntry>();
 	
 	/**
 	 * 
@@ -66,13 +66,14 @@ public class WeatherStation
 	
 	/**
 	 * @param name The name of this station ie. "Laverton, Victoria"
+	 * @param bomLink A link to the stations bom online data
 	 * @param entries A map of entries to their dates.
 	 */
 	public WeatherStation(String name, String bomLink, HashMap<Date, WeatherStationDailyEntry> entries)
 	{
 		this(name, bomLink);
-		if(entries != null)
-			this.dailyEntries = entries;
+		//if(entries != null)
+		//	this.dailyEntries = entries;
 	}
 	
 	/**
@@ -82,14 +83,14 @@ public class WeatherStation
 	 * @param dailyEntry The entry to add into this stations list.
 	 * @return Returns true if the entry was added, false otherwise.
 	 */
-	public boolean addDailyEntry(Date date, WeatherStationDailyEntry dailyEntry)
-	{
-		if(dailyEntries.containsKey(date) || date == null || dailyEntry == null)
-			return false;
-		
-		dailyEntries.put(date, dailyEntry);
-		return true;
-	}	
+	//public boolean addDailyEntry(Date date, WeatherStationDailyEntry dailyEntry)
+	//{
+		//if(dailyEntries.containsKey(date) || date == null || dailyEntry == null)
+		//	return false;
+	//	
+		//dailyEntries.put(date, dailyEntry);
+	//	return true;
+	//}	
 	
 	/**
 	 * Snapshot entries can be added to a station provided the station doesn't
@@ -111,10 +112,10 @@ public class WeatherStation
 	 * Gets entries for station.
 	 * @return An unmodifiable map of entries for this station.
 	 */
-	public Map<Date, WeatherStationDailyEntry> getEntries()
-	{
-		return Collections.unmodifiableMap(dailyEntries);
-	}
+	//public Map<Date, WeatherStationDailyEntry> getEntries()
+	//{
+	//	return Collections.unmodifiableMap(dailyEntries);
+	//}
 	
 	/**
 	 * Gets entries for station.
@@ -126,14 +127,16 @@ public class WeatherStation
 	}
 	
 	/**
-	 * Returns the name and
-	 * @return
+	 * @return The name of the station
 	 */
 	public String getName() 
 	{
 		return name;
 	}
 	
+	/**
+	 * @return The bom link to the station's online data.
+	 */
 	public String getBomLink()
 	{
 		return bomLink;

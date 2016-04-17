@@ -36,6 +36,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 	
 	/**
 	 * Create a view of a specified station's data.
+	 * @param system The weather system to register with.
 	 * @param station The station to compile data for.
 	 */
 	public FavoriteStationView(WeatherSystem system, WeatherStation station)
@@ -49,7 +50,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 	/**
 	 * Initializes the station data and registers data visualization objects with system.
 	 * @param system The WeatherSystem to register with.
-	 * @param station
+	 * @param station The station to initilize the view with.
 	 */
 	private void InitializeStationView(WeatherSystem system, WeatherStation station)
 	{
@@ -59,7 +60,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 		graphButton = new JButton("Graph");
 		dataTable = new WeatherStationDataTable(station);
 		
-		graph = new WeatherStationDataGraph("Test", this.station.getSnapshots());
+		graph = new WeatherStationDataGraph(station.getName(), this.station.getSnapshots());
 		graph.pack();
 		RefineryUtilities.centerFrameOnScreen(graph);
 		

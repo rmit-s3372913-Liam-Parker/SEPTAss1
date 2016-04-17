@@ -220,6 +220,7 @@ public class WeatherModelImpl implements WeatherSystem
 				if(station.getName() == name)
 				{
 					favorites.add(station);
+					refreshFavoriteWeatherData();
 					invokeCallbacks();
 					return true;
 				}
@@ -237,6 +238,7 @@ public class WeatherModelImpl implements WeatherSystem
 			if(station.getName() == name)
 			{
 				favorites.remove(station);
+				refreshFavoriteWeatherData();
 				invokeCallbacks();
 				return true;
 			}

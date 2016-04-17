@@ -19,12 +19,16 @@ public interface WeatherSystem
 	/**
 	 * Adds a station to the favourites list by name.
 	 * @param name of the station to add to favorites.
+	 * @return True if the system managed to add the favourite,
+	 * false otherwise.
 	 */
 	boolean addFavoriteStation(String name);
 	
 	/**
 	 * Removes a station from the favourites list by name.
 	 * @param name of the station to remove from favorites.
+	 * @return True if the system managed to remove the favourite,
+	 * false otherwise.
 	 */
 	boolean removeFavoriteStation(String name);
 	
@@ -46,6 +50,7 @@ public interface WeatherSystem
 	/**
 	 * Gets data for the first weather station with name found.
 	 * @param name the string name for the station ie. "Laverton, Victoria"
+	 * @return The weather station object requested if available, null otherwise.
 	 */
 	WeatherStation getWeatherStation(String name);
 	

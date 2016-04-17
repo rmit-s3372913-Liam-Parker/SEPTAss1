@@ -3,10 +3,14 @@ package model;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -131,27 +135,55 @@ public class WeatherStation
 		{
 			JSONObject entry = (JSONObject)entriesItr.next();
 			
-			/* Code for reference; ideally we want to populate each of these variables the same way city and url are done. However the roadblock 
-			 * is that the JSON does not contain all of these values and hence we must work out the best way to either calculate or scrape these with 
-			 * a different method
-			 * 
-	    	String city = entry.getString("city");
-	    	String url = entry.getString("url");
-	    	
-	    	Date date;
-	    	float minTemp, maxTemp;
-	    	float mmRain, mmEvap;
-	    	int sun; // Bright sunlight in hours per day
-	    	
-	    	// Max Wind data
-	    	CompassDirection dir;
-	    	int spd;
-	    	Date time;
-			*/
-			
-			
 			
 			//For each recording, grab the relevant info
+			//Date parsing
+			String dateString = entry.getString("local_date_time_full");
+			DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
+			try
+			{
+				Date date = format.parse(dateString);	
+			
+			//Temperatures and humidity
+			float temp = (float)entry.getDouble("air_temp");
+			float appTemp = (float)entry.getDouble("apparent_t");
+			float dewPoint = (float)entry.getDouble("dewpt");
+			int relHum = entry.getInt("rel_hum");
+			float deltaT = (float)entry.getDouble("delta_t");
+			
+			//Wind & gust
+			//String windDirString = entry.getString("wind_dir");
+			//CompassDirection windDir = CompassDirection.valueOf(windDirString);
+			CompassDirection windDir = entry.getEnum(CompassDirection.class, "wind_dir");
+			
+			
+			int windSpeedKmh = entry.getInt("wind_spd_kmh");
+			int gustSpeedKmh = entry.getInt("gust_kmh");
+			int windSpeedKts = entry.getInt("wind_spd_kt");
+			int gustSpeedKts = entry.getInt("gust_kt");
+			
+			//Pressure
+			float pressQNH = (float)entry.getDouble("press_qnh");
+			float pressMSL = (float)entry.getDouble("press_msl");
+			
+			//Precipitation
+			float rainSinceNineAM = (float)entry.getDouble("rain_trace");
+			
+			
+			
+			//Create a snapshot entry using all the scraped data
+			WeatherStationSnapshotEntry snapshotEntry = new WeatherStationSnapshotEntry(date, temp, appTemp, dewPoint,
+					relHum, deltaT, windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL, 
+					rainSinceNineAM);
+			
+			} catch (ParseException e)
+			{
+				//Invalid date format
+				e.printStackTrace();
+			}
+			
+			
+			
 			
 			
 			//Then call WeatherStationEntry(Date date, float minTemp, float maxTemp, float mmRain, float mmEvap, int sun, CompassDirection dir, int spd, Date time)

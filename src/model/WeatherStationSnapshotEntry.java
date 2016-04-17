@@ -15,8 +15,8 @@ public class WeatherStationSnapshotEntry
 	
 	//Wind & gust
 	private CompassDirection windDir;
-	private int windSpeedKm;
-	private int gustSpeedKm;
+	private int windSpeedKmh;
+	private int gustSpeedKmh;
 	private int windSpeedKts;
 	private int gustSpeedKts;
 	
@@ -40,8 +40,8 @@ public class WeatherStationSnapshotEntry
 		this.deltaT = deltaT;
 		
 		this.windDir = windDir;
-		this.windSpeedKm = windSpeedKm;
-		this.gustSpeedKm = gustSpeedKm;
+		this.windSpeedKmh = windSpeedKm;
+		this.gustSpeedKmh = gustSpeedKm;
 		this.windSpeedKts = windSpeedKts;
 		this.gustSpeedKts = gustSpeedKts;
 		

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.IRefreshable;
+import view.IWeatherSystemCallback;
 
 public interface WeatherSystem 
 {
@@ -75,5 +75,5 @@ public interface WeatherSystem
 	 * the system will call refresh on the views.
 	 * @param cb The interface to call refresh on.
 	 */
-	void registerRefreshableCallback(IRefreshable cb);
+	void registerRefreshableCallback(IWeatherSystemCallback cb);
 }

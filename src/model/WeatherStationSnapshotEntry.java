@@ -52,11 +52,21 @@ public class WeatherStationSnapshotEntry
 			
 	}
 	
+	/**
+	 * @return The date & time of this snapshot
+	 */
+	public Date getDate()
+	{
+		return date;
+	}
 	
-	
-	
-	
-	
+	/**
+	 * @return The temperature at the time of this snapshot.
+	 */
+	public float getTemp()
+	{
+		return temp;
+	}
 }
 
 

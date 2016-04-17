@@ -32,25 +32,29 @@ public class FavoriteStationView extends JPanel
 	WeatherStationDataTable dataTable;
 	WeatherStationDataGraph graph;
 	
+	WeatherStation station;
+	
 	JPanel leftPanel;
 	JButton graphButton;
 	
 	public FavoriteStationView(WeatherStation station)
 	{	
-		InitializeStationView(station.getName());
+		this.station = station;
+		
+		InitializeStationView(station);
 		AttachActionListeners();
 	}
 	
-	private void InitializeStationView(String station)
+	private void InitializeStationView(WeatherStation station)
 	{
 		this.setLayout(new BorderLayout());
-		this.setBorder(BorderFactory.createTitledBorder(station));
+		this.setBorder(BorderFactory.createTitledBorder(station.getName()));
 
 		graphButton = new JButton("Graph");
 		
 		dataTable = new WeatherStationDataTable();
 		
-		graph = new WeatherStationDataGraph("Test", null);
+		graph = new WeatherStationDataGraph("Test", this.station.getSnapshots());
 		graph.pack();
 		RefineryUtilities.centerFrameOnScreen(graph);
 		

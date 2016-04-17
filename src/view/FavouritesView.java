@@ -36,7 +36,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 	private void initializeWindow()
 	{
 		scrollPane = new JScrollPane(panel);
-		this.add(scrollPane);
+		this.getContentPane().add(scrollPane);
 
 		this.setTitle("Favorite Stations");
 		this.setSize(800,400);

@@ -41,24 +41,17 @@ public class FavoriteWeatherStationView extends JPanel
 	
 	private void InitializeStationView(String station)
 	{
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createTitledBorder(station));
-		GridBagConstraints constraints = new GridBagConstraints();
 
 		graphButton = new JButton("Graph");
 		
 		dataTable = new WeatherStationDataTable();
 		graph = new WeatherStationDataGraph();
 		
-		constraints.gridx = 0;
-		constraints.gridy = 0;
-		constraints.anchor = GridBagConstraints.LINE_START;
-		this.add(graphButton, constraints);
+		this.add(graphButton, BorderLayout.WEST);
 		
-		constraints.gridx = 2;
-		constraints.gridy = 0;
-		constraints.anchor = GridBagConstraints.LINE_END;
-		this.add(dataTable, constraints);
+		this.add(dataTable, BorderLayout.EAST);
 	}
 	
 	private void AttachActionListeners()

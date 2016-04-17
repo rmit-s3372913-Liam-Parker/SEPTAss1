@@ -52,7 +52,7 @@ public class FavoriteStationView extends JPanel
 
 		graphButton = new JButton("Graph");
 		
-		dataTable = new WeatherStationDataTable();
+		dataTable = new WeatherStationDataTable(station);
 		
 		graph = new WeatherStationDataGraph("Test", this.station.getSnapshots());
 		graph.pack();

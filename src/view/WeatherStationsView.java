@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -17,13 +18,10 @@ public class WeatherStationsView extends JFrame implements IRefreshable, IJsonSe
 {
 	private static final long serialVersionUID = 1L;
 	
-	static String[] columns = {"", "Station"};
-	
 	WeatherSystem system;
 	
-	JTable table;
 	JScrollPane scrollPane;
-	JPanel panel = new JPanel();
+	JPanel panel = new JPanel(new GridLayout(0,1, 5, 5));
 	
 	
 	JButton buttonFavourite = new JButton("Favourite");
@@ -32,6 +30,7 @@ public class WeatherStationsView extends JFrame implements IRefreshable, IJsonSe
 	{
 		this.system = system;
 		initializeWindow();
+		Refresh();
 	}
 	
 	/**
@@ -39,31 +38,24 @@ public class WeatherStationsView extends JFrame implements IRefreshable, IJsonSe
 	 */
 	private void initializeWindow()
 	{
-		buildTable();
-		//scrollPane = new JScrollPane(table);
-		//panel.add(scrollPane);
+		scrollPane = new JScrollPane(panel);
+		this.getContentPane().add(scrollPane);
 		
-		this.add(panel);
-		this.getContentPane().add(panel, BorderLayout.WEST);
-		this.setTitle("Weather Stations | Weather App");
-		this.setSize(400,400); //needs to be changed
+		this.setTitle("Weather Stations");
+		this.setSize(400,400);
 		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
 		this.setMinimumSize(new Dimension(400,400));
-	}
-	
-	/**
-	 * Represents the view of the weather stations through a table.
-	 */
-	private void buildTable()
-	{	
-		
 	}
 	
 	@Override
 	public void Refresh() 
 	{
-		// TODO Regrab data
+		List<WeatherStation> favorites = system.getWeatherStations();
 		
+		for(WeatherStation station : favorites)
+		{
+			panel.add(new WeatherStationInfoView(station));
+		}
 	}
 
 	@Override

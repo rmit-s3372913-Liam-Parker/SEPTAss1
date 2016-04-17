@@ -1,12 +1,9 @@
 package view;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 import org.json.JSONObject;
 

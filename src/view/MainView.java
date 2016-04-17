@@ -30,10 +30,12 @@ public class MainView extends JFrame implements IJsonSerializable
 	JPanel topPanel = new JPanel();
 	JPanel bottomPanel = new JPanel();
 	JLabel weather = new JLabel();
+	Font font = new Font("Calibri", Font.PLAIN, 15);
 
 	JButton buttonWeather = new JButton("Weather Stations");
 	JButton buttonFavourites = new JButton("Favourites");
 	JButton buttonRefresh = new JButton("Refresh");
+	
 	
 	public MainView(WeatherSystem system)
 	{	
@@ -53,12 +55,20 @@ public class MainView extends JFrame implements IJsonSerializable
 		bottomPanel.add(buttonFavourites);
 		bottomPanel.add(buttonRefresh);
 		
+		buttonWeather.setFont(font);
+		buttonFavourites.setFont(font);
+		buttonRefresh.setFont(font);
+		
+		bottomPanel.setBackground(new Color(219,238,254));
 		bottomPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		panel.add(topPanel, BorderLayout.NORTH);
 		panel.add(bottomPanel, BorderLayout.SOUTH);
+		panel.setBackground(new Color(219,238,254));
 		
 		JLabel label = new JLabel("Welcome to the Weather App", SwingConstants.CENTER);
+		label.setFont(new Font("Calibri", Font.PLAIN, 21));
+		topPanel.setBackground(new Color(219,238,254));
 		topPanel.add(label);
 
 		weather.setIcon(new ImageIcon("images/weather.png"));

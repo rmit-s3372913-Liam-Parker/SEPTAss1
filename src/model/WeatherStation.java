@@ -143,9 +143,13 @@ public class WeatherStation
 			e.printStackTrace();
 		}
 	
+		//debugging
+		//System.out.println(entriesJson);
 		
-		JSONArray scrapedArray = new JSONArray(entriesJson);
-		JSONArray entriesArray = scrapedArray.getJSONArray(0).getJSONArray(2);
+		//JSONTokener tokener = new JSONTokener(entriesJson);
+		JSONObject root = new JSONObject(entriesJson);		
+		JSONObject observations = root.getJSONObject("observations");
+		JSONArray entriesArray = observations.getJSONArray("data");
 		
 		Iterator<Object> entriesItr = entriesArray.iterator();
 		
@@ -171,11 +175,7 @@ public class WeatherStation
 			float deltaT = (float)entry.getDouble("delta_t");
 			
 			//Wind & gust
-			//String windDirString = entry.getString("wind_dir");
-			//CompassDirection windDir = CompassDirection.valueOf(windDirString);
-			CompassDirection windDir = entry.getEnum(CompassDirection.class, "wind_dir");
-			
-			
+			CompassDirection windDir = entry.getEnum(CompassDirection.class, "wind_dir");		
 			int windSpeedKmh = entry.getInt("wind_spd_kmh");
 			int gustSpeedKmh = entry.getInt("gust_kmh");
 			int windSpeedKts = entry.getInt("wind_spd_kt");

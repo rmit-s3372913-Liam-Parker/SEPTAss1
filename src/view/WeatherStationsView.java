@@ -7,6 +7,8 @@ import javax.swing.*;
 
 import org.json.JSONObject;
 
+import controller.StationsFilterController;
+import model.State;
 import model.WeatherStation;
 import model.WeatherSystem;
 
@@ -19,7 +21,8 @@ public class WeatherStationsView extends JFrame implements IWeatherSystemCallbac
 	
 	JScrollPane scrollPane;
 	JPanel panel = new JPanel(new GridLayout(0,1, 5, 5));
-	
+	JTextField stationSearch;
+	JComboBox<State> comboBox;
 	
 	JButton buttonFavourite = new JButton("Favourite");
 	
@@ -37,6 +40,16 @@ public class WeatherStationsView extends JFrame implements IWeatherSystemCallbac
 	private void initializeWindow()
 	{
 		scrollPane = new JScrollPane(panel);
+		
+		//Set up search functionality
+		StationsFilterController controller = new StationsFilterController(comboBox, stationSearch, panel);
+		stationSearch = new JTextField();
+		stationSearch.addActionListener(controller);
+		comboBox = new JComboBox<State>(State.values());
+		comboBox.addActionListener(controller);
+		
+		panel.add(comboBox);
+		panel.add(stationSearch);
 		this.getContentPane().add(scrollPane);
 		
 		this.setTitle("Weather Stations");

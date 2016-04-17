@@ -17,11 +17,14 @@ import org.jfree.ui.ApplicationFrame;
 import model.WeatherStationDailyEntry;
 import model.WeatherStationSnapshotEntry;
 
-public class WeatherStationDataGraph extends ApplicationFrame
+public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCallback
 {
 	private static final long serialVersionUID = -8115274594459474258L;
 	
-	Map<Date, WeatherStationSnapshotEntry> entries;
+	private Map<Date, WeatherStationSnapshotEntry> entries;
+	
+	private JFreeChart graph;
+	DefaultCategoryDataset dataSet = new DefaultCategoryDataset();;
 	
 	/**
 	 * Constructor for a weatherStation graph with name and data
@@ -33,12 +36,13 @@ public class WeatherStationDataGraph extends ApplicationFrame
 		super(name);
 		this.entries = data;
 		
-		JFreeChart graph = ChartFactory.createLineChart(name + " Historical Temperatures",
+		graph = ChartFactory.createLineChart(name + " Historical Temperatures",
 				"Date", "Temperature", populateData(), PlotOrientation.VERTICAL, true, true , false);
 		
 		ChartPanel panel = new ChartPanel(graph);
 		panel.setPreferredSize(new Dimension(600,600));
 		this.setContentPane(panel);
+		dataSet.clear();
 	}
 	
 	/**
@@ -47,17 +51,21 @@ public class WeatherStationDataGraph extends ApplicationFrame
 	 */
 	private DefaultCategoryDataset populateData()
 	{
-		DefaultCategoryDataset set = new DefaultCategoryDataset();
-		
+		dataSet.clear();
 		if(entries != null)
 		{
 			for(WeatherStationSnapshotEntry entry : entries.values())
 			{
-				set.addValue(entry.getTemp(), "Temperature", entry.getDate().toString());
+				dataSet.addValue(entry.getTemp(), "Temperature", entry.getDate().toString());
 			}
 		}
-		return set;
+		return dataSet;
 	}
-	
-	
+
+	@Override
+	public void Refresh() 
+	{
+		populateData();
+		graph.fireChartChanged();
+	}
 }

@@ -54,7 +54,7 @@ public class WeatherStationsView extends JFrame implements IRefreshable, IJsonSe
 		
 		for(WeatherStation station : favorites)
 		{
-			panel.add(new WeatherStationInfoView(station));
+			panel.add(new WeatherStationInfoView(station, system));
 		}
 	}
 

@@ -9,7 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.WeatherStation;
+import model.WeatherSystem;
 
+/**
+ * Stores GUI related functionality of an individual
+ * station entry on the WeatherStations JFrame.
+ * @author Liam
+ *
+ */
 public class WeatherStationInfoView extends JPanel
 {
 	/**
@@ -17,14 +24,17 @@ public class WeatherStationInfoView extends JPanel
 	 */
 	private static final long serialVersionUID = -615795282210380188L;
 	
-	WeatherStationDataTable dataTable;
-	WeatherStationDataGraph graph;
-	
 	JPanel leftPanel;
 	JButton favoriteButton;
 	
-	public WeatherStationInfoView(WeatherStation station)
+	WeatherStation station;
+	WeatherSystem system;
+	
+	public WeatherStationInfoView(WeatherStation station,
+			WeatherSystem system)
 	{	
+		this.station = station;
+		this.system = system;
 		InitializeStationView(station.getName());
 		AttachActionListeners();
 	}
@@ -33,8 +43,10 @@ public class WeatherStationInfoView extends JPanel
 	{
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createTitledBorder(station));
-
-		favoriteButton = new JButton("Graph");
+		
+		favoriteButton = new JButton("Favorite");
+		
+		
 		this.add(favoriteButton, BorderLayout.WEST);
 	}
 	
@@ -45,7 +57,17 @@ public class WeatherStationInfoView extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				graph.setVisible(!graph.isVisible());
+				WeatherStation temp = system.getFavoriteStation(station.getName());
+				if(temp == null)
+				{
+					system.addFavoriteStation(station.getName());
+					favoriteButton.setText("Unfavorite");
+				}
+				else
+				{
+					system.removeFavoriteStation(station.getName());
+					favoriteButton.setText("Favorite");
+				}
 			}
 		});
 	}

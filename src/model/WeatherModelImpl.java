@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.json.*;
 
+import view.IRefreshable;
+
 public class WeatherModelImpl implements WeatherSystem 
 {
 	static final String stationLinksFP = "stations.json";
@@ -30,6 +32,8 @@ public class WeatherModelImpl implements WeatherSystem
 	 * List of all favorited weather stations for easy access.
 	 */
 	private ArrayList<WeatherStation> favorites = new ArrayList<WeatherStation>();
+	
+	private List<IRefreshable> cbList = new ArrayList<IRefreshable>();
 	
 	/**
 	 * Constructs a new weatherModel. Will attempt to instantiate
@@ -203,6 +207,7 @@ public class WeatherModelImpl implements WeatherSystem
 				if(station.getName() == name)
 				{
 					favorites.add(station);
+					invokeCallbacks();
 					return true;
 				}
 			}
@@ -219,6 +224,7 @@ public class WeatherModelImpl implements WeatherSystem
 			if(station.getName() == name)
 			{
 				favorites.remove(station);
+				invokeCallbacks();
 				return true;
 			}
 		}
@@ -229,5 +235,33 @@ public class WeatherModelImpl implements WeatherSystem
 	public ArrayList<WeatherStation> getFavoriteStations() 
 	{	
 		return new ArrayList<WeatherStation>(Collections.unmodifiableList(favorites));
+	}
+
+	@Override
+	public WeatherStation getFavoriteStation(String name)
+	{
+		WeatherStation station = null;
+		
+		for(WeatherStation s : favorites)
+		{
+			if(s.getName() == name)
+				station = s;
+		}
+		
+		return station;
+	}
+
+	@Override
+	public void registerRefreshableCallback(IRefreshable cb) 
+	{
+		cbList.add(cb);
+	}
+	
+	private void invokeCallbacks()
+	{
+		for(IRefreshable cb : cbList)
+		{
+			cb.Refresh();
+		}
 	}
 }

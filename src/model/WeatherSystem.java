@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.IRefreshable;
+
 public interface WeatherSystem 
 {
 	/**
@@ -33,6 +35,14 @@ public interface WeatherSystem
 	List<WeatherStation> getFavoriteStations();
 	
 	/**
+	 * Gets favorite station.
+	 * @return A favorite station or null if it doesn't
+	 * exist
+	 * @param name The name of the station.
+	 */
+	WeatherStation getFavoriteStation(String name);
+	
+	/**
 	 * Gets data for a weather station.
 	 * @param name the string name for the station ie. "Laverton, Victoria"
 	 */
@@ -59,4 +69,11 @@ public interface WeatherSystem
 	 * @return A list containing all weather stations.
 	 */
 	ArrayList<WeatherStation> getWeatherStations();
+	
+	/**
+	 * Registers a refreshable interface with the system. Each time a change is made
+	 * the system will call refresh on the views.
+	 * @param cb The interface to call refresh on.
+	 */
+	void registerRefreshableCallback(IRefreshable cb);
 }

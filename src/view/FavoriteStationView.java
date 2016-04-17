@@ -29,13 +29,13 @@ public class FavoriteStationView extends JPanel
 	 */
 	private static final long serialVersionUID = -615795282210380188L;
 	
-	WeatherStationDataTable dataTable;
-	WeatherStationDataGraph graph;
+	private WeatherStationDataTable dataTable;
+	private WeatherStationDataGraph graph;
 	
-	WeatherStation station;
+	private WeatherStation station;
 	
-	JPanel leftPanel;
-	JButton graphButton;
+	private JPanel leftPanel;
+	private JButton graphButton;
 	
 	public FavoriteStationView(WeatherStation station)
 	{	

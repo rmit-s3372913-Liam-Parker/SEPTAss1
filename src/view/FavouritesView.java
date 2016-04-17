@@ -11,7 +11,7 @@ import model.WeatherStation;
 import model.WeatherSystem;
 
 
-public class FavouritesView extends JFrame implements IJsonSerializable, IRefreshable
+public class FavouritesView extends JFrame implements IJsonSerializable, IWeatherSystemCallback
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -23,6 +23,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 	public FavouritesView(WeatherSystem system)
 	{
 		this.system = system;
+		system.registerRefreshableCallback(this);
 		initializeWindow();
 		Refresh();
 	}
@@ -65,13 +66,14 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IRefres
 	}
 
 	@Override
-	public void Refresh() 
+	public void Refresh()
 	{
+		panel.removeAll();
 		List<WeatherStation> favorites = system.getFavoriteStations();
 		
 		for(WeatherStation station : favorites)
 		{
-			panel.add(new FavoriteWeatherStationView(station));
+			panel.add(new FavoriteStationView(station));
 		}
 	}
 }

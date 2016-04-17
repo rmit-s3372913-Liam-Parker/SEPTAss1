@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.json.*;
 
-import view.IRefreshable;
+import view.IWeatherSystemCallback;
 
 public class WeatherModelImpl implements WeatherSystem 
 {
@@ -33,7 +33,7 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	private ArrayList<WeatherStation> favorites = new ArrayList<WeatherStation>();
 	
-	private List<IRefreshable> cbList = new ArrayList<IRefreshable>();
+	private List<IWeatherSystemCallback> cbList = new ArrayList<IWeatherSystemCallback>();
 	
 	/**
 	 * Constructs a new weatherModel. Will attempt to instantiate
@@ -200,6 +200,9 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public boolean addFavoriteStation(String name) 
 	{
+		if(getFavoriteStation(name) != null)
+			return false;
+		
 		for(String curState : stations.keySet())
 		{
 			for(WeatherStation station : stations.get(curState).values())
@@ -252,14 +255,14 @@ public class WeatherModelImpl implements WeatherSystem
 	}
 
 	@Override
-	public void registerRefreshableCallback(IRefreshable cb) 
+	public void registerRefreshableCallback(IWeatherSystemCallback cb) 
 	{
 		cbList.add(cb);
 	}
 	
 	private void invokeCallbacks()
 	{
-		for(IRefreshable cb : cbList)
+		for(IWeatherSystemCallback cb : cbList)
 		{
 			cb.Refresh();
 		}

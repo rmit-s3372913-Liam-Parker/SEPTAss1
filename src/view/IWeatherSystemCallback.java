@@ -1,6 +1,6 @@
 package view;
 
-public interface IRefreshable 
+public interface IWeatherSystemCallback 
 {
 	public void Refresh();
 }

@@ -17,7 +17,7 @@ import model.WeatherSystem;
  * @author Liam
  *
  */
-public class WeatherStationInfoView extends JPanel
+public class StationEntryView extends JPanel
 {
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class WeatherStationInfoView extends JPanel
 	WeatherStation station;
 	WeatherSystem system;
 	
-	public WeatherStationInfoView(WeatherStation station,
+	public StationEntryView(WeatherStation station,
 			WeatherSystem system)
 	{	
 		this.station = station;

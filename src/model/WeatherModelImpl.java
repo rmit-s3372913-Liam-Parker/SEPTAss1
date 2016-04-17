@@ -272,4 +272,24 @@ public class WeatherModelImpl implements WeatherSystem
 			cb.Refresh();
 		}
 	}
+
+	@Override
+	public ArrayList<WeatherStation> getWeatherStations(State state, String subStr) 
+	{
+		ArrayList<WeatherStation> s = new ArrayList<WeatherStation>();
+		
+		for(String curState : stations.keySet())
+		{
+			if(curState == state.getString())
+			{
+				for(WeatherStation station : stations.get(curState).values())
+				{
+					if(station.getName().contains(subStr))
+						s.add(station);
+				}
+				return s;
+			}
+		}
+		return s;
+	}
 }

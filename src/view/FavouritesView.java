@@ -1,14 +1,20 @@
 package view;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.json.JSONObject;
 
+import interfaces.IJsonSerializable;
+import interfaces.IWeatherSystemCallback;
+import interfaces.WeatherSystem;
 import model.WeatherStation;
-import model.WeatherSystem;
 
 
 public class FavouritesView extends JFrame implements IJsonSerializable, IWeatherSystemCallback
@@ -73,7 +79,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IWeathe
 		
 		for(WeatherStation station : favorites)
 		{
-			panel.add(new FavoriteStationView(station));
+			panel.add(new FavoriteStationView(system, station));
 		}
 		
 		if(panel.getComponentCount() == 0)

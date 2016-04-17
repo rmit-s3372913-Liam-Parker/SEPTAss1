@@ -1,20 +1,27 @@
 package model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import view.IWeatherSystemCallback;
+import interfaces.IWeatherSystemCallback;
+import interfaces.WeatherSystem;
 
+/**
+ * Concrete implementation of WeatherSystem, provides most
+ * functionality for program. Can take callback objects for
+ * notifications on change in data.
+ * @author Liam, Michael
+ */
 public class WeatherModelImpl implements WeatherSystem 
 {
 	static final String stationLinksFP = "stations.json";
@@ -192,14 +199,6 @@ public class WeatherModelImpl implements WeatherSystem
 	private void SaveFavoritesToDisk()
 	{
 		//TODO
-		
-		//try 
-    	//{
-		//	PrintWriter writer = new PrintWriter("WindowStates.json");
-		//	writer.print(windowArray.toString());
-		//	writer.close();
-		//} 
-    	//catch (FileNotFoundException e1){ }
 	}
 	
 	@Override
@@ -265,6 +264,10 @@ public class WeatherModelImpl implements WeatherSystem
 		cbList.add(cb);
 	}
 	
+	/**
+	 * Iterates over the callback list invoking
+	 * Refresh() on each.
+	 */
 	private void invokeCallbacks()
 	{
 		for(IWeatherSystemCallback cb : cbList)

@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import interfaces.WeatherSystem;
 import model.WeatherStation;
-import model.WeatherSystem;
 
 public class StationFavoriteButtonController implements ActionListener
 {

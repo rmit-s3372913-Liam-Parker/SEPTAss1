@@ -1,19 +1,17 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jfree.ui.RefineryUtilities;
 
+import interfaces.IWeatherSystemCallback;
+import interfaces.WeatherSystem;
 import model.WeatherStation;
 
 /**
@@ -22,7 +20,7 @@ import model.WeatherStation;
  * alngside a graph and other related information.
  * @author Liam
  */
-public class FavoriteStationView extends JPanel 
+public class FavoriteStationView extends JPanel implements IWeatherSystemCallback
 {	
 	/**
 	 * 
@@ -34,24 +32,31 @@ public class FavoriteStationView extends JPanel
 	
 	private WeatherStation station;
 	
-	private JPanel leftPanel;
 	private JButton graphButton;
 	
-	public FavoriteStationView(WeatherStation station)
+	/**
+	 * Create a view of a specified station's data.
+	 * @param station The station to compile data for.
+	 */
+	public FavoriteStationView(WeatherSystem system, WeatherStation station)
 	{	
 		this.station = station;
 		
-		InitializeStationView(station);
+		InitializeStationView(system, station);
 		AttachActionListeners();
 	}
 	
-	private void InitializeStationView(WeatherStation station)
+	/**
+	 * Initializes the station data and registers data visualization objects with system.
+	 * @param system The WeatherSystem to register with.
+	 * @param station
+	 */
+	private void InitializeStationView(WeatherSystem system, WeatherStation station)
 	{
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createTitledBorder(station.getName()));
 
 		graphButton = new JButton("Graph");
-		
 		dataTable = new WeatherStationDataTable(station);
 		
 		graph = new WeatherStationDataGraph("Test", this.station.getSnapshots());
@@ -59,10 +64,15 @@ public class FavoriteStationView extends JPanel
 		RefineryUtilities.centerFrameOnScreen(graph);
 		
 		this.add(graphButton, BorderLayout.WEST);
-		
 		this.add(dataTable, BorderLayout.EAST);
+		
+		//system.registerRefreshableCallback(this);
 	}
 	
+	/**
+	 * Attaches action listeners to interactive elements.
+	 * TODO: Extract to controller
+	 */
 	private void AttachActionListeners()
 	{
 		graphButton.addActionListener(new ActionListener()
@@ -73,5 +83,12 @@ public class FavoriteStationView extends JPanel
 				graph.setVisible(!graph.isVisible());
 			}
 		});
+	}
+
+	@Override
+	public void Refresh() 
+	{
+		dataTable.Refresh();
+		graph.Refresh();
 	}
 }

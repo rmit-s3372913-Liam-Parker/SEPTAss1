@@ -1,7 +1,7 @@
 package main;
 
+import interfaces.WeatherSystem;
 import model.WeatherModelImpl;
-import model.WeatherSystem;
 import view.MainView;
 
 public class ProgramEntry 

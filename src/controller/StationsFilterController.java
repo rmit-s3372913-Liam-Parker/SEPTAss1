@@ -7,18 +7,20 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import interfaces.WeatherSystem;
 import model.State;
-import model.WeatherSystem;
 
 public class StationsFilterController implements ActionListener 
 {
 	WeatherSystem system;
+	
 	JTextField stationSearch;
 	JComboBox<State> comboBox;
 	JPanel panel;
 	
-	public StationsFilterController(JComboBox<State> comboBox, JTextField stationSearch, JPanel panel)
+	public StationsFilterController(WeatherSystem system, JComboBox<State> comboBox, JTextField stationSearch,JPanel panel)
 	{
+		this.system = system;
 		this.stationSearch = stationSearch;
 		this.comboBox = comboBox;
 		this.panel = panel;

@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Dimension;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -12,11 +11,14 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
 
-import model.WeatherStationDailyEntry;
+import interfaces.IWeatherSystemCallback;
 import model.WeatherStationSnapshotEntry;
 
+/**
+ * A window containing the graph for a weather stations data.
+ * @author Liam
+ */
 public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCallback
 {
 	private static final long serialVersionUID = -8115274594459474258L;
@@ -47,7 +49,9 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	
 	/**
 	 * Populates a dataset with values from entries array.
-	 * @return A dataset for display inside of a chart.
+	 * @return A dataset for display inside of a chart. NOTE, this
+	 * dataset is just a convenience reference to the graphs
+	 * internal dataset.
 	 */
 	private DefaultCategoryDataset populateData()
 	{

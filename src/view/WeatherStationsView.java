@@ -1,16 +1,24 @@
 package view;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import org.json.JSONObject;
 
 import controller.StationsFilterController;
+import interfaces.IJsonSerializable;
+import interfaces.IWeatherSystemCallback;
+import interfaces.WeatherSystem;
 import model.State;
 import model.WeatherStation;
-import model.WeatherSystem;
 
 
 public class WeatherStationsView extends JFrame implements IWeatherSystemCallback, IJsonSerializable
@@ -42,7 +50,7 @@ public class WeatherStationsView extends JFrame implements IWeatherSystemCallbac
 		scrollPane = new JScrollPane(panel);
 		
 		//Set up search functionality
-		StationsFilterController controller = new StationsFilterController(comboBox, stationSearch, panel);
+		StationsFilterController controller = new StationsFilterController(system, comboBox, stationSearch, panel);
 		stationSearch = new JTextField();
 		stationSearch.addActionListener(controller);
 		comboBox = new JComboBox<State>(State.values());

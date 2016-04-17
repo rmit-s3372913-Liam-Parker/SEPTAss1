@@ -16,7 +16,6 @@ import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 /**
  * Stores all information on a specific weather station, its name and all day to day entries.

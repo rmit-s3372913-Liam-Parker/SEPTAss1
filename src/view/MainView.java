@@ -35,7 +35,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	private static final long serialVersionUID = 1L;
 	
 	public static final String STATIONS_LABEL = "Weather Stations";
-	public static final String FAVS_LABEL = "Favourite";
+	public static final String FAVS_LABEL = "Favourites";
 	public static final String REFRESH_LABEL = "Refresh";
 	
 	WeatherSystem system;

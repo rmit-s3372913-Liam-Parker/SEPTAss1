@@ -21,7 +21,7 @@ import model.State;
 import model.WeatherStation;
 
 
-public class WeatherStationsView extends JFrame implements IWeatherSystemCallback, IJsonSerializable
+public class WeatherStationsView extends JPanel implements IWeatherSystemCallback, IJsonSerializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -58,12 +58,7 @@ public class WeatherStationsView extends JFrame implements IWeatherSystemCallbac
 		
 		panel.add(comboBox);
 		panel.add(stationSearch);
-		this.getContentPane().add(scrollPane);
-		
-		this.setTitle("Weather Stations");
-		this.setSize(400,400);
-		this.setLocationRelativeTo(null); //centre the frame - needs to be changed
-		this.setMinimumSize(new Dimension(400,400));
+		this.add(scrollPane);
 	}
 	
 	@Override
@@ -98,6 +93,6 @@ public class WeatherStationsView extends JFrame implements IWeatherSystemCallbac
 	public void LoadFromJsonObject(JSONObject obj) 
 	{
 		this.setBounds(obj.getInt("windowPosX"), obj.getInt("windowPosY"),
-				obj.getInt("windowWidth"), obj.getInt("windowHeight"));
+				       obj.getInt("windowWidth"), obj.getInt("windowHeight"));
 	}
 }

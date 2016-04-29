@@ -35,18 +35,18 @@ public class MainViewController implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		switch(e.getActionCommand())
-		{
-		case MainView.STATIONS_LABEL:
-			weatherStationView.setVisible(!weatherStationView.isVisible());
-			break;
-		case MainView.FAVS_LABEL:
-			favoritesView.setVisible(!favoritesView.isVisible());
-			break;
-		case MainView.REFRESH_LABEL:
-			system.refreshFavoriteWeatherData();
-			JOptionPane.showMessageDialog(mainPanel, "Latest data pulled from BOM.");
-			break;
-		}
+		//switch(e.getActionCommand())
+		//{
+		//case MainView.STATIONS_LABEL:
+		//	weatherStationView.setVisible(!weatherStationView.isVisible());
+		//	break;
+		//case MainView.FAVS_LABEL:
+		//	favoritesView.setVisible(!favoritesView.isVisible());
+		//	break;
+		//case MainView.REFRESH_LABEL:
+		///	system.refreshFavoriteWeatherData();
+		//	JOptionPane.showMessageDialog(mainPanel, "Latest data pulled from BOM.");
+		//	break;
+		//}
 	}
 }

@@ -17,7 +17,7 @@ import interfaces.WeatherSystem;
 import model.WeatherStation;
 
 
-public class FavouritesView extends JFrame implements IJsonSerializable, IWeatherSystemCallback
+public class FavouritesView extends JPanel implements IJsonSerializable, IWeatherSystemCallback
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -40,12 +40,7 @@ public class FavouritesView extends JFrame implements IJsonSerializable, IWeathe
 	private void initializeWindow()
 	{
 		scrollPane = new JScrollPane(panel);
-		this.getContentPane().add(scrollPane);
-
-		this.setTitle("Favorite Stations");
-		this.setSize(800,400);
-		this.setLocationRelativeTo(null);
-		this.setMinimumSize(new Dimension(1100,400));
+		this.add(scrollPane);
 	}
 
 	@Override

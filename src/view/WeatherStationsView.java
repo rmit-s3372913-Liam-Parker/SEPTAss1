@@ -25,10 +25,16 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 {
 	private static final long serialVersionUID = 1L;
 	
+	private static final int PANEL_COLUMNS = 0;
+	private static final int PANEL_ROWS = 1;
+	private static final int PANEL_PADDING = 5;
+	
 	WeatherSystem system;
 	
 	JScrollPane scrollPane;
-	JPanel panel = new JPanel(new GridLayout(0,1, 5, 5));
+	JPanel panel = new JPanel(new GridLayout(PANEL_COLUMNS,PANEL_ROWS,
+											 PANEL_PADDING, PANEL_PADDING));
+	
 	JTextField stationSearch;
 	JComboBox<State> comboBox;
 	
@@ -88,7 +94,7 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 		
 		return object;
 	}
-
+			
 	@Override
 	public void LoadFromJsonObject(JSONObject obj) 
 	{

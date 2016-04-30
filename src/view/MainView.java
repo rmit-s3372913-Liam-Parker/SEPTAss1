@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -44,7 +45,6 @@ public class MainView extends JFrame implements IJsonSerializable
 	private static final int MIN_HEIGHT = 400;
 	private static final int DEFAULT_HEIGHT = 750;
 	
-	
 	//Model Interface
 	WeatherSystem system;
 	
@@ -52,8 +52,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	WeatherStationsView leftPanel;
 	FavouritesView rightPanel;
 	
-	JPanel mainPanel = new JPanel(new BorderLayout());
-	JSplitPane splitPane;
+	JPanel mainPanel = new JPanel(new GridLayout(0,2));
 	
 	Font font = new Font("Calibri", Font.PLAIN, 15);
 	
@@ -71,12 +70,9 @@ public class MainView extends JFrame implements IJsonSerializable
 	 */
 	private void InitializeWindow()
 	{
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				leftPanel, rightPanel);
-		splitPane.setDividerLocation(0.5);
-		splitPane.setResizeWeight(0.5);
 		
-		mainPanel.add(splitPane, BorderLayout.CENTER);
+		mainPanel.add(leftPanel);
+		mainPanel.add(rightPanel);
 		
 		//There is a bug where you set the minSize and maxSize 
 		//It will minSize the frame but not maxSize

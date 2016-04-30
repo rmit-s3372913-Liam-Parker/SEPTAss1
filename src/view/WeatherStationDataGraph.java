@@ -26,7 +26,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	private Map<Date, WeatherStationSnapshotEntry> entries;
 	
 	private JFreeChart graph;
-	DefaultCategoryDataset dataSet = new DefaultCategoryDataset();;
+	DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 	
 	/**
 	 * Constructor for a weatherStation graph with name and data

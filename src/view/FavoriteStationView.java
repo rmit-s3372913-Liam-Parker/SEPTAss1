@@ -42,6 +42,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 	public FavoriteStationView(WeatherSystem system, WeatherStation station)
 	{	
 		this.station = station;
+		system.registerRefreshableCallback(this);
 		
 		InitializeStationView(system, station);
 		AttachActionListeners();
@@ -66,8 +67,6 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 		
 		this.add(graphButton, BorderLayout.WEST);
 		this.add(dataTable, BorderLayout.EAST);
-		
-		system.registerRefreshableCallback(this);
 	}
 	
 	/**
@@ -87,7 +86,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 	}
 
 	@Override
-	public void Refresh() 
+	public void Refresh()
 	{
 		dataTable.Refresh();
 		graph.Refresh();

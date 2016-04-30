@@ -1,23 +1,19 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import org.json.JSONObject;
 
-import controller.StationsFilterController;
 import interfaces.IJsonSerializable;
 import interfaces.IWeatherSystemCallback;
 import interfaces.WeatherSystem;
-import model.State;
 import model.WeatherStation;
 
 
@@ -25,18 +21,11 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static final int PANEL_COLUMNS = 0;
-	private static final int PANEL_ROWS = 1;
-	private static final int PANEL_PADDING = 5;
-	
 	WeatherSystem system;
 	
 	JScrollPane scrollPane;
-	JPanel panel = new JPanel(new GridLayout(PANEL_COLUMNS,PANEL_ROWS,
-											 PANEL_PADDING, PANEL_PADDING));
-	
-	JTextField stationSearch;
-	JComboBox<State> comboBox;
+	JPanel panel = new JPanel();
+	List<StationEntryView> entryList = new ArrayList<StationEntryView>();
 	
 	JButton buttonFavourite = new JButton("Favourite");
 	
@@ -52,18 +41,13 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 	 * Initialises the window/frame.
 	 */
 	private void initializeWindow()
-	{
+	{	
 		scrollPane = new JScrollPane(panel);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		//Set up search functionality
-		StationsFilterController controller = new StationsFilterController(system, comboBox, stationSearch, panel);
-		stationSearch = new JTextField();
-		stationSearch.addActionListener(controller);
-		comboBox = new JComboBox<State>(State.values());
-		comboBox.addActionListener(controller);
-		
-		panel.add(comboBox);
-		panel.add(stationSearch);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.add(scrollPane);
 	}
 	
@@ -74,8 +58,11 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 		
 		for(WeatherStation station : favorites)
 		{
-			panel.add(new StationEntryView(station, system));
+			StationEntryView stationEntry = new StationEntryView(station, system);
+			panel.add(stationEntry);
+			entryList.add(stationEntry);
 		}
+		panel.validate();
 		panel.repaint();
 	}
 

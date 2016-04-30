@@ -1,5 +1,4 @@
 package view;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,23 +11,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import controller.MainViewController;
 import interfaces.IJsonSerializable;
 import interfaces.WeatherSystem;
 
@@ -44,6 +33,8 @@ public class MainView extends JFrame implements IJsonSerializable
 	
 	private static final int MIN_HEIGHT = 400;
 	private static final int DEFAULT_HEIGHT = 750;
+	
+	private static final String WINDOW_STATES_JSON = "WindowStates.json";
 	
 	//Model Interface
 	WeatherSystem system;
@@ -61,6 +52,7 @@ public class MainView extends JFrame implements IJsonSerializable
 		this.system = system;
 		leftPanel = new WeatherStationsView(system);
 		rightPanel = new FavouritesView(system);
+		
 		InitializeWindow();
 		AttachActionListeners();
 	}
@@ -70,7 +62,6 @@ public class MainView extends JFrame implements IJsonSerializable
 	 */
 	private void InitializeWindow()
 	{
-		
 		mainPanel.add(leftPanel);
 		mainPanel.add(rightPanel);
 		
@@ -78,13 +69,13 @@ public class MainView extends JFrame implements IJsonSerializable
 		//It will minSize the frame but not maxSize
 		//http://bugs.java.com/bugdatabase/view_bug.do;?bug_id=6200438
 		//so I set the resizable to false
-		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
+		this.getContentPane().add(mainPanel);
 		this.setTitle(PROGRAM_TITLE);
-		this.setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
 		this.setMinimumSize(new Dimension(MIN_WIDTH,MIN_HEIGHT));
 		this.setLocationRelativeTo(null); //centre the frame on screen
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(true);
+		this.pack();
 		
 		loadProgramState();
 		this.setVisible(true);
@@ -97,14 +88,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	 * TODO:
 	 */
 	private void AttachActionListeners()
-	{
-		//MainViewController controller = new MainViewController(bottomPanel, system,
-		//		weatherStationView, favoritesView);
-		
-		//buttonWeather.addActionListener(controller);
-		//buttonFavourites.addActionListener(controller);
-		//buttonRefresh.addActionListener(controller);
-		
+	{	
 		this.addWindowListener( new WindowAdapter() 
 		{
 			@Override
@@ -117,7 +101,7 @@ public class MainView extends JFrame implements IJsonSerializable
 	}
 	
 	/**
-	 * Will load frm json state file if available, grabbing
+	 * Will load from json state file if available, grabbing
 	 * the last known window sizes and positions to reinitialize on this
 	 * execution of the program.
 	 */
@@ -127,7 +111,7 @@ public class MainView extends JFrame implements IJsonSerializable
 		
 		try 
 		{
-            FileReader reader = new FileReader("WindowStates.json");
+            FileReader reader = new FileReader(WINDOW_STATES_JSON);
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line = "";
             

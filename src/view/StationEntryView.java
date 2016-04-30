@@ -29,11 +29,12 @@ public class StationEntryView extends JPanel
 	
 	public StationEntryView(WeatherStation station, WeatherSystem system)
 	{	
+		
 		InitializeStationView(station.getName());
 		
 		favoriteButton.addActionListener(
 				new StationFavoriteButtonController(station,system, favoriteButton));
-	}	
+	}
 	
 	private void InitializeStationView(String station)
 	{
@@ -42,6 +43,7 @@ public class StationEntryView extends JPanel
 		
 		favoriteButton = new JButton("Favorite");
 		
-		this.add(favoriteButton, BorderLayout.WEST);
+		
+		this.add(favoriteButton, BorderLayout.CENTER);
 	}
 }

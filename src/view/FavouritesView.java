@@ -1,13 +1,14 @@
 package view;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
 
-import javax.swing.JFrame;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 
 import org.json.JSONObject;
 
@@ -40,6 +41,11 @@ public class FavouritesView extends JPanel implements IJsonSerializable, IWeathe
 	private void initializeWindow()
 	{
 		scrollPane = new JScrollPane(panel);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.add(scrollPane);
 	}
 
@@ -69,15 +75,25 @@ public class FavouritesView extends JPanel implements IJsonSerializable, IWeathe
 	@Override
 	public void Refresh()
 	{
-		panel.removeAll();
-		List<WeatherStation> favorites = system.getFavoriteStations();
-		
-		for(WeatherStation station : favorites)
+		SwingUtilities.invokeLater(new Runnable() 
 		{
-			panel.add(new FavoriteStationView(system, station));
-		}
-		
-		if(panel.getComponentCount() == 0)
-			panel.add(new JLabel("Add some favorites in the station view to see something here!"));
+			@Override
+			public void run() 
+			{
+				panel.removeAll();
+				List<WeatherStation> favorites = system.getFavoriteStations();
+				
+				for(WeatherStation station : favorites)
+				{
+					panel.add(new FavoriteStationView(system, station));
+				}
+				
+				if(panel.getComponentCount() == 0)
+					panel.add(new JLabel("Add some favorites in the station view to see something here!"));
+				
+				panel.validate();
+				panel.repaint();
+			}
+		});
 	}
 }

@@ -66,7 +66,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 		RefineryUtilities.centerFrameOnScreen(graph);
 		
 		this.add(graphButton, BorderLayout.WEST);
-		this.add(dataTable, BorderLayout.EAST);
+		//this.add(dataTable, BorderLayout.EAST);
 	}
 	
 	/**

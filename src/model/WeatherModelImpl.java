@@ -57,11 +57,18 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public void refreshFavoriteWeatherData() 
 	{
-		for(WeatherStation station : favorites)
+		Runnable thread = new Runnable()
 		{
-			station.scrapeEntries();		
-		}
-				
+			@Override
+			public void run() 
+			{
+				for(WeatherStation station : favorites)
+				{
+					station.scrapeEntries();		
+				}
+			}
+		};
+		thread.run();
 	}
 
 	@Override

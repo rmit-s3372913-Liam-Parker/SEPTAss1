@@ -14,16 +14,9 @@ public class StationsFilterController implements ActionListener
 {
 	WeatherSystem system;
 	
-	JTextField stationSearch;
-	JComboBox<State> comboBox;
-	JPanel panel;
-	
-	public StationsFilterController(WeatherSystem system, JComboBox<State> comboBox, JTextField stationSearch,JPanel panel)
+	public StationsFilterController(WeatherSystem system)
 	{
 		this.system = system;
-		this.stationSearch = stationSearch;
-		this.comboBox = comboBox;
-		this.panel = panel;
 	}
 	
 	@Override

@@ -37,7 +37,7 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 	
 	JPanel filterPanel = new JPanel();
 	JComboBox<State> stateFilter = new JComboBox<State>(State.values());
-	JTextField filterTextField = new JTextField();
+	JTextField nameFilter = new JTextField();
 	
 	List<StationEntryView> entryList = new ArrayList<StationEntryView>();
 	
@@ -67,12 +67,12 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 		filterPanel.setBorder(border);
 		filterPanel.setLayout(new GridLayout(1,2, 10, 10));
 		filterPanel.add(stateFilter);
-		filterPanel.add(filterTextField);
+		filterPanel.add(nameFilter);
 		this.add(filterPanel);
 		
 		StationsFilterController filterController = new StationsFilterController(system);
 		stateFilter.addActionListener(filterController);
-		filterTextField.addActionListener(filterController);
+		nameFilter.addActionListener(filterController);
 		
 		//Setup panel layouts and add to main panel
 		panel.setBorder(new EmptyBorder(15,15,15,15));
@@ -89,11 +89,18 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 			@Override
 			public void run() 
 			{
-				List<WeatherStation> favorites = system.getWeatherStations();
+				List<WeatherStation> filteredStations = system.getWeatherStations((State)stateFilter.getSelectedItem(),
+						nameFilter.getText());
+				
+				//Clear entries
+				for(StationEntryView s : entryList)
+				{
+					panel.remove(s);
+				}
 				
 				entryList.clear();
 				
-				for(WeatherStation station : favorites)
+				for(WeatherStation station : filteredStations)
 				{
 					StationEntryView stationEntry = new StationEntryView(station, system);
 					panel.add(stationEntry);

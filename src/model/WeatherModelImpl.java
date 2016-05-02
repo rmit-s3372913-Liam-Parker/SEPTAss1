@@ -34,8 +34,8 @@ public class WeatherModelImpl implements WeatherSystem
 	 * The weather stations hashmap uses the town name as a key and the actual weather
 	 * station object itself as a value.
 	 */
-	private HashMap<String, HashMap<String, WeatherStation>> stations =
-			new HashMap<String, HashMap<String, WeatherStation>>();
+	private HashMap<State, HashMap<String, WeatherStation>> stations =
+			new HashMap<State, HashMap<String, WeatherStation>>();
 	
 	/**
 	 * List of all favorited weather stations for easy access.
@@ -66,9 +66,12 @@ public class WeatherModelImpl implements WeatherSystem
 				{
 					station.scrapeEntries();		
 				}
+				
+				invokeCallbacks();
 			}
 		};
 		thread.run();
+		
 	}
 
 	@Override
@@ -93,9 +96,9 @@ public class WeatherModelImpl implements WeatherSystem
 	public ArrayList<WeatherStation> getWeatherStations(State state) 
 	{
 		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
-		for(String curState : stations.keySet())
+		for(State curState : stations.keySet())
 		{
-			if(curState == state.getString())
+			if(curState == state)
 			{
 				allStations.addAll(stations.get(curState).values());
 			}
@@ -192,7 +195,7 @@ public class WeatherModelImpl implements WeatherSystem
 		    	stationList.put(city, new WeatherStation(city, url));
 		    }
 	    	
-	    	stations.put(stateName, stationList);
+	    	stations.put(State.fromString(stateName), stationList);
 	    }
 	}
 	
@@ -220,7 +223,7 @@ public class WeatherModelImpl implements WeatherSystem
 		if(getFavoriteStation(name) != null)
 			return false;
 		
-		for(String curState : stations.keySet())
+		for(State curState : stations.keySet())
 		{
 			for(WeatherStation station : stations.get(curState).values())
 			{
@@ -300,9 +303,9 @@ public class WeatherModelImpl implements WeatherSystem
 	{
 		ArrayList<WeatherStation> s = new ArrayList<WeatherStation>();
 		
-		for(String curState : stations.keySet())
+		for(State curState : stations.keySet())
 		{
-			if(curState == state.getString())
+			if(curState == state)
 			{
 				for(WeatherStation station : stations.get(curState).values())
 				{

@@ -30,18 +30,21 @@ public class StationEntryView extends JPanel
 	public StationEntryView(WeatherStation station, WeatherSystem system)
 	{	
 		
-		InitializeStationView(station.getName());
+		InitializeStationView(station.getName(), system);
 		
 		favoriteButton.addActionListener(
 				new StationFavoriteButtonController(station,system, favoriteButton));
 	}
 	
-	private void InitializeStationView(String station)
+	private void InitializeStationView(String station, WeatherSystem system)
 	{
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createTitledBorder(station));
 		
-		favoriteButton = new JButton("Favorite");
+		if(system.getFavoriteStation(station) == null)
+			favoriteButton = new JButton("Favorite");
+		else
+			favoriteButton = new JButton("Unfavorite");
 		
 		
 		this.add(favoriteButton, BorderLayout.CENTER);

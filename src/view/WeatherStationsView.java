@@ -106,8 +106,8 @@ public class WeatherStationsView extends JPanel implements IWeatherSystemCallbac
 					panel.add(stationEntry);
 					entryList.add(stationEntry);
 				}
-				panel.validate();
-				panel.repaint();
+				scrollPane.validate();
+				scrollPane.repaint();
 			}
 			
 		});

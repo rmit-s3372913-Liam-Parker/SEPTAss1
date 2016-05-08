@@ -28,7 +28,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 	private static final long serialVersionUID = -615795282210380188L;
 	
 	private WeatherStationDataTable dataTable;
-	private WeatherStationDataGraph graph;
+	private WeatherStationDataGraph graph;asd
 	
 	private WeatherStation station;
 	

@@ -14,6 +14,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -154,27 +156,19 @@ public class WeatherStation
 		{
 			//Scrapes from the JSON file URL that has been assigned to WeatherStation
 			Scanner sc = new Scanner(new URL(bomLink).openStream());
-			
 			while(sc.hasNext())
 			{
 				entriesJson += sc.nextLine();
-		
 			}
 				
 			sc.close();
-		} catch (MalformedURLException e)
+		}
+		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "ERROR: Could not establish connection!",
+					"Connection Failure", JOptionPane.ERROR_MESSAGE);
 		}
 	
-		//debugging
-		//System.out.println(entriesJson);
-		
 		//JSONTokener tokener = new JSONTokener(entriesJson);
 		JSONObject root = new JSONObject(entriesJson);		
 		JSONObject observations = root.getJSONObject("observations");
@@ -217,13 +211,10 @@ public class WeatherStation
 			//Precipitation
 			float rainSinceNineAM = (float)entry.optDouble("rain_trace");
 			
-			
-			
 			//Create a snapshot entry using all the scraped data
 			WeatherStationSnapshotEntry snapshotEntry = new WeatherStationSnapshotEntry(date, temp, appTemp, dewPoint,
 					relHum, deltaT, windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL, 
 					rainSinceNineAM);
-			
 			
 			//Add the entry to this station's hashmap
 			addSnapshotEntry(date, snapshotEntry);

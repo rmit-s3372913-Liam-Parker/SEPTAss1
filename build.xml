@@ -4,6 +4,18 @@
   Project file for your_project.
 </description>
 
+<target name="test" description="Runs JUnit">
+  <echo message="Running unit tests..." />
+  <junit>
+    <classpath>
+      <pathelement location="junit-4.10.jar"/>
+    </classpath>
+    <batchtest>
+      <fileset dir="${bin}" includes="**/Test*.class" />
+    </batchtest>
+  </junit>
+</target>
+
 <target name="build" description="Compiles source files into build directory">
   <echo message="Running build target..." />
 </target>

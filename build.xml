@@ -1,0 +1,11 @@
+<project name="SEPT - Assignment 2" default="dist" basedir=".">
+
+<description>
+  Project file for your_project.
+</description>
+
+<target name="build" description="Compiles source files into build directory">
+  <echo message="Running build target..." />
+</target>
+
+</project>

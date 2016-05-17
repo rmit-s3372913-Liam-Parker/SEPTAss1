@@ -3,5 +3,10 @@ language: java
 jdk:
   - oraclejdk8
 
+script:
+  - ant build
+  - ant test
+  - ant jar
+
 notifications:
   email: false

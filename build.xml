@@ -1,4 +1,6 @@
 <project>
+
+
   <target name="clean">
 
   </target>
@@ -24,14 +26,14 @@
     <echo message="Running build target..." />
     <mkdir dir="bin/intermediate"/>
     <javac srcdir="src" destdir="bin/intermediate">
-      <classpath refid="build.classpath">
+      <classpath refid="build.classpath"/>
     </javac>
   </target>
 
   <target name="jar">
   	<jar destfile="bin/WeatherApp.jar" basedir="bin/intermediate">
   	  <manifest>
-  	  	<attribute name="Main-Class" value="oata.ProgramEntry"/>
+  	  	<attribute name="Main-Class" value="main.ProgramEntry"/>
   	  </manifest>
   	</jar>
   </target>

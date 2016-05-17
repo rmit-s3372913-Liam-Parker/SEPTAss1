@@ -1,5 +1,10 @@
 <project>
 
+  <property name="libs.path" value="lib"/>
+  <property name="junit.path" value="${libs.path}/junit/junit.jar"/>
+
+  <property name="bin.path" value="bin"/>
+  <property name="intermediate.path" value="${bin.path}/intermediate"/>
 
   <target name="clean">
 
@@ -9,7 +14,7 @@
     <echo message="Running unit tests..." />
     <junit>
       <classpath>
-        <pathelement location="lib/junit/junit.jar"/>
+        <pathelement location="${junit.path}"/>
       </classpath>
       <batchtest>
         <fileset dir="bin/intermediate" includes="**/*Test.class" />
@@ -20,12 +25,12 @@
   <target name="build" description="Compiles source files into build directory">
 
     <path id="build.classpath">
-      <fileset dir="lib"> <include name="**/*.jar"/> </fileset>
+      <fileset dir="${libs.path}"> <include name="**/*.jar"/> </fileset>
     </path>
 
     <echo message="Running build target..." />
-    <mkdir dir="bin/intermediate"/>
-    <javac srcdir="src" destdir="bin/intermediate">
+    <mkdir dir="${intermediate.path}"/>
+    <javac srcdir="src" destdir="${intermediate.path}">
       <classpath refid="build.classpath"/>
     </javac>
   </target>

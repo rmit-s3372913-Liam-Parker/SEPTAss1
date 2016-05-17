@@ -1,26 +1,33 @@
 <project>
   <target name="clean">
-  
+
   </target>
-	
+
   <target name="test" description="Runs JUnit">
     <echo message="Running unit tests..." />
     <junit>
       <classpath>
-        <pathelement location="junit/junit.jar"/>
+        <pathelement location="./junit/junit.jar"/>
       </classpath>
       <batchtest>
-        <fileset dir="${bin}" includes="**/Test*.class" />
+        <fileset dir="bin/intermediate" includes="**/*Test.class" />
       </batchtest>
     </junit>
   </target>
 
   <target name="build" description="Compiles source files into build directory">
+
+    <path id="build.classpath">
+      <fileset dir="lib">
+        <include name="**/*.jar"/>
+      </fileset>
+    </path>
+
     <echo message="Running build target..." />
     <mkdir dir="bin/intermediate"/>
-    <javac srcdir="src" destdir="bin/intermediate"/>
+    <javac srcdir="src" destdir="bin/intermediate" refid="build.classpath"/>
   </target>
-	
+
   <target name="jar">
   	<jar destfile="bin/WeatherApp.jar" basedir="bin/intermediate">
   	  <manifest>
@@ -28,5 +35,5 @@
   	  </manifest>
   	</jar>
   </target>
-  
+
 </project>

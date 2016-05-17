@@ -18,14 +18,14 @@
   <target name="build" description="Compiles source files into build directory">
 
     <path id="build.classpath">
-      <fileset dir="lib">
-        <include name="**/*.jar"/>
-      </fileset>
+      <fileset dir="lib"> <include name="**/*.jar"/> </fileset>
     </path>
 
     <echo message="Running build target..." />
     <mkdir dir="bin/intermediate"/>
-    <javac srcdir="src" destdir="bin/intermediate" refid="build.classpath"/>
+    <javac srcdir="src" destdir="bin/intermediate">
+      <classpath refid="build.classpath">
+    </javac>
   </target>
 
   <target name="jar">

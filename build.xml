@@ -1,23 +1,32 @@
-<project name="SEPT - Assignment 2" default="dist" basedir=".">
+<project>
+  <target name="clean">
+  
+  </target>
+	
+  <target name="test" description="Runs JUnit">
+    <echo message="Running unit tests..." />
+    <junit>
+      <classpath>
+        <pathelement location="junit/junit.jar"/>
+      </classpath>
+      <batchtest>
+        <fileset dir="${bin}" includes="**/Test*.class" />
+      </batchtest>
+    </junit>
+  </target>
 
-<description>
-  Project file for your_project.
-</description>
-
-<target name="test" description="Runs JUnit">
-  <echo message="Running unit tests..." />
-  <junit>
-    <classpath>
-      <pathelement location="junit-4.10.jar"/>
-    </classpath>
-    <batchtest>
-      <fileset dir="${bin}" includes="**/Test*.class" />
-    </batchtest>
-  </junit>
-</target>
-
-<target name="build" description="Compiles source files into build directory">
-  <echo message="Running build target..." />
-</target>
-
+  <target name="build" description="Compiles source files into build directory">
+    <echo message="Running build target..." />
+    <mkdir dir="bin/intermediate"/>
+    <javac srcdir="src" destdir="bin/intermediate"/>
+  </target>
+	
+  <target name="jar">
+  	<jar destfile="bin/WeatherApp.jar" basedir="bin/intermediate">
+  	  <manifest>
+  	  	<attribute name="Main-Class" value="oata.ProgramEntry"/>
+  	  </manifest>
+  	</jar>
+  </target>
+  
 </project>

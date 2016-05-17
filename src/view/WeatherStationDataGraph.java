@@ -39,7 +39,13 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		this.entries = data;
 		
 		graph = ChartFactory.createLineChart(name + " Historical Temperatures",
-				"Date", "Temperature", populateData(), PlotOrientation.VERTICAL, true, true , false);
+				"Date",
+				"Temperature",
+				populateData(),
+				PlotOrientation.VERTICAL,
+				true,
+				true,
+				false);
 		
 		ChartPanel panel = new ChartPanel(graph);
 		panel.setPreferredSize(new Dimension(600,600));

@@ -9,7 +9,7 @@
     <echo message="Running unit tests..." />
     <junit>
       <classpath>
-        <pathelement location="./junit/junit.jar"/>
+        <pathelement location="lib/junit/junit.jar"/>
       </classpath>
       <batchtest>
         <fileset dir="bin/intermediate" includes="**/*Test.class" />

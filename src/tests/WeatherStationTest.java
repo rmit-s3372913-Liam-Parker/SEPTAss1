@@ -15,10 +15,22 @@ public class WeatherStationTest
 	{
 		station = new WeatherStation("Test Station", "invalidbomlink.com");
 	}
-
+	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testConstructor() 
+	{
+		assertEquals("Test Station", station.getName());
+		assertEquals("invalidbomlink.com", station.getBomLink());
 	}
-
+	
+	@Test
+	public void testSocketException() 
+	{
+		try
+		{
+			station.scrapeEntries();
+			fail(" Socket Exception not thrown! link should be invalid.");
+		}
+		catch(Exception e){}
+	}
 }

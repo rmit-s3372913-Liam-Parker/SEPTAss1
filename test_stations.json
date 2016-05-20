@@ -1,0 +1,15 @@
+[
+    {
+        "state": "Test State",
+        "stations": [
+            {
+                "city": "Test Station 1",
+                "url": ""
+            },
+            {
+                "city": "Test Station 2",
+                "url": ""
+            }
+        ]
+    }
+]

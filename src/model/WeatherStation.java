@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
@@ -149,7 +150,8 @@ public class WeatherStation
 	 */
 	public void scrapeEntries()
 	{
-		Thread thread = new Thread(new Runnable()
+		WeatherModelImpl.logger.log(Level.INFO, "Scraping " + name + " entries on new thread.");
+		Thread thread = new Thread( new Runnable()
 		{
 			@Override
 			public void run() 

@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -26,7 +28,8 @@ import interfaces.WeatherSystem;
  */
 public class WeatherModelImpl implements WeatherSystem 
 {
-	static final String stationLinksFP = "stations.json";
+	private static final String stationLinksFP = "stations.json";
+	public static Logger logger = Logger.getLogger("");
 	
 	/**
 	 * Just to make it clear, this hashmap stores australian
@@ -54,11 +57,18 @@ public class WeatherModelImpl implements WeatherSystem
 		
 	}
 	
+	public WeatherModelImpl(String stationJson)
+	{
+		PopulateStations(stationJson);
+	}
+	
 	@Override
 	public void refreshFavoriteWeatherData() 
 	{
+		logger.entering("WeatherModelImpl", "refreshWeatherData()");
 		Runnable thread = new Runnable()
 		{
+			
 			@Override
 			public void run() 
 			{
@@ -77,6 +87,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public WeatherStation getWeatherStation(String name) 
 	{
+		
 		WeatherStation foundStation = null;
 		for(HashMap<String, WeatherStation> stationList : stations.values())
 		{
@@ -144,6 +155,8 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	private void PopulateStations(String stationFilePath)
 	{
+		logger.log(Level.INFO, "Populating stations with " + stationFilePath);
+		
 		//Read stations
         String stationsJson = "";
         
@@ -192,9 +205,9 @@ public class WeatherModelImpl implements WeatherSystem
 		    	String city = station.getString("city");
 		    	String url = station.getString("url");
 		    	
+		    	logger.log(Level.INFO, "Loading: " + stateName + " " + city);
 		    	stationList.put(city, new WeatherStation(city, url));
 		    }
-	    	
 	    	stations.put(State.fromString(stateName), stationList);
 	    }
 	}
@@ -205,7 +218,7 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	private void LoadFavoritesFromDisk()
 	{
-		//TODO
+		logger.log(Level.WARNING, "Not Implemented");
 	}
 	
 	/**
@@ -214,7 +227,7 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	private void SaveFavoritesToDisk()
 	{
-		//TODO
+		logger.log(Level.WARNING, "Not Implemented");
 	}
 	
 	@Override
@@ -288,6 +301,7 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	private void invokeCallbacks()
 	{
+		logger.log(Level.INFO, "Invoking Callbacks");
 		// We close the callback array because during refresh objects may register themselves
 		// thus modifying the length of the callbackList before refresh is complete.
 		List<IWeatherSystemCallback> clone = new ArrayList<IWeatherSystemCallback>(cbList);

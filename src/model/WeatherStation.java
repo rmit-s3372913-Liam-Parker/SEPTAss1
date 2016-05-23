@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -27,6 +28,8 @@ import org.json.JSONObject;
  */
 public class WeatherStation 
 {
+	private static Logger logger = Logger.getLogger("Weather Stations");
+	
 	/**
 	 * The name of the station.
 	 */
@@ -68,34 +71,6 @@ public class WeatherStation
 	}
 	
 	/**
-	 * @param name The name of this station ie. "Laverton, Victoria"
-	 * @param bomLink A link to the stations bom online data
-	 * @param entries A map of entries to their dates.
-	 */
-	public WeatherStation(String name, String bomLink, HashMap<Date, WeatherStationDailyEntry> entries)
-	{
-		this(name, bomLink);
-		//if(entries != null)
-		//	this.dailyEntries = entries;
-	}
-	
-	/**
-	 * Daily entries can be added to a station provided the station doesn't
-	 * already have an entry for the provided date.
-	 * @param date The date associated to the entry
-	 * @param dailyEntry The entry to add into this stations list.
-	 * @return Returns true if the entry was added, false otherwise.
-	 */
-	//public boolean addDailyEntry(Date date, WeatherStationDailyEntry dailyEntry)
-	//{
-		//if(dailyEntries.containsKey(date) || date == null || dailyEntry == null)
-		//	return false;
-	//	
-		//dailyEntries.put(date, dailyEntry);
-	//	return true;
-	//}	
-	
-	/**
 	 * Snapshot entries can be added to a station provided the station doesn't
 	 * already have an entry for the provided date.
 	 * @param date The date associated to the entry
@@ -110,15 +85,6 @@ public class WeatherStation
 		snapshotEntries.put(date, snapshotEntry);
 		return true;
 	}	
-	
-	/**
-	 * Gets entries for station.
-	 * @return An unmodifiable map of entries for this station.
-	 */
-	//public Map<Date, WeatherStationDailyEntry> getEntries()
-	//{
-	//	return Collections.unmodifiableMap(dailyEntries);
-	//}
 	
 	/**
 	 * Gets entries for station.
@@ -150,7 +116,8 @@ public class WeatherStation
 	 */
 	public void scrapeEntries()
 	{
-		WeatherModelImpl.logger.log(Level.INFO, "Scraping " + name + " entries on new thread.");
+		logger.entering("WeatherStation", "scrapeEntries");
+		logger.log(Level.INFO, "Scraping " + name + " entries on new thread.");
 		Thread thread = new Thread( new Runnable()
 		{
 			@Override
@@ -171,6 +138,7 @@ public class WeatherStation
 				}
 				catch (IOException e)
 				{
+					logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + bomLink);
 					JOptionPane.showMessageDialog(null, "ERROR: Could not establish connection!",
 							"Connection Failure", JOptionPane.ERROR_MESSAGE);
 				}
@@ -230,7 +198,7 @@ public class WeatherStation
 					} 
 					catch (ParseException e)
 					{
-						//Invalid date format
+						logger.log(Level.SEVERE, "The weather api has changed or the parsing code has been modified! Important!!");
 						e.printStackTrace();
 					}
 				}

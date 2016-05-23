@@ -29,7 +29,7 @@ import interfaces.WeatherSystem;
 public class WeatherModelImpl implements WeatherSystem 
 {
 	private static final String stationLinksFP = "stations.json";
-	public static Logger logger = Logger.getLogger("");
+	public static Logger logger = Logger.getLogger("Weather Model");
 	
 	/**
 	 * Just to make it clear, this hashmap stores australian
@@ -53,19 +53,19 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	public WeatherModelImpl()
 	{
-		PopulateStations(stationLinksFP);
+		populateStations(stationLinksFP);
 		
 	}
 	
 	public WeatherModelImpl(String stationJson)
 	{
-		PopulateStations(stationJson);
+		populateStations(stationJson);
 	}
 	
 	@Override
 	public void refreshFavoriteWeatherData() 
 	{
-		logger.entering("WeatherModelImpl", "refreshWeatherData()");
+		logger.entering("WeatherModelImpl", "refreshWeatherData");
 		Runnable thread = new Runnable()
 		{
 			
@@ -87,7 +87,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public WeatherStation getWeatherStation(String name) 
 	{
-		
+		logger.entering("WeatherModelImpl", "getWeatherStation");
 		WeatherStation foundStation = null;
 		for(HashMap<String, WeatherStation> stationList : stations.values())
 		{
@@ -106,6 +106,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public ArrayList<WeatherStation> getWeatherStations(State state) 
 	{
+		logger.entering("WeatherModelImpl", "getWeatherStations");
 		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
 		for(State curState : stations.keySet())
 		{
@@ -120,6 +121,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public ArrayList<WeatherStation> getWeatherStations(String subStr) 
 	{
+		logger.entering("WeatherModelImpl", "getWeatherStations");
 		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
 		for(HashMap<String, WeatherStation> stationList : stations.values())
 		{
@@ -136,6 +138,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public ArrayList<WeatherStation> getWeatherStations() 
 	{
+		logger.entering("WeatherModelImpl", "getWeatherStations");
 		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
 		for(HashMap<String, WeatherStation> stationList : stations.values())
 		{
@@ -153,8 +156,9 @@ public class WeatherModelImpl implements WeatherSystem
 	 * 
 	 * @param stationFilePath The filepath to the json file
 	 */
-	private void PopulateStations(String stationFilePath)
+	private void populateStations(String stationFilePath)
 	{
+		logger.entering("WeatherModelImpl", "PopulateStations");
 		logger.log(Level.INFO, "Populating stations with " + stationFilePath);
 		
 		//Read stations
@@ -176,6 +180,9 @@ public class WeatherModelImpl implements WeatherSystem
 		} 
 		catch (IOException e) 
 		{
+			logger.log(Level.SEVERE, "Can't open file " + stationFilePath +
+					" program will not execute correctly, replace file and try again!");
+			
 			JOptionPane.showMessageDialog(null,
 				    "stations.json couldn't be found, check your"
 				    + " installation. Terminating program!",
@@ -233,6 +240,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public boolean addFavoriteStation(String name) 
 	{
+		logger.entering("WeatherModelImpl", "addFavoriteStation");
 		if(getFavoriteStation(name) != null)
 			return false;
 		
@@ -256,6 +264,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public boolean removeFavoriteStation(String name) 
 	{
+		logger.entering("WeatherModelImpl", "removeFavoriteStation");
 		for(WeatherStation station : favorites)
 		{
 			if(station.getName() == name)
@@ -272,12 +281,14 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public ArrayList<WeatherStation> getFavoriteStations() 
 	{	
+		logger.entering("WeatherModelImpl", "getFavoriteStations");
 		return new ArrayList<WeatherStation>(Collections.unmodifiableList(favorites));
 	}
 
 	@Override
 	public WeatherStation getFavoriteStation(String name)
 	{
+		logger.entering("WeatherModelImpl", "getFavoriteStation");
 		WeatherStation station = null;
 		
 		for(WeatherStation s : favorites)
@@ -292,6 +303,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public void registerRefreshableCallback(IWeatherSystemCallback cb) 
 	{
+		logger.entering("WeatherModelImpl", "registerRefreshableCallback");
 		cbList.add(cb);
 	}
 	
@@ -301,11 +313,11 @@ public class WeatherModelImpl implements WeatherSystem
 	 */
 	private void invokeCallbacks()
 	{
-		logger.log(Level.INFO, "Invoking Callbacks");
+		logger.entering("WeatherModelImpl", "invokeCallbacks");
 		// We close the callback array because during refresh objects may register themselves
 		// thus modifying the length of the callbackList before refresh is complete.
 		List<IWeatherSystemCallback> clone = new ArrayList<IWeatherSystemCallback>(cbList);
-		
+		logger.log(Level.INFO, "Invoking Callbacks on " + clone.size() + " objects.");
 		for(IWeatherSystemCallback cb : clone)
 		{
 			cb.Refresh();
@@ -315,6 +327,7 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public ArrayList<WeatherStation> getWeatherStations(State state, String subStr) 
 	{
+		logger.entering("WeatherModelImpl", "getWeatherStations");
 		ArrayList<WeatherStation> s = new ArrayList<WeatherStation>();
 		
 		for(State curState : stations.keySet())

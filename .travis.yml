@@ -9,4 +9,5 @@ script:
   - ant jar
 
 notifications:
+  slack: largebigmac:PR0fchVqhWOEoaiue2zpUWWu
   email: false

@@ -8,30 +8,24 @@ import javax.swing.JButton;
 import interfaces.WeatherSystem;
 import model.WeatherStation;
 
-public class StationFavoriteButtonController implements ActionListener
-{
+public class StationFavoriteButtonController implements ActionListener {
 	WeatherStation station;
 	WeatherSystem system;
 	JButton button;
-	
-	public StationFavoriteButtonController(WeatherStation station, WeatherSystem system, JButton btn)
-	{
+
+	public StationFavoriteButtonController(WeatherStation station, WeatherSystem system, JButton btn) {
 		this.station = station;
 		this.system = system;
 		this.button = btn;
 	}
-	
+
 	@Override
-	public void actionPerformed(ActionEvent arg0) 
-	{
+	public void actionPerformed(ActionEvent arg0) {
 		WeatherStation temp = system.getFavoriteStation(station.getName());
-		if(temp == null)
-		{
+		if (temp == null) {
 			system.addFavoriteStation(station.getName());
 			button.setText("Unfavorite");
-		}
-		else
-		{
+		} else {
 			system.removeFavoriteStation(station.getName());
 			button.setText("Favorite");
 		}

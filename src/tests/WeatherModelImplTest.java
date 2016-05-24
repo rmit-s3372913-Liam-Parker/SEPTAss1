@@ -1,6 +1,7 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,29 +12,25 @@ import model.WeatherModelImpl;
 public class WeatherModelImplTest {
 
 	WeatherSystem model;
-	
+
 	@Before
-	public void setUp() throws Exception 
-	{
+	public void setUp() throws Exception {
 		model = new WeatherModelImpl("test_stations.json");
 	}
-	
+
 	@Test
-	public void addFavoriteStationTestA()
-	{
-		//Test for inserting null name
-		assertFalse(model.addFavoriteStation(null));	
+	public void addFavoriteStationTestA() {
+		// Test for inserting null name
+		assertFalse(model.addFavoriteStation(null));
 	}
-	
+
 	@Test
-	public void addFavoriteStationTestB()
-	{
+	public void addFavoriteStationTestB() {
 		assertTrue(model.addFavoriteStation("Test Station 1"));
 	}
-	
+
 	@Test
-	public void addFavoriteStationTestC()
-	{
+	public void addFavoriteStationTestC() {
 		assertFalse(model.addFavoriteStation("Invalid Station - faasddahwerbdf"));
 	}
 

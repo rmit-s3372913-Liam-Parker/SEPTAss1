@@ -1,4 +1,6 @@
 package view;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -20,154 +22,146 @@ import org.json.JSONTokener;
 import interfaces.IJsonSerializable;
 import interfaces.WeatherSystem;
 
-public class MainView extends JFrame implements IJsonSerializable
-{
+public class MainView extends JFrame implements IJsonSerializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String PROGRAM_TITLE = "Weather Application";
-	
-	//Window sizing constants.
+
+	// Window sizing constants.
 	private static final int MIN_WIDTH = 500;
 	private static final int DEFAULT_WIDTH = 900;
-	
+
 	private static final int MIN_HEIGHT = 400;
 	private static final int DEFAULT_HEIGHT = 750;
-	
+
 	private static final String WINDOW_STATES_JSON = "WindowStates.json";
-	
-	//Model Interface
+
+	// Model Interface
 	WeatherSystem system;
-	
-	//Sub Views
+
+	// Sub Views
 	WeatherStationsView leftPanel;
 	FavouritesView rightPanel;
-	
-	JPanel mainPanel = new JPanel(new GridLayout(0,2));
-	
+	StatusBarView statusBar;
+
+	JPanel mainPanel = new JPanel(new GridLayout(0, 2));
+	JPanel container = new JPanel(new BorderLayout());
 	Font font = new Font("Calibri", Font.PLAIN, 15);
-	
-	public MainView(WeatherSystem system)
-	{	
+
+	public MainView(WeatherSystem system) {
 		this.system = system;
 		leftPanel = new WeatherStationsView(system);
 		rightPanel = new FavouritesView(system);
-		
+		statusBar = new StatusBarView(system);
+
 		InitializeWindow();
 		AttachActionListeners();
 	}
-	
+
 	/**
 	 * Initialises the view of the window/frame.
 	 */
-	private void InitializeWindow()
-	{
+	private void InitializeWindow() {
 		mainPanel.add(leftPanel);
 		mainPanel.add(rightPanel);
-		
-		//There is a bug where you set the minSize and maxSize 
-		//It will minSize the frame but not maxSize
-		//http://bugs.java.com/bugdatabase/view_bug.do;?bug_id=6200438
-		//so I set the resizable to false
-		this.getContentPane().add(mainPanel);
+
+		container.add(mainPanel, BorderLayout.CENTER);
+		container.add(statusBar, BorderLayout.SOUTH);
+
+		// There is a bug where you set the minSize and maxSize
+		// It will minSize the frame but not maxSize
+		// http://bugs.java.com/bugdatabase/view_bug.do;?bug_id=6200438
+		// so I set the resizable to false
+		this.getContentPane().add(container);
 		this.setTitle(PROGRAM_TITLE);
-		this.setMinimumSize(new Dimension(MIN_WIDTH,MIN_HEIGHT));
-		this.setLocationRelativeTo(null); //centre the frame on screen
+		this.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
+		this.setLocationRelativeTo(null); // centre the frame on screen
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setResizable(true);
 		this.pack();
-		
+
 		loadProgramState();
 		this.setVisible(true);
 	}
-	
+
 	/**
-	 * This function would ideally be removed
-	 * we need to transition this window listener to controller.
-	 * However we're reliant on functionality in this class. 
-	 * TODO:
+	 * This function would ideally be removed we need to transition this window
+	 * listener to controller. However we're reliant on functionality in this
+	 * class. TODO:
 	 */
-	private void AttachActionListeners()
-	{	
-		this.addWindowListener( new WindowAdapter() 
-		{
+	private void AttachActionListeners() {
+		this.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosing(WindowEvent e) 
-			{
+			public void windowClosing(WindowEvent e) {
 				saveProgramState();
 				System.exit(0);
 			}
 		});
 	}
-	
+
 	/**
-	 * Will load from json state file if available, grabbing
-	 * the last known window sizes and positions to reinitialize on this
-	 * execution of the program.
+	 * Will load from json state file if available, grabbing the last known
+	 * window sizes and positions to reinitialize on this execution of the
+	 * program.
 	 */
-	private void loadProgramState()
-	{
+	private void loadProgramState() {
 		String windowStatesJson = "";
-		
-		try 
-		{
-            FileReader reader = new FileReader(WINDOW_STATES_JSON);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line = "";
-            
-            while((line = bufferedReader.readLine()) != null) 
-            {
-            	windowStatesJson += line;
-            }   
-            
-            bufferedReader.close();
-            
+
+		try {
+			FileReader reader = new FileReader(WINDOW_STATES_JSON);
+			BufferedReader bufferedReader = new BufferedReader(reader);
+			String line = "";
+
+			while ((line = bufferedReader.readLine()) != null) {
+				windowStatesJson += line;
+			}
+
+			bufferedReader.close();
+
+		} catch (IOException e) {
+			return;
 		}
-		catch (IOException e) { return; }
-		
+
 		JSONTokener tokener = new JSONTokener(windowStatesJson);
 		JSONArray stateArray = new JSONArray(tokener);
-		
-		//TODO for now we assume indexes until we can
+
+		// TODO for now we assume indexes until we can
 		// find a way to save objects with window name.
 		LoadFromJsonObject(stateArray.getJSONObject(0));
 		leftPanel.LoadFromJsonObject(stateArray.getJSONObject(1));
 	}
-	
-	private void saveProgramState()
-	{
+
+	private void saveProgramState() {
 		JSONArray windowArray = new JSONArray();
 		windowArray.put(SaveToJsonObject());
-    	windowArray.put(leftPanel.SaveToJsonObject());
-    	
-    	try 
-    	{
+		windowArray.put(leftPanel.SaveToJsonObject());
+
+		try {
 			PrintWriter writer = new PrintWriter("WindowStates.json");
 			writer.print(windowArray.toString());
 			writer.close();
-		} 
-    	catch (FileNotFoundException e1) { }
+		} catch (FileNotFoundException e1) {
+		}
 	}
-	
+
 	@Override
-	public JSONObject SaveToJsonObject() 
-	{
+	public JSONObject SaveToJsonObject() {
 		JSONObject object = new JSONObject();
-		
+
 		object.put("windowPosX", this.getX());
 		object.put("windowPosY", this.getY());
-		
+
 		object.put("windowWidth", this.getWidth());
 		object.put("windowHeight", this.getHeight());
-		
-		//TODO any other values to save?
-		
+
+		// TODO any other values to save?
+
 		return object;
 	}
 
 	@Override
-	public void LoadFromJsonObject(JSONObject obj) 
-	{
-		this.setBounds(obj.getInt("windowPosX"), obj.getInt("windowPosY"),
-				obj.getInt("windowWidth"), obj.getInt("windowHeight"));
+	public void LoadFromJsonObject(JSONObject obj) {
+		this.setBounds(obj.getInt("windowPosX"), obj.getInt("windowPosY"), obj.getInt("windowWidth"),
+				obj.getInt("windowHeight"));
 	}
 }

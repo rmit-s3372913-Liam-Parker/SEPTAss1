@@ -17,55 +17,48 @@ import model.WeatherDataPoint;
 
 /**
  * A window containing the graph for a weather stations data.
+ * 
  * @author Liam
  */
-public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCallback
-{
+public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCallback {
 	private static final long serialVersionUID = -8115274594459474258L;
-	
+
 	private Map<Date, WeatherDataPoint> entries;
-	
+
 	private JFreeChart graph;
 	DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-	
+
 	/**
 	 * Constructor for a weatherStation graph with name and data
-	 * @param name The name of the station
-	 * @param data The data for the graph to display
+	 * 
+	 * @param name
+	 *            The name of the station
+	 * @param data
+	 *            The data for the graph to display
 	 */
-	public WeatherStationDataGraph(String name, Map<Date, WeatherDataPoint> data)
-	{
+	public WeatherStationDataGraph(String name, Map<Date, WeatherDataPoint> data) {
 		super(name);
 		this.entries = data;
-		
-		graph = ChartFactory.createLineChart(name + " Historical Temperatures",
-				"Date",
-				"Temperature",
-				populateData(),
-				PlotOrientation.VERTICAL,
-				true,
-				true,
-				false);
-		
+
+		graph = ChartFactory.createLineChart(name + " Historical Temperatures", "Date", "Temperature", populateData(),
+				PlotOrientation.VERTICAL, true, true, false);
+
 		ChartPanel panel = new ChartPanel(graph);
-		panel.setPreferredSize(new Dimension(600,600));
-		
+		panel.setPreferredSize(new Dimension(600, 600));
+
 		this.setContentPane(panel);
 	}
-	
+
 	/**
 	 * Populates a dataset with values from entries array.
-	 * @return A dataset for display inside of a chart. NOTE, this
-	 * dataset is just a convenience reference to the graphs
-	 * internal dataset.
+	 * 
+	 * @return A dataset for display inside of a chart. NOTE, this dataset is
+	 *         just a convenience reference to the graphs internal dataset.
 	 */
-	private DefaultCategoryDataset populateData()
-	{
+	private DefaultCategoryDataset populateData() {
 		dataSet.clear();
-		if(entries != null)
-		{
-			for(WeatherDataPoint entry : entries.values())
-			{
+		if (entries != null) {
+			for (WeatherDataPoint entry : entries.values()) {
 				dataSet.addValue(entry.getTemp(), "Temperature", entry.getDate().toString());
 			}
 		}
@@ -73,8 +66,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	}
 
 	@Override
-	public void Refresh() 
-	{
+	public void Refresh() {
 		populateData();
 		graph.fireChartChanged();
 	}

@@ -1,22 +1,5 @@
 package model;
 
-public enum CompassDirection 
-{
-	CALM,
-	N,
-	NNE,
-	NE,
-	ENE,
-	E,
-	ESE,
-	SE,
-	SSE,
-	S,
-	SSW,
-	SW,
-	WSW,
-	W,
-	WNW,
-	NW,
-	NNW
+public enum CompassDirection {
+	CALM, N, NNE, NE, ENE, E, ESE, SE, SSE, S, SSW, SW, WSW, W, WNW, NW, NNW
 }

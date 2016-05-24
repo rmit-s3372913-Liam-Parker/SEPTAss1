@@ -57,10 +57,20 @@ public class WeatherStation
 	public boolean isFavorite = false;
 	
 	/**
-	 * 
+	 * Used to signify which source this station will draw from.
+	 * To be set statically from the relevant controller.
+	 */
+	public static ForecastSource forecastSource = ForecastSource.FORECAST_IO;
+	
+	/**
+	 * List of historical weather data for this station
 	 */
 	HashMap<Date, WeatherDataPoint> historicalDataPoints = new HashMap<Date, WeatherDataPoint>();
-	HashMap<Date, WeatherDataPoint> forecastDataPoints = new HashMap<Date, WeatherDataPoint>();	
+	
+	/**
+	 * List of forecasted weather data for this station
+	 */
+	HashMap<Date, WeatherDataPoint> forecastDataPoints = new HashMap<Date, WeatherDataPoint>();
 	
 	/**
 	 * 
@@ -80,7 +90,7 @@ public class WeatherStation
 	 * @param snapshotEntry The entry to add into this stations list.
 	 * @return Returns true if the entry was added, false otherwise.
 	 */
-	public boolean addSnapshotEntry(Date date, WeatherDataPoint snapshotEntry)
+	public boolean addHistoricalDataPoint(Date date, WeatherDataPoint snapshotEntry)
 	{
 		if(historicalDataPoints.containsKey(date) || date == null || snapshotEntry == null)
 			return false;
@@ -90,12 +100,37 @@ public class WeatherStation
 	}	
 	
 	/**
-	 * Gets entries for station.
+	 * Datapoint entries can be added to a station provided the station doesn't
+	 * already have an entry for the provided date.
+	 * @param date The date associated to the entry
+	 * @param snapshotEntry The entry to add into this stations list.
+	 * @return Returns true if the entry was added, false otherwise.
+	 */
+	public boolean addForecastDataPoint(Date date, WeatherDataPoint snapshotEntry)
+	{
+		if(forecastDataPoints.containsKey(date) || date == null || snapshotEntry == null)
+			return false;
+		
+		forecastDataPoints.put(date, snapshotEntry);
+		return true;
+	}	
+	
+	/**
+	 * Gets historical entries for station.
 	 * @return An unmodifiable map of entries for this station.
 	 */
-	public Map<Date, WeatherDataPoint> getSnapshots()
+	public Map<Date, WeatherDataPoint> getHistoricalDataPoints()
 	{
 		return Collections.unmodifiableMap(historicalDataPoints);
+	}
+	
+	/**
+	 * Gets forecast entries for station.
+	 * @return An unmodifiable map of entries for this station.
+	 */
+	public Map<Date, WeatherDataPoint> getForecastDataPoints()
+	{
+		return Collections.unmodifiableMap(forecastDataPoints);
 	}
 	
 	/**
@@ -121,11 +156,37 @@ public class WeatherStation
 	{
 		logger.entering("WeatherStation", "scrapeEntries");
 		logger.log(Level.INFO, "Scraping " + name + " entries on new thread.");
+		
 		Thread thread = new Thread( new Runnable()
 		{
 			@Override
 			public void run() 
 			{
+				ForecastFactory factory;
+				
+				switch(forecastSource)
+				{
+				case FORECAST_IO:
+					factory = new ForecastIOFactory();
+					break;
+				case OPEN_WEATHER_MAP:
+					factory = new OpenWeatherMapFactory();
+					break;
+				default:
+					factory = new ForecastIOFactory();
+					break;
+				}
+				
+				forecastDataPoints = factory.GetWeatherForecast();
+				
+				scrapeHistoricalData();
+			}
+		});
+		thread.start();
+	}
+	
+	private void scrapeHistoricalData()
+	{
 				String entriesJson = "";
 				
 				try
@@ -145,8 +206,7 @@ public class WeatherStation
 					JOptionPane.showMessageDialog(null, "ERROR: Could not establish connection!",
 							"Connection Failure", JOptionPane.ERROR_MESSAGE);
 				}
-			
-				//JSONTokener tokener = new JSONTokener(entriesJson);
+				
 				JSONObject root = new JSONObject(entriesJson);		
 				JSONObject observations = root.getJSONObject("observations");
 				JSONArray entriesArray = observations.getJSONArray("data");
@@ -195,7 +255,7 @@ public class WeatherStation
 							rainSinceNineAM);
 					
 						//Add the entry to this station's hashmap
-						addSnapshotEntry(date, snapshotEntry);
+						addHistoricalDataPoint(date, snapshotEntry);
 					} 
 					catch (ParseException e)
 					{
@@ -203,11 +263,6 @@ public class WeatherStation
 						e.printStackTrace();
 					}
 				}
-				
-			}
-			
-		});
-		thread.start();
 	}
 	
 }

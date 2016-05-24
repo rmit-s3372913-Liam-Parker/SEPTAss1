@@ -1,6 +1,9 @@
 package model;
 
+import java.util.Date;
+import java.util.HashMap;
+
 public interface ForecastFactory 
 {
-	WeatherDataPoint GetWeatherForecast();
+	HashMap<Date, WeatherDataPoint> GetWeatherForecast();
 }

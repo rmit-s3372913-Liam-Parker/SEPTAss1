@@ -61,7 +61,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 		graphButton = new JButton("Graph");
 		dataTable = new WeatherStationDataTable(station);
 		
-		graph = new WeatherStationDataGraph(station.getName(), this.station.getSnapshots());
+		graph = new WeatherStationDataGraph(station.getName(), this.station.getHistoricalDataPoints());
 		graph.pack();
 		RefineryUtilities.centerFrameOnScreen(graph);
 		

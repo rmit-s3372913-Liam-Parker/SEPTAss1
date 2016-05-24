@@ -13,7 +13,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import interfaces.IWeatherSystemCallback;
-import model.WeatherStationSnapshotEntry;
+import model.WeatherDataPoint;
 
 /**
  * A window containing the graph for a weather stations data.
@@ -23,7 +23,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 {
 	private static final long serialVersionUID = -8115274594459474258L;
 	
-	private Map<Date, WeatherStationSnapshotEntry> entries;
+	private Map<Date, WeatherDataPoint> entries;
 	
 	private JFreeChart graph;
 	DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
@@ -33,7 +33,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	 * @param name The name of the station
 	 * @param data The data for the graph to display
 	 */
-	public WeatherStationDataGraph(String name, Map<Date, WeatherStationSnapshotEntry> data)
+	public WeatherStationDataGraph(String name, Map<Date, WeatherDataPoint> data)
 	{
 		super(name);
 		this.entries = data;
@@ -64,7 +64,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		dataSet.clear();
 		if(entries != null)
 		{
-			for(WeatherStationSnapshotEntry entry : entries.values())
+			for(WeatherDataPoint entry : entries.values())
 			{
 				dataSet.addValue(entry.getTemp(), "Temperature", entry.getDate().toString());
 			}

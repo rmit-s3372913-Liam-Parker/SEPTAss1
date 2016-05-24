@@ -303,8 +303,11 @@ public class WeatherModelImpl implements WeatherSystem
 	@Override
 	public void registerRefreshableCallback(IWeatherSystemCallback cb) 
 	{
-		logger.entering("WeatherModelImpl", "registerRefreshableCallback");
-		cbList.add(cb);
+		logger.log(Level.INFO, "Registered callback " + cb.toString());
+		
+		// Don't add the callback if it's already registered
+		if(!cbList.contains(cb))
+			cbList.add(cb);
 	}
 	
 	/**

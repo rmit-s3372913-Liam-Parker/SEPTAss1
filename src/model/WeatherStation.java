@@ -42,22 +42,25 @@ public class WeatherStation
 	private String bomLink;
 	
 	/**
+	 * Latitude of station can be useful for making calls to APIs other than BOM
+	 */
+	private String lat;
+	/**
+	 * Longtitude of station can be useful for making calls to APIs other than BOM
+	 */
+	private String lon;
+	
+	/**
 	 * True if this station has been selected as a favorite
 	 * by the user. False otherwise.
 	 */
 	public boolean isFavorite = false;
 	
 	/**
-	 * Unused currently, use snapshotEntries instead, we're leaving this
-	 * here for code extensibility in the future.
-	 */
-	//HashMap<Date, WeatherStationDailyEntry> dailyEntries = new HashMap<Date, WeatherStationDailyEntry>();
-	
-	/**
 	 * 
 	 */
-	HashMap<Date, WeatherStationSnapshotEntry> snapshotEntries = new HashMap<Date, WeatherStationSnapshotEntry>();
-		
+	HashMap<Date, WeatherDataPoint> historicalDataPoints = new HashMap<Date, WeatherDataPoint>();
+	HashMap<Date, WeatherDataPoint> forecastDataPoints = new HashMap<Date, WeatherDataPoint>();	
 	
 	/**
 	 * 
@@ -77,12 +80,12 @@ public class WeatherStation
 	 * @param snapshotEntry The entry to add into this stations list.
 	 * @return Returns true if the entry was added, false otherwise.
 	 */
-	public boolean addSnapshotEntry(Date date, WeatherStationSnapshotEntry snapshotEntry)
+	public boolean addSnapshotEntry(Date date, WeatherDataPoint snapshotEntry)
 	{
-		if(snapshotEntries.containsKey(date) || date == null || snapshotEntry == null)
+		if(historicalDataPoints.containsKey(date) || date == null || snapshotEntry == null)
 			return false;
 		
-		snapshotEntries.put(date, snapshotEntry);
+		historicalDataPoints.put(date, snapshotEntry);
 		return true;
 	}	
 	
@@ -90,9 +93,9 @@ public class WeatherStation
 	 * Gets entries for station.
 	 * @return An unmodifiable map of entries for this station.
 	 */
-	public Map<Date, WeatherStationSnapshotEntry> getSnapshots()
+	public Map<Date, WeatherDataPoint> getSnapshots()
 	{
-		return Collections.unmodifiableMap(snapshotEntries);
+		return Collections.unmodifiableMap(historicalDataPoints);
 	}
 	
 	/**
@@ -187,18 +190,16 @@ public class WeatherStation
 						float rainSinceNineAM = (float)entry.optDouble("rain_trace");
 					
 						//Create a snapshot entry using all the scraped data
-						WeatherStationSnapshotEntry snapshotEntry = new WeatherStationSnapshotEntry(date, temp, appTemp, dewPoint,
+						WeatherDataPoint snapshotEntry = new WeatherDataPoint(date, temp, appTemp, dewPoint,
 							relHum, deltaT, windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL, 
 							rainSinceNineAM);
 					
 						//Add the entry to this station's hashmap
 						addSnapshotEntry(date, snapshotEntry);
-					
-					
 					} 
 					catch (ParseException e)
 					{
-						logger.log(Level.SEVERE, "The weather api has changed or the parsing code has been modified! Important!!");
+						logger.log(Level.SEVERE, "The BOM api has changed or the parsing code has been modified! Important!!");
 						e.printStackTrace();
 					}
 				}

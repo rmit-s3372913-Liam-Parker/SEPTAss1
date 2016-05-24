@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class WeatherStationSnapshotEntry
+public class WeatherDataPoint
 {
 
 	//Temperatures and humidity
@@ -29,7 +29,7 @@ public class WeatherStationSnapshotEntry
 	
 	
 	
-	public WeatherStationSnapshotEntry(Date date, float temp, float appTemp, float dewPoint, int relHum, float deltaT, CompassDirection windDir, int windSpeedKm, int gustSpeedKm, int windSpeedKts, int gustSpeedKts, float pressQNH, float pressMSL, float rainSinceNineAM)
+	public WeatherDataPoint(Date date, float temp, float appTemp, float dewPoint, int relHum, float deltaT, CompassDirection windDir, int windSpeedKm, int gustSpeedKm, int windSpeedKts, int gustSpeedKts, float pressQNH, float pressMSL, float rainSinceNineAM)
 	{
 		
 		this.date = date;

@@ -109,4 +109,12 @@ public interface WeatherSystem {
 	 *            The interface to call refresh on.
 	 */
 	void registerRefreshableCallback(IWeatherSystemCallback cb);
+	
+	/**
+	 * Unregisters a refreshable interface with the system.
+	 * 
+	 * @param cb
+	 *            The interface to remove if it exists.
+	 */
+	void unregisterRefreshableCallback(IWeatherSystemCallback cb);
 }

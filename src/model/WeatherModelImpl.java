@@ -30,7 +30,6 @@ import view.StatusBarView;
 public class WeatherModelImpl implements WeatherSystem {
 	private static final String stationLinksFP = "stations.json";
 	public static Logger logger = Logger.getLogger("Weather Model");
-	private boolean currentlyFetchingData = false;
 	
 	/**
 	 * Just to make it clear, this hashmap stores australian states as a key and
@@ -274,6 +273,12 @@ public class WeatherModelImpl implements WeatherSystem {
 			cbList.add(cb);
 	}
 
+	@Override
+	public void unregisterRefreshableCallback(IWeatherSystemCallback cb) {
+		logger.log(Level.INFO, "Unregistered callback " + cb.toString());
+		cbList.remove(cb);
+	}
+	
 	/**
 	 * Iterates over the callback list invoking Refresh() on each.
 	 */

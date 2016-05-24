@@ -7,7 +7,8 @@ import javax.swing.JProgressBar;
 
 import interfaces.WeatherSystem;
 
-public class StatusBarView extends JPanel {
+public class StatusBarView extends JPanel 
+{
 	private static final long serialVersionUID = -7934671678344118450L;
 
 	static JProgressBar progressBar = new JProgressBar();;

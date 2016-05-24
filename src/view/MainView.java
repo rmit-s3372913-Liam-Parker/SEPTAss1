@@ -13,12 +13,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import controller.MenuBarController;
 import interfaces.IJsonSerializable;
 import interfaces.WeatherSystem;
 
@@ -44,6 +48,10 @@ public class MainView extends JFrame implements IJsonSerializable {
 	FavouritesView rightPanel;
 	StatusBarView statusBar;
 
+	// Menu Bar
+	JMenuBar menuBar = new JMenuBar();
+	JMenu menu = new JMenu("Forecast Source");
+	
 	JPanel mainPanel = new JPanel(new GridLayout(0, 2));
 	JPanel container = new JPanel(new BorderLayout());
 	Font font = new Font("Calibri", Font.PLAIN, 15);
@@ -67,7 +75,21 @@ public class MainView extends JFrame implements IJsonSerializable {
 
 		container.add(mainPanel, BorderLayout.CENTER);
 		container.add(statusBar, BorderLayout.SOUTH);
-
+		
+		// Menu bar setup
+		MenuBarController menuBarController = new MenuBarController();
+		JMenuItem item = new JMenuItem("Forecast.io");
+		item.addActionListener(menuBarController);
+		JMenuItem item2 = new JMenuItem("Open Weather Map");
+		item2.addActionListener(menuBarController);
+		
+		menu.add(item);
+		menu.add(item2);
+		
+		menuBar.add(menu);
+		this.setJMenuBar(menuBar);
+		
+		// Main window setup
 		// There is a bug where you set the minSize and maxSize
 		// It will minSize the frame but not maxSize
 		// http://bugs.java.com/bugdatabase/view_bug.do;?bug_id=6200438

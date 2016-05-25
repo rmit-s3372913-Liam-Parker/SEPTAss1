@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Date;
 import java.util.Map;
@@ -9,7 +10,9 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import interfaces.IWeatherSystemCallback;
@@ -40,12 +43,12 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		super(name);
 		this.entries = data;
 
-		graph = ChartFactory.createLineChart(name + " Historical Temperatures", "Date", "Temperature", populateData(),
+		graph = ChartFactory.createLineChart(name + " Historical Temperatures", "Date", "Measurement", populateData(),
 				PlotOrientation.VERTICAL, true, true, false);
 
 		ChartPanel panel = new ChartPanel(graph);
-		panel.setPreferredSize(new Dimension(600, 600));
-
+		panel.setPreferredSize(new Dimension(1024, 768));
+		
 		this.setContentPane(panel);
 	}
 
@@ -60,6 +63,13 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		if (entries != null) {
 			for (WeatherDataPoint entry : entries.values()) {
 				dataSet.addValue(entry.getTemp(), "Temperature", entry.getDate().toString());
+				dataSet.addValue(entry.getAppTemp(), "Apparent Temperature", entry.getDate().toString());
+				dataSet.addValue(entry.getDewPoint(), "Dew Point", entry.getDate().toString());
+				dataSet.addValue(entry.getWindSpeedKts(), "Wind Speed Kts", entry.getDate().toString());
+				dataSet.addValue(entry.getWindSpeedKmh(), "Wind Speed Kmh", entry.getDate().toString());
+				dataSet.addValue(entry.getPressQNH(), "Pressure QNH", entry.getDate().toString());
+				dataSet.addValue(entry.getPressMSL(), "Pressure MSL", entry.getDate().toString());
+				dataSet.addValue(entry.getRainSinceNineAM(), "Rain MM", entry.getDate().toString());
 			}
 		}
 		return dataSet;

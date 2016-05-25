@@ -18,6 +18,7 @@ public class WeatherDataPoint {
 	// Wind & gust
 	private CompassDirection windDir;
 	private int windSpeedKmh;
+
 	private int gustSpeedKmh;
 	private int windSpeedKts;
 	private int gustSpeedKts;
@@ -63,5 +64,53 @@ public class WeatherDataPoint {
 	 */
 	public float getTemp() {
 		return temp;
+	}
+	
+	public float getAppTemp() {
+		return appTemp;
+	}
+
+	public float getDewPoint() {
+		return dewPoint;
+	}
+
+	public int getRelHum() {
+		return relHum;
+	}
+
+	public float getDeltaT() {
+		return deltaT;
+	}
+
+	public CompassDirection getWindDir() {
+		return windDir;
+	}
+
+	public int getWindSpeedKmh() {
+		return windSpeedKmh;
+	}
+
+	public int getGustSpeedKmh() {
+		return gustSpeedKmh;
+	}
+
+	public int getWindSpeedKts() {
+		return windSpeedKts;
+	}
+
+	public int getGustSpeedKts() {
+		return gustSpeedKts;
+	}
+
+	public float getPressQNH() {
+		return pressQNH;
+	}
+
+	public float getPressMSL() {
+		return pressMSL;
+	}
+
+	public float getRainSinceNineAM() {
+		return rainSinceNineAM;
 	}
 }

@@ -73,8 +73,7 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 		this.add(graphButton, BorderLayout.WEST);
 
 		JPanel tablePanel = new JPanel(new BorderLayout());
-		tablePanel.add(dataTable.getTableHeader(), BorderLayout.NORTH);
-		tablePanel.add(dataTable, BorderLayout.CENTER);
+		tablePanel.add(dataTable);
 		this.add(tablePanel, BorderLayout.CENTER);
 	}
 

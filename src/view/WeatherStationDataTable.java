@@ -1,21 +1,29 @@
 package view;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import interfaces.IWeatherSystemCallback;
 import model.WeatherStation;
 
-public class WeatherStationDataTable extends JTable implements IWeatherSystemCallback {
+public class WeatherStationDataTable extends JPanel implements IWeatherSystemCallback {
 	private static final long serialVersionUID = 5280729831640510542L;
 
 	private WeatherStation station;
 
-	public WeatherStationDataTable(WeatherStation station) {
+	static String[] forecastCols = {"Date",
+            "Temp",
+            "Rel Hum",
+            "Wind Dir",
+            "Wind Spd Kts",
+            "PressureQNH",
+            "Rain MM"};
+	
+	public WeatherStationDataTable(WeatherStation station) 
+	{
 
 		super();
 		this.station = station;
-		setAutoResizeMode(AUTO_RESIZE_OFF);
-		doLayout();
 	}
 
 	@Override

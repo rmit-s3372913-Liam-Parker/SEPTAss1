@@ -21,13 +21,4 @@ public class WeatherStationTest {
 		assertEquals("Test Station", station.getName());
 		assertEquals("invalidbomlink.com", station.getBomLink());
 	}
-
-	@Test
-	public void testSocketException() {
-		try {
-			station.scrapeEntries();
-			fail(" Socket Exception not thrown! link should be invalid.");
-		} catch (Exception e) {
-		}
-	}
 }

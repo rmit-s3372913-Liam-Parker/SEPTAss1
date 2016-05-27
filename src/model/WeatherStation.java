@@ -15,8 +15,6 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JOptionPane;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -192,8 +190,9 @@ public class WeatherStation {
 			sc.close();
 		} catch (IOException e) {
 			logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + bomLink);
-			JOptionPane.showMessageDialog(null, "ERROR: Could not establish connection!", "Connection Failure",
-					JOptionPane.ERROR_MESSAGE);
+			// TODO: Find a better way to display error to user. This function is called per station.
+			//JOptionPane.showMessageDialog(null, "ERROR: Could not establish connection!", "Connection Failure",
+			//		JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 

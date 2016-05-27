@@ -15,8 +15,6 @@ import java.util.logging.Logger;
 /**
  * Stores all information on a specific weather station, its name and all day to
  * day entries.
- * 
- * @see WeatherStationDailyEntry
  */
 public class WeatherStation {
 	private static Logger logger = Logger.getLogger("Weather Stations");
@@ -34,18 +32,12 @@ public class WeatherStation {
 	/**
 	 * Latitude of station can be useful for making calls to APIs other than BOM
 	 */
-	private String lat;
+	private String lat = "";
 	/**
 	 * Longtitude of station can be useful for making calls to APIs other than
 	 * BOM
 	 */
-	private String lon;
-
-	/**
-	 * True if this station has been selected as a favorite by the user. False
-	 * otherwise.
-	 */
-	public boolean isFavorite = false;
+	private String lon = "";
 
 	/**
 	 * Used to signify which source this station will draw from. To be set
@@ -143,6 +135,8 @@ public class WeatherStation {
 		return bomLink;
 	}
 
+
+
 	/**
 	 * Scrapes forecast and historical data from the bomlink &
 	 * forecast.io/openweathermap and stores them internally.
@@ -151,23 +145,22 @@ public class WeatherStation {
 		logger.entering("WeatherStation", "scrapeEntries");
 		logger.log(Level.INFO, "Scraping " + name + " entries on new thread.");
 
-		ForecastFactory factory;
+		scrapeHistoricalData();
 
+		ForecastFactory factory;
 		switch (forecastSource) {
 		case FORECAST_IO:
-			factory = new ForecastIOFactory();
+			factory = new ForecastIOFactory(lat, lon);
 			break;
 		case OPEN_WEATHER_MAP:
 			factory = new OpenWeatherMapFactory();
 			break;
 		default:
-			factory = new ForecastIOFactory();
+			factory = new ForecastIOFactory(lat, lon);
 			break;
 		}
 
 		forecastDataPoints = factory.GetWeatherForecast();
-
-		scrapeHistoricalData();
 	}
 
 	private void scrapeHistoricalData() {

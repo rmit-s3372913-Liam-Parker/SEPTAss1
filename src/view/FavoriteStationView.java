@@ -1,18 +1,14 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import org.jfree.ui.RefineryUtilities;
-
 import interfaces.IWeatherSystemCallback;
 import interfaces.WeatherSystem;
 import model.WeatherStation;
+import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * This class represents a single weather station entry into the favorites view.

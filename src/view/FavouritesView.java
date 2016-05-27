@@ -1,21 +1,14 @@
 package view;
 
-import java.awt.GridLayout;
-import java.util.List;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
-
-import org.json.JSONObject;
-
 import interfaces.IJsonSerializable;
 import interfaces.IWeatherSystemCallback;
 import interfaces.WeatherSystem;
 import model.WeatherStation;
+import org.json.JSONObject;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 public class FavouritesView extends JPanel implements IJsonSerializable, IWeatherSystemCallback {
 	private static final long serialVersionUID = 1L;

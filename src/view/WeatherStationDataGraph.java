@@ -1,22 +1,17 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.util.Date;
-import java.util.Map;
-
-import javax.swing.JFrame;
-
+import interfaces.IWeatherSystemCallback;
+import model.WeatherDataPoint;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import interfaces.IWeatherSystemCallback;
-import model.WeatherDataPoint;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * A window containing the graph for a weather stations data.

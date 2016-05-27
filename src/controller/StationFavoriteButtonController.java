@@ -1,12 +1,11 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
 import interfaces.WeatherSystem;
 import model.WeatherStation;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class StationFavoriteButtonController implements ActionListener {
 	WeatherStation station;

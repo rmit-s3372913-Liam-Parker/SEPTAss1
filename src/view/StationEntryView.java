@@ -1,14 +1,11 @@
 package view;
 
-import java.awt.BorderLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import controller.StationFavoriteButtonController;
 import interfaces.WeatherSystem;
 import model.WeatherStation;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Stores GUI related functionality of an individual station entry on the

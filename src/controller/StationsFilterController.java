@@ -1,9 +1,9 @@
 package controller;
 
+import interfaces.WeatherSystem;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import interfaces.WeatherSystem;
 
 public class StationsFilterController implements ActionListener {
 	WeatherSystem system;

@@ -1,29 +1,19 @@
 package view;
 
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-
-import org.json.JSONObject;
-
 import controller.StationsFilterController;
 import interfaces.IJsonSerializable;
 import interfaces.IWeatherSystemCallback;
 import interfaces.WeatherSystem;
 import model.State;
 import model.WeatherStation;
+import org.json.JSONObject;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WeatherStationsView extends JPanel implements IWeatherSystemCallback, IJsonSerializable {
 	private static final long serialVersionUID = 1L;

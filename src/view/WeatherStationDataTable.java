@@ -1,10 +1,9 @@
 package view;
 
-import javax.swing.JPanel;
-import javax.swing.JTable;
-
 import interfaces.IWeatherSystemCallback;
 import model.WeatherStation;
+
+import javax.swing.*;
 
 public class WeatherStationDataTable extends JPanel implements IWeatherSystemCallback {
 	private static final long serialVersionUID = 5280729831640510542L;

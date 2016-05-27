@@ -1,12 +1,10 @@
 package tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import model.WeatherStation;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.WeatherStation;
+import static org.junit.Assert.assertEquals;
 
 public class WeatherStationTest {
 	WeatherStation station;

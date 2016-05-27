@@ -1,11 +1,9 @@
 package view;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-
 import interfaces.WeatherSystem;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class StatusBarView extends JPanel 
 {

@@ -1,13 +1,12 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-
 import interfaces.WeatherSystem;
 import view.FavouritesView;
 import view.WeatherStationsView;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Handles events on the MainView class

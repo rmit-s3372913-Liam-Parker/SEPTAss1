@@ -1,10 +1,10 @@
 package interfaces;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.State;
 import model.WeatherStation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public interface WeatherSystem {
 	/**

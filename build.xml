@@ -6,10 +6,6 @@
   <property name="bin.path" value="bin"/>
   <property name="intermediate.path" value="${bin.path}/intermediate"/>
 
-  <target name="clean">
-
-  </target>
-
   <target name="test" description="Runs JUnit">
     <echo message="Running unit tests..." />
     <junit>

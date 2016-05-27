@@ -137,8 +137,7 @@ public class WeatherModelImpl implements WeatherSystem {
 	 *            The filepath to the json file
 	 */
 	private void populateStations(String stationFilePath) {
-		logger.entering("WeatherModelImpl", "PopulateStations");
-		logger.log(Level.INFO, "Populating stations with " + stationFilePath);
+		logger.log(Level.FINER, "Populating stations with " + stationFilePath);
 
 		// Read stations
 		String stationsJson = "";

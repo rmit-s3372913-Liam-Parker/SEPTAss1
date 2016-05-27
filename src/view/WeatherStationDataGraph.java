@@ -42,6 +42,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 				PlotOrientation.VERTICAL, true, true, false);
 
 		ChartPanel panel = new ChartPanel(graph);
+		graph.getCategoryPlot().setRangePannable(true);
 		panel.setPreferredSize(new Dimension(1024, 768));
 		
 		this.setContentPane(panel);
@@ -62,8 +63,6 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 				dataSet.addValue(entry.getDewPoint(), "Dew Point", entry.getDate().toString());
 				dataSet.addValue(entry.getWindSpeedKts(), "Wind Speed Kts", entry.getDate().toString());
 				dataSet.addValue(entry.getWindSpeedKmh(), "Wind Speed Kmh", entry.getDate().toString());
-				dataSet.addValue(entry.getPressQNH(), "Pressure QNH", entry.getDate().toString());
-				dataSet.addValue(entry.getPressMSL(), "Pressure MSL", entry.getDate().toString());
 				dataSet.addValue(entry.getRainSinceNineAM(), "Rain MM", entry.getDate().toString());
 			}
 		}

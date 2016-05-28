@@ -10,11 +10,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.category.SlidingCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.Date;
 import java.util.Map;
 
@@ -36,7 +39,9 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	private JToggleButton rainToggle = new JToggleButton("Rain MM", true);
 
 	private JFreeChart graph;
-	DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+    JScrollBar scrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
+
+    private SlidingCategoryDataset dataSet;
 
 	/**
 	 * Constructor for a weatherStation graph with name and data
@@ -50,13 +55,15 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		super(name);
 		this.entries = data;
 
+        // We create a new JFreeChart line chart and populate its data
+        // with the current available weather info from model.
 		graph = ChartFactory.createLineChart(name + " - Weather Information", "Date", "Measurement", populateData(),
 				PlotOrientation.VERTICAL, true, true, false);
-
 		ChartPanel graphPane = new ChartPanel(graph);
 		graph.getCategoryPlot().setRangePannable(true);
 		graphPane.setPreferredSize(new Dimension(1024, 768));
 
+        // We add the toggles for series here
 		JPanel togglePane = new JPanel();
 		togglePane.add(tempToggle);
 		togglePane.add(appTempToggle);
@@ -65,9 +72,24 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		togglePane.add(wSpdKmhToggle);
 		togglePane.add(rainToggle);
 
+        // We need a scrollbar to translate the horizontal axis and view all available data.
+        scrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                scrollBar.setMaximum(entries.size() - 1);
+                dataSet.setFirstCategoryIndex(e.getValue());
+            }
+        });
+
+        // We add the toggle and scroll panes together to form the control panel
+        JPanel controlPane = new JPanel(new BorderLayout());
+        controlPane.add(scrollBar, BorderLayout.NORTH);
+        controlPane.add(togglePane, BorderLayout.SOUTH);
+
+        // We place the control panel below the chart and set it into the JFrame
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.add(graphPane, BorderLayout.CENTER);
-		contentPanel.add(togglePane, BorderLayout.SOUTH);
+		contentPanel.add(controlPane, BorderLayout.SOUTH);
 
 		this.setContentPane(contentPanel);
 
@@ -80,23 +102,25 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	 * @return A dataset for display inside of a chart. NOTE, this dataset is
 	 *         just a convenience reference to the graphs internal dataset.
 	 */
-	private DefaultCategoryDataset populateData() {
-		dataSet.clear();
+	private SlidingCategoryDataset populateData() {
+		DefaultCategoryDataset internal = new DefaultCategoryDataset();
+        dataSet = new SlidingCategoryDataset(internal, 0, 5);
+
+        // Loop through daily entries adding available weather data to series.
 		if (entries != null) {
 			for (WeatherDataPoint entry : entries.values()) {
-				dataSet.addValue(entry.getTemp(), "Temperature", entry.getDate().toString());
-				dataSet.addValue(entry.getAppTemp(), "Apparent Temperature", entry.getDate().toString());
-				dataSet.addValue(entry.getDewPoint(), "Dew Point", entry.getDate().toString());
-				dataSet.addValue(entry.getWindSpeedKts(), "Wind Speed Kts", entry.getDate().toString());
-				dataSet.addValue(entry.getWindSpeedKmh(), "Wind Speed Kmh", entry.getDate().toString());
-				dataSet.addValue(entry.getRainSinceNineAM(), "Rain MM", entry.getDate().toString());
+				internal.addValue(entry.getTemp(), "Temperature", entry.getDate().toString());
+				internal.addValue(entry.getAppTemp(), "Apparent Temperature", entry.getDate().toString());
+				internal.addValue(entry.getDewPoint(), "Dew Point", entry.getDate().toString());
+				internal.addValue(entry.getWindSpeedKts(), "Wind Speed Kts", entry.getDate().toString());
+				internal.addValue(entry.getWindSpeedKmh(), "Wind Speed Kmh", entry.getDate().toString());
+				internal.addValue(entry.getRainSinceNineAM(), "Rain MM", entry.getDate().toString());
 			}
 		}
 		return dataSet;
 	}
 
-	private void initializeListeners()
-	{
+	private void initializeListeners() {
 		tempToggle.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

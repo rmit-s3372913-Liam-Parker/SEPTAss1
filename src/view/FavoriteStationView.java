@@ -90,5 +90,6 @@ public class FavoriteStationView extends JPanel implements IWeatherSystemCallbac
 	public void Refresh() {
 		dataTable.Refresh();
 		graph.Refresh();
+		this.revalidate();
 	}
 }

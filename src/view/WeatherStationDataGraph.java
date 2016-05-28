@@ -76,6 +76,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
         scrollBar.addAdjustmentListener(new AdjustmentListener() {
             @Override
             public void adjustmentValueChanged(AdjustmentEvent e) {
+                if(entries.size() <= 1) return;
                 scrollBar.setMaximum(entries.size() - 1);
                 dataSet.setFirstCategoryIndex(e.getValue());
             }

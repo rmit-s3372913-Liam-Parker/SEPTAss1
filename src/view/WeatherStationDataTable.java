@@ -73,15 +73,15 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
 
         int i = 0;
         for (Map.Entry<Date, WeatherDataPoint> entry : data.entrySet()) {
-            historicalDataRows[i][0] = entry.getKey().toString();
-            historicalDataRows[i][1] = entry.getValue().getTemp();
-            historicalDataRows[i][2] = entry.getValue().getAppTemp();
-            historicalDataRows[i][3] = entry.getValue().getDewPoint();
-            historicalDataRows[i][4] = entry.getValue().getRelHum();
-            historicalDataRows[i][5] = entry.getValue().getWindDir();
-            historicalDataRows[i][6] = entry.getValue().getWindSpeedKts();
-            historicalDataRows[i][7] = entry.getValue().getPressQNH();
-            historicalDataRows[i][8] = entry.getValue().getRainSinceNineAM();
+            historicalDataRows[0][i] = entry.getKey().toString();
+            historicalDataRows[1][i] = entry.getValue().getTemp();
+            historicalDataRows[2][i] = entry.getValue().getAppTemp();
+            historicalDataRows[3][i] = entry.getValue().getDewPoint();
+            historicalDataRows[4][i] = entry.getValue().getRelHum();
+            historicalDataRows[5][i] = entry.getValue().getWindDir();
+            historicalDataRows[6][i] = entry.getValue().getWindSpeedKts();
+            historicalDataRows[7][i] = entry.getValue().getPressQNH();
+            historicalDataRows[8][i] = entry.getValue().getRainSinceNineAM();
 
             i++;
         }

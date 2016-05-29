@@ -1,35 +1,29 @@
 package tests;
 
-import interfaces.WeatherSystem;
-import model.WeatherModelImpl;
+import model.ForecastFactory;
+import model.ForecastIOFactory;
+import model.OpenWeatherMapFactory;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 public class ForecastFactoryTest
 {
-    WeatherSystem model;
+    ForecastFactory forecastIO;
+    ForecastFactory openWeather;
 
     @Before
     public void setUp() throws Exception {
-        model = new WeatherModelImpl("test_stations.json");
+        forecastIO = new ForecastIOFactory("37.8","144.9");
+        openWeather = new OpenWeatherMapFactory("37.8","144.9");
     }
 
     @Test
-    public void addFavoriteStationTestA() {
-        // Test for inserting null name
-        assertFalse(model.addFavoriteStation(null));
-    }
-
-    @Test
-    public void addFavoriteStationTestB() {
-        assertTrue(model.addFavoriteStation("Test Station 1"));
-    }
-
-    @Test
-    public void addFavoriteStationTestC() {
-        assertFalse(model.addFavoriteStation("Invalid Station - faasddahwerbdf"));
+    public void checkFactoryImplementations() {
+        // Assert the concrete implementations of factory correctly override default
+        // behaviour which returns null.
+        assertNotNull(forecastIO.GetWeatherForecast());
+        assertNotNull(openWeather.GetWeatherForecast());
     }
 }

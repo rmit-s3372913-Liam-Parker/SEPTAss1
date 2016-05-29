@@ -20,7 +20,7 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 	}
 
 	@Override
-	public HashMap<Date, WeatherDataPoint> GetWeatherForecast() {
+	public HashMap<Date, ForecastDataPoint> GetWeatherForecast() {
 		
 		String json = "";
 		final String weathermapAPIKey = "9cc8ba2255f54825be22ccf6207290ec";

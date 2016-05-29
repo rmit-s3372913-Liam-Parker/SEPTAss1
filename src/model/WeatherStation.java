@@ -48,12 +48,12 @@ public class WeatherStation {
 	/**
 	 * List of historical weather data for this station
 	 */
-	HashMap<Date, WeatherDataPoint> historicalDataPoints = new HashMap<Date, WeatherDataPoint>();
+	Map<Date, WeatherDataPoint> historicalDataPoints = new TreeMap<Date, WeatherDataPoint>();
 
 	/**
-	 * List of forecasted weather data for this station
+	 * List of forecast weather data for this station
 	 */
-	HashMap<Date, WeatherDataPoint> forecastDataPoints = new HashMap<Date, WeatherDataPoint>();
+	Map<Date, WeatherDataPoint> forecastDataPoints = new TreeMap<Date, WeatherDataPoint>();
 
 	/**
 	 * 
@@ -163,6 +163,9 @@ public class WeatherStation {
 		forecastDataPoints = factory.GetWeatherForecast();
 	}
 
+	/**
+	 * Pulls historical data from the BOM
+	 */
 	private void scrapeHistoricalData() {
 		String entriesJson = "";
 

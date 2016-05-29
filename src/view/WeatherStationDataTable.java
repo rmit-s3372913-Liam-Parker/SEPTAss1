@@ -14,81 +14,66 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
 
     private WeatherStation station;
 
-    static String[] forecastCols = {"Date",
-            "Temp",
-            "App Temp",
-            "Dew Point",
-            "Rel Hum",
-            "Wind Dir",
-            "Wind Spd Kts",
-            "Pressure QNH",
-            "Rain MM"};
+    private JPanel historical;
+    private JPanel forecast;
 
-    private JTable forecastTable = new JTable(new Object[0][0], forecastCols);
-    private JTable historicalTable = new JTable(new Object[0][0], forecastCols);
-
-    public WeatherStationDataTable(WeatherStation station) {
+    public WeatherStationDataTable(WeatherStation station)
+    {
         super();
         this.station = station;
 
-        this.setBackground(new Color(255,255,255,255));
+        JPanel content = new JPanel();
+        content.setLayout(new BoxLayout(content,BoxLayout.Y_AXIS));
 
-        this.add(forecastTable);
-        this.add(historicalTable);
-        this.validate();
+        // Setup forecast pane
+        forecast = new JPanel();
+        JPanel forecastPanel = new JPanel(new BorderLayout());
+        forecastPanel.add(new JLabel("Forecast Data"), BorderLayout.NORTH);
+        forecastPanel.add(forecast, BorderLayout.CENTER);
+
+        // Setup historical pane
+        historical = new JPanel();
+        JPanel historicalPanel = new JPanel(new BorderLayout());
+        historicalPanel.add(new JLabel("Historical Data"), BorderLayout.NORTH);
+        historicalPanel.add(historical, BorderLayout.CENTER);
+
+        content.add(forecastPanel);
+        content.add(historicalPanel);
+
+        this.add(content);
+
+        updateAll();
     }
 
     @Override
     public void Refresh() {
-        this.removeAll();
+        updateAll();
+        this.revalidate();
+    }
+
+    private void updateAll()
+    {
         updateForecastTable();
         updateHistoricalTable();
-        this.add(forecastTable);
-        this.add(historicalTable);
-        this.validate();
     }
 
     private void updateForecastTable() {
-        Map<Date, WeatherDataPoint> data = station.getForecastDataPoints();
-        Object[][] forecastDataRows = new Object[data.size()][forecastCols.length];
+        Map<Date, WeatherDataPoint> forecastEntries = station.getForecastDataPoints();
 
-        int i = 0;
-        for (Map.Entry<Date, WeatherDataPoint> entry : data.entrySet()) {
-            forecastDataRows[i][0] = entry.getKey().toString();
-            forecastDataRows[i][1] = entry.getValue().getTemp();
-            forecastDataRows[i][2] = entry.getValue().getAppTemp();
-            forecastDataRows[i][3] = entry.getValue().getDewPoint();
-            forecastDataRows[i][4] = entry.getValue().getRelHum();
-            forecastDataRows[i][5] = entry.getValue().getWindDir();
-            forecastDataRows[i][6] = entry.getValue().getWindSpeedKts();
-            forecastDataRows[i][7] = entry.getValue().getPressQNH();
-            forecastDataRows[i][8] = entry.getValue().getRainSinceNineAM();
-
-            i++;
+        forecast.removeAll();
+        for(Map.Entry<Date, WeatherDataPoint> entry : forecastEntries.entrySet()) {
+            forecast.add(new JLabel(entry.getValue().toString()));
         }
-
-        forecastTable = new JTable(forecastDataRows, forecastCols);
+        forecast.repaint();
     }
 
     private void updateHistoricalTable() {
-        Map<Date, WeatherDataPoint> data = station.getHistoricalDataPoints();
-        Object[][] historicalDataRows = new Object[data.size()][forecastCols.length];
+        Map<Date, WeatherDataPoint> forecastEntries = station.getForecastDataPoints();
 
-        int i = 0;
-        for (Map.Entry<Date, WeatherDataPoint> entry : data.entrySet()) {
-            historicalDataRows[i][0] = entry.getKey().toString();
-            historicalDataRows[i][1] = entry.getValue().getTemp();
-            historicalDataRows[i][2] = entry.getValue().getAppTemp();
-            historicalDataRows[i][3] = entry.getValue().getDewPoint();
-            historicalDataRows[i][4] = entry.getValue().getRelHum();
-            historicalDataRows[i][5] = entry.getValue().getWindDir();
-            historicalDataRows[i][6] = entry.getValue().getWindSpeedKts();
-            historicalDataRows[i][7] = entry.getValue().getPressQNH();
-            historicalDataRows[i][8] = entry.getValue().getRainSinceNineAM();
-
-            i++;
+        historical.removeAll();
+        for(Map.Entry<Date, WeatherDataPoint> entry : forecastEntries.entrySet()) {
+            historical.add(new JLabel(entry.getValue().toString()));
         }
-
-        forecastTable = new JTable(historicalDataRows, forecastCols);
+        historical.repaint();
     }
 }

@@ -39,13 +39,10 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	private JToggleButton rainToggle = new JToggleButton("Rain MM", true);
 
 	private JFreeChart historicalGraph;
-	private JFreeChart forecastGraph;
 
-    JScrollBar historicalScroll = new JScrollBar(JScrollBar.HORIZONTAL);
-	JScrollBar forecastScroll = new JScrollBar(JScrollBar.HORIZONTAL);
+    JScrollBar scrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
 
     private SlidingCategoryDataset historicalDataset;
-	private SlidingCategoryDataset forecastDataset;
 
 	/**
 	 * Constructor for a weatherStation historicalGraph with name and data
@@ -78,18 +75,18 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		togglePane.add(rainToggle);
 
         // We need a scrollbar to translate the horizontal axis and view all available data.
-        historicalScroll.addAdjustmentListener(new AdjustmentListener() {
+        scrollBar.addAdjustmentListener(new AdjustmentListener() {
             @Override
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 if(historicalData.size() <= 1) return;
-                historicalScroll.setMaximum((historicalData.size() - 1) + (forecastData.size() - 1));
+                scrollBar.setMaximum((historicalData.size() - 1) + (forecastData.size() <= 1?0:(forecastData.size() - 1)));
                 historicalDataset.setFirstCategoryIndex(e.getValue());
             }
         });
 
         // We add the toggle and scroll panes together to form the control panel
         JPanel controlPane = new JPanel(new BorderLayout());
-        controlPane.add(historicalScroll, BorderLayout.NORTH);
+        controlPane.add(scrollBar, BorderLayout.NORTH);
         controlPane.add(togglePane, BorderLayout.SOUTH);
 
         // We place the control panel below the chart and set it into the JFrame
@@ -124,30 +121,17 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 			}
 		}
 
-		return historicalDataset;
-	}
-
-	/**
-	 * Populates a dataset with values from forecastData array.
-	 *
-	 * @return A dataset for display inside of a chart. NOTE, this dataset is
-	 *         just a convenience reference to the graphs internal dataset.
-	 */
-	private SlidingCategoryDataset populateForecastData() {
-		DefaultCategoryDataset internal = new DefaultCategoryDataset();
-		forecastDataset = new SlidingCategoryDataset(internal, 0, 5);
-
-		if (forecastData != null) {
-			for (WeatherDataPoint entry : forecastData.values()) {
-				String dateStr = entry.getDate().toString();
-				internal.addValue(entry.getTemp(), "Forecast - Temperature", dateStr);
-				internal.addValue(entry.getAppTemp(), "Forecast - Apparent Temperature", dateStr);
-				internal.addValue(entry.getDewPoint(), "Forecast - Dew Point", dateStr);
-				internal.addValue(entry.getWindSpeedKts(), "Forecast - Wind Speed Kts", dateStr);
-				internal.addValue(entry.getWindSpeedKmh(), "Forecast - Wind Speed Kmh", dateStr);
-				internal.addValue(entry.getRainSinceNineAM(), "Forecast - Rain MM", dateStr);
-			}
-		}
+        if (forecastData != null) {
+            for (WeatherDataPoint entry : forecastData.values()) {
+                String dateStr = entry.getDate().toString();
+                internal.addValue(entry.getTemp(), "Forecast - Temperature", dateStr);
+                internal.addValue(entry.getAppTemp(), "Forecast - Apparent Temperature", dateStr);
+                internal.addValue(entry.getDewPoint(), "Forecast - Dew Point", dateStr);
+                internal.addValue(entry.getWindSpeedKts(), "Forecast - Wind Speed Kts", dateStr);
+                internal.addValue(entry.getWindSpeedKmh(), "Forecast - Wind Speed Kmh", dateStr);
+                internal.addValue(entry.getRainSinceNineAM(), "Forecast - Rain MM", dateStr);
+            }
+        }
 
 		return historicalDataset;
 	}

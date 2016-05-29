@@ -15,9 +15,6 @@ public class ForecastIOFactory implements ForecastFactory {
 
 	String lat, lon;
 
-    public static final double MPH_2_KMH = 1.609344; //TODO: Move to interface perhaps??
-    public static final double KMH_2_KTS = 0.539956; // conversion macros
-
 	public ForecastIOFactory(String lat, String lon) {
 		this.lat = lat;
 		this.lon = lon;
@@ -28,13 +25,13 @@ public class ForecastIOFactory implements ForecastFactory {
 	{
 		String json = "";
 		final String forecastAPIString = "https://api.forecast.io/forecast/e75c50c1bc3a622832329f007ff1ab4b/";
-		final String unitSettings = "units=ca";
+		final String unitSettings = "&units=ca";
 		HashMap<Date, WeatherDataPoint> data = new HashMap<>();
 
 		try {
 			// Scrapes from the JSON file URL that has been assigned to
 			// WeatherStation
-			Scanner sc = new Scanner(new URL(forecastAPIString + lat + "," + lon).openStream());
+			Scanner sc = new Scanner(new URL(forecastAPIString + lat + "," + lon + unitSettings).openStream());
 			while (sc.hasNext()) {
 				json += sc.nextLine();
 			}

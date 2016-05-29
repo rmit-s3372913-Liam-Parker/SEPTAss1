@@ -3,6 +3,7 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -181,8 +182,8 @@ public class WeatherStation {
 		} catch (IOException e) {
 			logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + bomLink);
 			// TODO: Find a better way to display error to user. This function is called per station.
-			//JOptionPane.showMessageDialog(null, "ERROR: Could not establish connection!", "Connection Failure",
-			//		JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ERROR: Could not establish connection!", "Connection Failure",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 

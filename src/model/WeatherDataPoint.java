@@ -113,4 +113,9 @@ public class WeatherDataPoint {
 	public float getRainSinceNineAM() {
 		return rainSinceNineAM;
 	}
+
+	public String toString()
+	{
+		return String.format("Date: %s Temp: %f", date.toString(), temp); //TODO Complete
+	}
 }

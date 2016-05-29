@@ -56,7 +56,13 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 		while (entriesItr.hasNext()) {
 			JSONObject entry = (JSONObject) entriesItr.next();
 
-			// For each recording, grab the relevant info
+			
+			
+			
+			
+			
+			
+			/*// For each recording, grab the relevant info
 			// Date parsing
 			long unixTime = entry.getLong("dt"); 
 
@@ -84,7 +90,38 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 			// Create a snapshot entry using all the scraped data
 			WeatherDataPoint snapshotEntry = new WeatherDataPoint(date, temp, appTemp, dewPoint, relHum, deltaT,
 					windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL,
-					rainSinceNineAM);
+					rainSinceNineAM);*/
+			
+			
+			//Summary
+			long unixTime = entry.optLong("dt");
+			Date date = new Date(unixTime*1000L);
+			String summary = entry.optString(key);
+
+			// Temperatures and humidity
+			float temp;
+			int relHum;
+
+			// Wind & gust
+			float windDir;
+			float windSpeedKmh;
+
+			// Pressure
+			float pressure;
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			// Add the entry to this station's hashmap
 			data.put(date, snapshotEntry);
 		}

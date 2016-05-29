@@ -6,7 +6,7 @@ public class ForecastDataPoint
 {
 		//Summary
 		private Date date;
-		String summary;
+		private String summary;
 
 		// Temperatures and humidity
 		private float temp;
@@ -23,7 +23,7 @@ public class ForecastDataPoint
 		// Precipitation
 
 		public ForecastDataPoint(Date date, String summary, float temp, int relHum, float windDir, 
-				int windSpeedKmh, float pressure)
+				float windSpeedKmh, float pressure)
 		{
 				this.date = date;
 				this.summary = summary;
@@ -37,6 +37,11 @@ public class ForecastDataPoint
 		public Date getDate()
 		{
 			return date;
+		}
+		
+		public String getSummary()
+		{
+			return summary;
 		}
 		
 		public float temp()

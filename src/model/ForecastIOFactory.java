@@ -24,11 +24,11 @@ public class ForecastIOFactory implements ForecastFactory {
 	}
 
 	@Override
-	public HashMap<Date, WeatherDataPoint> GetWeatherForecast()
+	public HashMap<Date, ForecastDataPoint> GetWeatherForecast()
 	{
 		String json = "";
 		final String forecastAPIString = "https://api.forecast.io/forecast/e75c50c1bc3a622832329f007ff1ab4b/";
-		HashMap<Date, WeatherDataPoint> data = new HashMap<>();
+		HashMap<Date, ForecastDataPoint> data = new HashMap<>();
 
 		String finalUrl = forecastAPIString + lat + "," + lon;
 		try {
@@ -57,7 +57,11 @@ public class ForecastIOFactory implements ForecastFactory {
 		while (entriesItr.hasNext()) {
 			JSONObject entry = (JSONObject) entriesItr.next();
 
-			// For each recording, grab the relevant info
+			
+			
+			
+			
+/*			// For each recording, grab the relevant info
 			// Date parsing
 			long unixTime = entry.getLong("time"); // daily represents seconds to midnight in API
 
@@ -85,9 +89,31 @@ public class ForecastIOFactory implements ForecastFactory {
 			// Create a snapshot entry using all the scraped data
 			WeatherDataPoint snapshotEntry = new WeatherDataPoint(date, temp, appTemp, dewPoint, relHum, deltaT,
 					windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL,
-					rainSinceNineAM);
+					rainSinceNineAM);*/
+			
+
+			
+			//Summary
+			long unixTime = entry.optLong("time");
+			Date date = new Date(unixTime*1000L);
+			String summary = entry.optString("summary");
+
+			// Temperatures and humidity
+			float temp = (float)entry.optDouble("temp");
+			int relHum = (int)(entry.optDouble("humidity")*100);
+
+			// Wind & gust
+			float windDir = (float)entry.optDouble("windBearing");
+			float windSpeedKmh = (float)(entry.optDouble("windSpeed")* MPH_2_KMH);
+
+			// Pressure
+			float pressure = (float)entry.optDouble("pressure");
+			
+			ForecastDataPoint dataPoint = new ForecastDataPoint(date, summary, temp, relHum, windDir, 
+					windSpeedKmh, pressure);
+
 			// Add the entry to this station's hashmap
-			data.put(date, snapshotEntry);
+			data.put(date, dataPoint);
 		}
 
 		return data;

@@ -116,8 +116,9 @@ public class WeatherDataPoint {
 
 	public String toString()
 	{
-		return String.format("Date: %s | Temp: %.2f | App Temp: %.2f | Dew Point: %.2f | Rel Hum: %d | " +
-				"Wind Spd Kmh: %d | Pressure QNH: %.2f | Rain MM: %.2f",
-				date.toString(), temp, appTemp, dewPoint, relHum, windSpeedKmh, pressQNH, rainSinceNineAM);
+		return String.format("Date: %s | Temp: %.2f | App Temp: %.2f | Dew Point: %.2f " +
+				"| Rel Hum: %d%% | Wind Spd Kmh: %d | Pressure QNH: %.2f | Rain MM: %.2f",
+				date.toString(), temp, appTemp, dewPoint, relHum, windSpeedKmh, pressQNH, 
+				rainSinceNineAM);
 	}
 }

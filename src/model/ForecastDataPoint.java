@@ -64,8 +64,8 @@ public class ForecastDataPoint
 
 	public String toString()
 	{
-		return String.format("Date: %s | Temp: %.2f | Rel Hum: %d | Wind Dir: %d | Wind Spd Kmh: %.2f"
-						+ "| Pressure: %.2f",
-				date.toString(), temp, relHum, windDir, windSpeedKmh, pressure);
+		return String.format("Date: %s | Desc: %s | Temp: %.2f | Rel Hum: %d%% | Wind Dir: %d "
+						+ "| Wind Spd Kmh: %.2f | Pressure: %.2f",
+				date.toString(), summary, temp, relHum, windDir, windSpeedKmh, pressure);
 	}
 }

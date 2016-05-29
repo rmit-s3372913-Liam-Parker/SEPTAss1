@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,6 +18,8 @@ public class OpenWeatherMapFactory extends ForecastFactory {
 		super(lat, lon);
 	}
 
+	public static Logger logger = Logger.getLogger("Open Weather Map Factory");
+	
 	@Override
 	public HashMap<Date, ForecastDataPoint> GetWeatherForecast() {
 		
@@ -37,7 +41,7 @@ public class OpenWeatherMapFactory extends ForecastFactory {
 
 			sc.close();
 		} catch (IOException e) {
-			//logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + forecastAPIString);
+			logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + weathermapAPIString);
 			return data;
 		}
 		

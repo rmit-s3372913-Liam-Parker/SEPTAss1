@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public abstract class ForecastFactory {
 	
-	String lat, lon;
+	protected String lat, lon;
 	
 	protected Date date;
 	protected String summary;
@@ -26,6 +26,6 @@ public abstract class ForecastFactory {
 		return null;
 	}
 
-	double MPH_2_KMH = 1.609344; //TODO: Move to interface perhaps??
-	double KMH_2_KTS = 0.539956; // conversion macros
+	final double MPH_2_KMH = 1.609344; //TODO: Move to interface perhaps??
+	final double KMH_2_KTS = 0.539956; // conversion macros
 }

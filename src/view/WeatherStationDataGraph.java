@@ -121,17 +121,17 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 			}
 		}
 
-        if (forecastData != null) {
-            for (WeatherDataPoint entry : forecastData.values()) {
-                String dateStr = entry.getDate().toString();
-                internal.addValue(entry.getTemp(), "Forecast - Temperature", dateStr);
-                internal.addValue(entry.getAppTemp(), "Forecast - Apparent Temperature", dateStr);
-                internal.addValue(entry.getDewPoint(), "Forecast - Dew Point", dateStr);
-                internal.addValue(entry.getWindSpeedKts(), "Forecast - Wind Speed Kts", dateStr);
-                internal.addValue(entry.getWindSpeedKmh(), "Forecast - Wind Speed Kmh", dateStr);
-                internal.addValue(entry.getRainSinceNineAM(), "Forecast - Rain MM", dateStr);
-            }
-        }
+        //if (forecastData != null) {
+        //    for (WeatherDataPoint entry : forecastData.values()) {
+        //        String dateStr = entry.getDate().toString();
+        //        internal.addValue(entry.getTemp(), "Forecast - Temperature", dateStr);
+        //        internal.addValue(entry.getAppTemp(), "Forecast - Apparent Temperature", dateStr);
+        //        internal.addValue(entry.getDewPoint(), "Forecast - Dew Point", dateStr);
+        //        internal.addValue(entry.getWindSpeedKts(), "Forecast - Wind Speed Kts", dateStr);
+        //        internal.addValue(entry.getWindSpeedKmh(), "Forecast - Wind Speed Kmh", dateStr);
+        //        internal.addValue(entry.getRainSinceNineAM(), "Forecast - Rain MM", dateStr);
+        //    }
+        //}
 
 		return historicalDataset;
 	}

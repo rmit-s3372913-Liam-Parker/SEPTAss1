@@ -33,7 +33,6 @@ public class FavouritesView extends JPanel implements IJsonSerializable, IWeathe
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.add(scrollPane);
 	}

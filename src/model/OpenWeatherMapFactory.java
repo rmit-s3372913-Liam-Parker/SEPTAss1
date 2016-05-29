@@ -44,29 +44,28 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 			return data;
 		}
 		
+		System.out.println(json);
 
-		/*JSONObject root = new JSONObject(json);
-		JSONObject observations = root.getJSONObject("daily");
-		JSONArray entriesArray = observations.getJSONArray("data");
-
+		JSONObject root = new JSONObject(json);
+		JSONArray entriesArray = root.getJSONArray("list");
+		
 		Iterator<Object> entriesItr = entriesArray.iterator();
 
 		// Loop for all recording entries the data block contains.
-        // Each element represents aggregate weather data for a single day.
-        // https://developer.forecast.io/docs/v2
+        // Entries are for every 3 hours over the next 5 days.
 		while (entriesItr.hasNext()) {
 			JSONObject entry = (JSONObject) entriesItr.next();
 
 			// For each recording, grab the relevant info
 			// Date parsing
-			long unixTime = entry.getLong("time"); // daily represents seconds to midnight in API
+			long unixTime = entry.getLong("dt"); 
 
 			Date date = new Date(unixTime*1000L);
 
 			// Temperatures and humidity
-			float temp = (float) entry.optDouble(" temperatureMax");
-			float appTemp = (float) entry.optDouble("apparentTemperatureMax");
-			float dewPoint = (float) entry.optDouble("dewPoint");
+			float temp = (float) entry.optDouble("temp");
+			float appTemp = (float) entry.optDouble("temp");
+			float dewPoint = (float) entry.optDouble("dewPoint"); //No data
 			int relHum = entry.optInt("humidity");
 			float deltaT = 0.0f;// = (float) entry.optDouble("delta_t"); TODO: figure out equiv in API
 
@@ -90,12 +89,7 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 			data.put(date, snapshotEntry);
 		}
 
-		return data;*/
-		
-		
-		
-		
-		
-		return null;
+		return data;
+
 	}
 }

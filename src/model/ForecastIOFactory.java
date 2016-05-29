@@ -64,7 +64,7 @@ public class ForecastIOFactory implements ForecastFactory {
 			Date date = new Date(unixTime*1000L);
 
 			// Temperatures and humidity
-			float temp = (float) entry.optDouble(" temperatureMax");
+			float temp = (float) entry.optDouble("temperature");
 			float appTemp = (float) entry.optDouble("apparentTemperatureMax");
 			float dewPoint = (float) entry.optDouble("dewPoint");
 			int relHum = entry.optInt("humidity");

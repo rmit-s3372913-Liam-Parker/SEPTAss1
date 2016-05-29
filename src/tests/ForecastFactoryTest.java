@@ -13,10 +13,13 @@ public class ForecastFactoryTest
     ForecastFactory forecastIO;
     ForecastFactory openWeather;
 
+    public final String lat = "37.8";
+    public final String lon = "144.9";
+
     @Before
     public void setUp() throws Exception {
-        forecastIO = new ForecastIOFactory("37.8","144.9");
-        openWeather = new OpenWeatherMapFactory("37.8","144.9");
+        forecastIO = new ForecastIOFactory(lat,lon);
+        openWeather = new OpenWeatherMapFactory(lat,lon);
     }
 
     @Test

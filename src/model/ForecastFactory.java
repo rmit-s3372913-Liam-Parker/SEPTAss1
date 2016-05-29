@@ -7,13 +7,13 @@ public abstract class ForecastFactory {
 	
 	String lat, lon;
 	
-	Date date;
-	String summary;
-	float temp;
-	int relHum;
-	int windDir;
-	float windSpeedKmh;
-	float pressure;
+	protected Date date;
+	protected String summary;
+	protected float temp;
+	protected int relHum;
+	protected int windDir;
+	protected float windSpeedKmh;
+	protected float pressure;
 	
 	public ForecastFactory(String lat, String lon) {
 		this.lat = lat;

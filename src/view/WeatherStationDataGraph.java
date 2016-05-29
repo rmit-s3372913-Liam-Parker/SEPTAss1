@@ -52,10 +52,9 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	 * @param historical
 	 *            The data for the historicalGraph to display
 	 */
-	public WeatherStationDataGraph(String name, Map<Date, WeatherDataPoint> historical, Map<Date, WeatherDataPoint> forecast) {
+	public WeatherStationDataGraph(String name, Map<Date, WeatherDataPoint> historical) {
 		super(name);
 		this.historicalData = historical;
-        this.forecastData = forecast;
 
         // We create a new JFreeChart line chart and populate its data
         // with the current available weather info from model.
@@ -120,19 +119,6 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 				internal.addValue(entry.getRainSinceNineAM(), "Rain MM", dateStr);
 			}
 		}
-
-        //if (forecastData != null) {
-        //    for (WeatherDataPoint entry : forecastData.values()) {
-        //        String dateStr = entry.getDate().toString();
-        //        internal.addValue(entry.getTemp(), "Forecast - Temperature", dateStr);
-        //        internal.addValue(entry.getAppTemp(), "Forecast - Apparent Temperature", dateStr);
-        //        internal.addValue(entry.getDewPoint(), "Forecast - Dew Point", dateStr);
-        //        internal.addValue(entry.getWindSpeedKts(), "Forecast - Wind Speed Kts", dateStr);
-        //        internal.addValue(entry.getWindSpeedKmh(), "Forecast - Wind Speed Kmh", dateStr);
-        //        internal.addValue(entry.getRainSinceNineAM(), "Forecast - Rain MM", dateStr);
-        //    }
-        //}
-
 		return historicalDataset;
 	}
 

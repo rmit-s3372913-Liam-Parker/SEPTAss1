@@ -54,7 +54,7 @@ public class WeatherStation {
 	/**
 	 * List of forecast weather data for this station
 	 */
-	Map<Date, WeatherDataPoint> forecastDataPoints = new TreeMap<Date, WeatherDataPoint>();
+	Map<Date, ForecastDataPoint> forecastDataPoints = new TreeMap<Date, ForecastDataPoint>();
 
 	/**
 	 * 
@@ -96,7 +96,7 @@ public class WeatherStation {
 	 *            The entry to add into this stations list.
 	 * @return Returns true if the entry was added, false otherwise.
 	 */
-	public boolean addForecastDataPoint(Date date, WeatherDataPoint snapshotEntry) {
+	public boolean addForecastDataPoint(Date date, ForecastDataPoint snapshotEntry) {
 		if (forecastDataPoints.containsKey(date) || date == null || snapshotEntry == null)
 			return false;
 
@@ -118,7 +118,7 @@ public class WeatherStation {
 	 * 
 	 * @return An unmodifiable map of entries for this station.
 	 */
-	public Map<Date, WeatherDataPoint> getForecastDataPoints() {
+	public Map<Date, ForecastDataPoint> getForecastDataPoints() {
 		return Collections.unmodifiableMap(forecastDataPoints);
 	}
 

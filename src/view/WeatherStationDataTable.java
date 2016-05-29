@@ -1,6 +1,7 @@
 package view;
 
 import interfaces.IWeatherSystemCallback;
+import model.ForecastDataPoint;
 import model.WeatherDataPoint;
 import model.WeatherStation;
 
@@ -73,10 +74,10 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
      * Updates the forecast JList with latest data model.
      */
     private void updateForecastTable() {
-        Map<Date, WeatherDataPoint> forecastEntries = station.getForecastDataPoints();
+        Map<Date, ForecastDataPoint> forecastEntries = station.getForecastDataPoints();
         DefaultListModel model = new DefaultListModel<String>();
 
-        for(Map.Entry<Date, WeatherDataPoint> entry : forecastEntries.entrySet()) {
+        for(Map.Entry<Date, ForecastDataPoint> entry : forecastEntries.entrySet()) {
             model.addElement(entry.getValue().toString());
         }
         forecast.setModel(model);
@@ -87,7 +88,7 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
      * Updates the historical JList with latest data model.
      */
     private void updateHistoricalTable() {
-        Map<Date, WeatherDataPoint> forecastEntries = station.getForecastDataPoints();
+        Map<Date, WeatherDataPoint> forecastEntries = station.getHistoricalDataPoints();
         DefaultListModel model = new DefaultListModel<String>();
 
         for(Map.Entry<Date, WeatherDataPoint> entry : forecastEntries.entrySet()) {

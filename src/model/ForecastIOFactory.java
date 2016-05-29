@@ -56,7 +56,7 @@ public class ForecastIOFactory implements ForecastFactory {
         // https://developer.forecast.io/docs/v2
 		while (entriesItr.hasNext()) {
 			JSONObject entry = (JSONObject) entriesItr.next();
-		
+
 			//Summary
 			long unixTime = entry.optLong("time");
 			Date date = new Date(unixTime*1000L);

@@ -258,7 +258,7 @@ public class WeatherModelImpl implements WeatherSystem {
 		WeatherStation station = null;
 
 		for (WeatherStation s : favorites) {
-			if (s.getName() == name)
+			if (s.getName().equals(name))
 				station = s;
 		}
 

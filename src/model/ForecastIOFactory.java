@@ -57,7 +57,7 @@ public class ForecastIOFactory extends ForecastFactory {
 			summary = entry.optString("summary");
 
 			// Temperatures and humidity
-			temp = (float)entry.optDouble("temp");
+			temp = (float)entry.optDouble("temperature");
 			relHum = (int)(entry.optDouble("humidity")*100);
 
 			// Wind & gust

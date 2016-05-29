@@ -71,7 +71,7 @@ public class FavouritesView extends JPanel implements IJsonSerializable, IWeathe
 				}
 
 				if (panel.getComponentCount() == 0)
-					panel.add(new JLabel("Add some favorites in the station view to see something here!"));
+					panel.add(new JLabel("Add some favorites in the station view to see something here!",JLabel.CENTER));
 
 				panel.validate();
 				panel.repaint();

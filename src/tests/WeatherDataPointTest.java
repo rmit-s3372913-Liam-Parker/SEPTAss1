@@ -11,10 +11,6 @@ import static org.junit.Assert.assertEquals;
 
 public class WeatherDataPointTest
 {
-    //Date date, float temp, float appTemp, float dewPoint, int relHum, float deltaT,
-    //CompassDirection windDir, int windSpeedKm, int gustSpeedKm, int windSpeedKts, int gustSpeedKts,
-    //float pressQNH, float pressMSL, float rainSinceNineAM
-
     WeatherDataPoint dataPoint;
     Date date = new Date();
     @Before

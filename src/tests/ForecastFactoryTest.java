@@ -26,6 +26,9 @@ public class ForecastFactoryTest
     public void checkFactoryImplementations() {
         // Assert the concrete implementations of factory correctly override default
         // behaviour which returns null.
+        assertNotNull("May be false positive, check connection to internet.", forecastIO);
+        assertNotNull("May be false positive, check connection to internet.", openWeather);
+
         assertNotNull(forecastIO.GetWeatherForecast());
         assertNotNull(openWeather.GetWeatherForecast());
     }

@@ -202,6 +202,9 @@ public class WeatherStation {
 			try {
 				Date date = format.parse(dateString);
 
+				lat = entry.optString("lat"); // Latitude and longitude are stored in each data point
+				lon = entry.optString("lon");
+
 				// Temperatures and humidity
 				float temp = (float) entry.optDouble("air_temp");
 				float appTemp = (float) entry.optDouble("apparent_t");

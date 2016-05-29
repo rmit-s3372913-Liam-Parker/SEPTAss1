@@ -28,7 +28,7 @@ public class ForecastIOFactory implements ForecastFactory {
 	{
 		String json = "";
 		final String forecastAPIString = "https://api.forecast.io/forecast/e75c50c1bc3a622832329f007ff1ab4b/";
-
+		final String unitSettings = "units=ca";
 		HashMap<Date, WeatherDataPoint> data = new HashMap<>();
 
 		try {
@@ -59,45 +59,35 @@ public class ForecastIOFactory implements ForecastFactory {
 
 			// For each recording, grab the relevant info
 			// Date parsing
-			String dateString = entry.getString("daily"); // daily represents seconds to midnight in API
-			DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
+			long unixTime = entry.getLong("time"); // daily represents seconds to midnight in API
 
-			try {
-				Date date = format.parse(dateString);
+			Date date = new Date(unixTime*1000L);
 
-				// Temperatures and humidity
-				float temp = (float) entry.optDouble(" temperatureMax");
-				float appTemp = (float) entry.optDouble("apparentTemperatureMax");
-				float dewPoint = (float) entry.optDouble("dewPoint");
-				int relHum = entry.optInt("humidity");
-				float deltaT = 0.0f;// = (float) entry.optDouble("delta_t"); TODO: figure out equiv in API
+			// Temperatures and humidity
+			float temp = (float) entry.optDouble(" temperatureMax");
+			float appTemp = (float) entry.optDouble("apparentTemperatureMax");
+			float dewPoint = (float) entry.optDouble("dewPoint");
+			int relHum = entry.optInt("humidity");
+			float deltaT = 0.0f;// = (float) entry.optDouble("delta_t"); TODO: figure out equiv in API
 
-				// Wind & gust //TODO figure out enum conversion.
-				CompassDirection windDir = CompassDirection.CALM; //entry.optEnum(CompassDirection.class, "wind_dir");
-				int windSpeedKmh = (int)(entry.optInt("windSpeed") * MPH_2_KMH); // API returns MPH
-				int gustSpeedKmh = 0;// = entry.optInt("gust_kmh");
-				int windSpeedKts = (int)(windSpeedKmh * KMH_2_KTS);
-				int gustSpeedKts = 0;// entry.optInt("gust_kt");
-
-				// Pressure
-                float millibarPres = (float) entry.optDouble("press_qnh");
-				float pressQNH = millibarPres; // TODO conversions
-				float pressMSL = millibarPres;
-
-				// Precipitation
-				float rainSinceNineAM = (float) entry.optDouble("precipAccumulation");
-
-				// Create a snapshot entry using all the scraped data
-				WeatherDataPoint snapshotEntry = new WeatherDataPoint(date, temp, appTemp, dewPoint, relHum, deltaT,
-						windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL,
-						rainSinceNineAM);
-
-				// Add the entry to this station's hashmap
-                data.put(date, snapshotEntry);
-			} catch (ParseException e) {
-				//logger.log(Level.SEVERE, "The forecast.io api has changed or the parsing code has been modified! Important!!");
-				e.printStackTrace();
-			}
+			// Wind & gust //TODO figure out enum conversion.
+			CompassDirection windDir = CompassDirection.CALM; //entry.optEnum(CompassDirection.class, "wind_dir");
+			int windSpeedKmh = (int)(entry.optInt("windSpeed") * MPH_2_KMH); // API returns MPH
+			int gustSpeedKmh = 0;// = entry.optInt("gust_kmh");
+			int windSpeedKts = (int)(windSpeedKmh * KMH_2_KTS);
+			int gustSpeedKts = 0;// entry.optInt("gust_kt");
+			// Pressure
+			float millibarPres = (float) entry.optDouble("press_qnh");
+			float pressQNH = millibarPres; // TODO conversions
+			float pressMSL = millibarPres;
+			// Precipitation
+			float rainSinceNineAM = (float) entry.optDouble("precipAccumulation");
+			// Create a snapshot entry using all the scraped data
+			WeatherDataPoint snapshotEntry = new WeatherDataPoint(date, temp, appTemp, dewPoint, relHum, deltaT,
+					windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL,
+					rainSinceNineAM);
+			// Add the entry to this station's hashmap
+			data.put(date, snapshotEntry);
 		}
 
 		return data;

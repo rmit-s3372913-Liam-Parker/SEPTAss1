@@ -28,7 +28,7 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 		final String weathermapAPIString = "http://api.openweathermap.org/data/2.5/forecast?lat=" 
 		+ lat + "&lon=" + lon + "&appid=" + weathermapAPIKey + unitSettings;
 	
-		HashMap<Date, WeatherDataPoint> data = new HashMap<>();
+		HashMap<Date, ForecastDataPoint> data = new HashMap<>();
 
 		try {
 			// Scrapes from the JSON file URL that has been assigned to
@@ -56,74 +56,29 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 		while (entriesItr.hasNext()) {
 			JSONObject entry = (JSONObject) entriesItr.next();
 
-			
-			
-			
-			
-			
-			
-			/*// For each recording, grab the relevant info
-			// Date parsing
-			long unixTime = entry.getLong("dt"); 
-
-			Date date = new Date(unixTime*1000L);
-
-			// Temperatures and humidity
-			float temp = (float) entry.optDouble("temp");
-			float appTemp = (float) entry.optDouble("temp");
-			float dewPoint = (float) entry.optDouble("dewPoint"); //No data
-			int relHum = entry.optInt("humidity");
-			float deltaT = 0.0f;// = (float) entry.optDouble("delta_t"); TODO: figure out equiv in API
-
-			// Wind & gust //TODO figure out enum conversion.
-			CompassDirection windDir = CompassDirection.CALM; //entry.optEnum(CompassDirection.class, "wind_dir");
-			int windSpeedKmh = (int)(entry.optInt("windSpeed") * MPH_2_KMH); // API returns MPH
-			int gustSpeedKmh = 0;// = entry.optInt("gust_kmh");
-			int windSpeedKts = (int)(windSpeedKmh * KMH_2_KTS);
-			int gustSpeedKts = 0;// entry.optInt("gust_kt");
-			// Pressure
-			float millibarPres = (float) entry.optDouble("press_qnh");
-			float pressQNH = millibarPres; // TODO conversions
-			float pressMSL = millibarPres;
-			// Precipitation
-			float rainSinceNineAM = (float) entry.optDouble("precipAccumulation");
-			// Create a snapshot entry using all the scraped data
-			WeatherDataPoint snapshotEntry = new WeatherDataPoint(date, temp, appTemp, dewPoint, relHum, deltaT,
-					windDir, windSpeedKmh, gustSpeedKmh, windSpeedKts, gustSpeedKts, pressQNH, pressMSL,
-					rainSinceNineAM);*/
-			
-			
+	
 			//Summary
 			long unixTime = entry.optLong("dt");
 			Date date = new Date(unixTime*1000L);
-			String summary = entry.optString(key);
+			String summary = entry.optString("summary");
 
 			// Temperatures and humidity
-			float temp;
-			int relHum;
+			float temp = (float)entry.optDouble("temp");
+			int relHum = (int)(entry.optDouble("humidity")*100);
 
 			// Wind & gust
-			float windDir;
-			float windSpeedKmh;
+			float windDir = (float)entry.optDouble("windBearing");
+			float windSpeedKmh = (float)(entry.optDouble("windSpeed")* MPH_2_KMH);
 
 			// Pressure
-			float pressure;
+			float pressure = (float)entry.optDouble("pressure");
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			ForecastDataPoint dataPoint = new ForecastDataPoint(date, summary, temp, relHum, windDir, 
+					windSpeedKmh, pressure);
+
 			// Add the entry to this station's hashmap
-			data.put(date, snapshotEntry);
+			data.put(date, dataPoint);
+				
 		}
 
 		return data;

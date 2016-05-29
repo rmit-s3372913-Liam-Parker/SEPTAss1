@@ -21,7 +21,7 @@ public abstract class ForecastFactory {
 	}
 	
 	
-	HashMap<Date, ForecastDataPoint> GetWeatherForecast()
+	public HashMap<Date, ForecastDataPoint> GetWeatherForecast()
 	{
 		return null;
 	}

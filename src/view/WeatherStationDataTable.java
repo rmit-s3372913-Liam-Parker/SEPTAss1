@@ -22,8 +22,10 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
         super();
         this.station = station;
 
-        JPanel content = new JPanel();
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+        JPanel content = new JPanel();
+        content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
         // Setup forecast pane
         forecast = new JList();
         JPanel forecastPanel = new JPanel(new BorderLayout());
@@ -31,7 +33,7 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
         forecastTitle.setVerticalTextPosition(JLabel.CENTER);
         forecastTitle.setHorizontalTextPosition(JLabel.LEFT);
         forecastPanel.add(forecastTitle, BorderLayout.NORTH);
-        forecastPanel.add(forecast, BorderLayout.CENTER);
+        forecastPanel.add(new JScrollPane(forecast), BorderLayout.CENTER);
 
         // Setup historical pane
         historical = new JList();
@@ -40,10 +42,11 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
         historicalTitle.setVerticalTextPosition(JLabel.CENTER);
         historicalTitle.setHorizontalTextPosition(JLabel.LEFT);
         historicalPanel.add(historicalTitle, BorderLayout.NORTH);
-        historicalPanel.add(historical, BorderLayout.CENTER);
+        historicalPanel.add(new JScrollPane(historical), BorderLayout.CENTER);
 
         // Set content into main panel
         content.add(forecastPanel);
+
         content.add(historicalPanel);
         content.setBackground(new Color(255, 0, 186,255));
         this.add(content);

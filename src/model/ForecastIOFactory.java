@@ -10,9 +10,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ForecastIOFactory implements ForecastFactory {
 
+	public static Logger logger = Logger.getLogger("Forecast IO Factory");
+	
 	String lat, lon;
 
 	public ForecastIOFactory(String lat, String lon) {
@@ -38,7 +41,7 @@ public class ForecastIOFactory implements ForecastFactory {
 
 			sc.close();
 		} catch (IOException e) {
-			//logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + forecastAPIString);
+			logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + forecastAPIString);
 			return data;
 		}
 

@@ -59,10 +59,12 @@ public class WeatherModelImpl implements WeatherSystem {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
+				logger.entering("WeatherModelImpl", "run");
 				StatusBarView.SetBusy(true);
 				
 				for (WeatherStation station : favorites) {
 					station.scrapeEntries();
+					logger.log(Level.INFO, "Scraped entries");
 				}
 
 				invokeCallbacks();
@@ -109,8 +111,11 @@ public class WeatherModelImpl implements WeatherSystem {
 		for (HashMap<String, WeatherStation> stationList : stations.values()) {
 			// We add all stations from each state in the map.
 			for (WeatherStation station : stationList.values()) {
-				if (station.getName().contains(subStr))
+				if (station.getName().contains(subStr)){
 					allStations.add(station);
+					logger.log(Level.INFO, "Added all stations from each state");
+				}
+					
 			}
 		}
 		return allStations;
@@ -122,8 +127,11 @@ public class WeatherModelImpl implements WeatherSystem {
 		ArrayList<WeatherStation> allStations = new ArrayList<WeatherStation>();
 		for (HashMap<String, WeatherStation> stationList : stations.values()) {
 			// We add all stations from each state in the map.
-			for (WeatherStation station : stationList.values())
+			for (WeatherStation station : stationList.values()){
 				allStations.add(station);
+				logger.log(Level.INFO, "Added all stations from each state");
+			}
+				
 		}
 		return allStations;
 	}

@@ -28,13 +28,13 @@ public class ForecastIOFactory implements ForecastFactory {
 	{
 		String json = "";
 		final String forecastAPIString = "https://api.forecast.io/forecast/e75c50c1bc3a622832329f007ff1ab4b/";
-		final String unitSettings = "&units=ca";
 		HashMap<Date, WeatherDataPoint> data = new HashMap<>();
 
+		String finalUrl = forecastAPIString + lat + "," + lon;
 		try {
 			// Scrapes from the JSON file URL that has been assigned to
 			// WeatherStation
-			Scanner sc = new Scanner(new URL(forecastAPIString + lat + "," + lon + unitSettings).openStream());
+			Scanner sc = new Scanner(new URL(finalUrl).openStream());
 			while (sc.hasNext()) {
 				json += sc.nextLine();
 			}

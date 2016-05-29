@@ -5,9 +5,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,7 +64,7 @@ public class ForecastIOFactory implements ForecastFactory {
 			int relHum = (int)(entry.optDouble("humidity")*100);
 
 			// Wind & gust
-			float windDir = (float)entry.optDouble("windBearing");
+			int windDir = (int)entry.optDouble("windBearing");
 			float windSpeedKmh = (float)(entry.optDouble("windSpeed")* MPH_2_KMH);
 
 			// Pressure

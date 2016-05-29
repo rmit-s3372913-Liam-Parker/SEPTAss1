@@ -60,18 +60,20 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 			//Summary
 			long unixTime = entry.optLong("dt");
 			Date date = new Date(unixTime*1000L);
-			String summary = entry.optString("summary");
-
+			String summary = entry.getJSONArray("weather").getJSONObject(0).optString("main");
+			
 			// Temperatures and humidity
-			float temp = (float)entry.optDouble("temp");
-			int relHum = (int)(entry.optDouble("humidity")*100);
+			JSONObject main = entry.getJSONObject("main");
+			float temp = (float)main.optDouble("temp");
+			int relHum = (main.optInt("humidity"));
 
 			// Wind & gust
-			float windDir = (float)entry.optDouble("windBearing");
-			float windSpeedKmh = (float)(entry.optDouble("windSpeed")* MPH_2_KMH);
+			JSONObject wind = entry.getJSONObject("wind");
+			int windDir = (int)wind.optDouble("deg");
+			float windSpeedKmh = (float)(wind.optDouble("speed"));
 
 			// Pressure
-			float pressure = (float)entry.optDouble("pressure");
+			float pressure = (float)main.optDouble("pressure");
 			
 			ForecastDataPoint dataPoint = new ForecastDataPoint(date, summary, temp, relHum, windDir, 
 					windSpeedKmh, pressure);

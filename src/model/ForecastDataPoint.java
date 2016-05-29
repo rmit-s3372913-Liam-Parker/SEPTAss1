@@ -14,7 +14,7 @@ public class ForecastDataPoint
 		private int relHum;
 
 		// Wind & gust
-		private float windDir;
+		private int windDir;
 		private float windSpeedKmh;
 
 		// Pressure
@@ -22,7 +22,7 @@ public class ForecastDataPoint
 
 		// Precipitation
 
-		public ForecastDataPoint(Date date, String summary, float temp, int relHum, float windDir, 
+		public ForecastDataPoint(Date date, String summary, float temp, int relHum, int windDir, 
 				float windSpeedKmh, float pressure)
 		{
 				this.date = date;
@@ -54,7 +54,7 @@ public class ForecastDataPoint
 			return relHum;
 		}
 		
-		public float windDir()
+		public int windDir()
 		{
 			return windDir;
 		}

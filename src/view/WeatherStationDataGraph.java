@@ -29,7 +29,6 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	private static final long serialVersionUID = -8115274594459474258L;
 
 	private Map<Date, WeatherDataPoint> historicalData;
-    private Map<Date, WeatherDataPoint> forecastData;
 
 	private JToggleButton tempToggle = new JToggleButton("Temperature", true);
 	private JToggleButton appTempToggle = new JToggleButton("Apparent Temperature", true);
@@ -78,7 +77,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
             @Override
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 if(historicalData.size() <= 1) return;
-                scrollBar.setMaximum((historicalData.size() - 1) + (forecastData.size() <= 1?0:(forecastData.size() - 1)));
+                scrollBar.setMaximum((historicalData.size() - 1));
                 historicalDataset.setFirstCategoryIndex(e.getValue());
             }
         });

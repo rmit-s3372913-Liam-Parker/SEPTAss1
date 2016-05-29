@@ -54,7 +54,7 @@ public class WeatherModelImpl implements WeatherSystem {
 	}
 
 	@Override
-	public void refreshFavoriteWeatherData() {
+	public synchronized void refreshFavoriteWeatherData() {
 		logger.entering("WeatherModelImpl", "refreshWeatherData");
 		Thread thread = new Thread(new Runnable() {
 			@Override

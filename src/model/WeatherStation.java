@@ -154,7 +154,7 @@ public class WeatherStation {
 			factory = new ForecastIOFactory(lat, lon);
 			break;
 		case OPEN_WEATHER_MAP:
-			factory = new OpenWeatherMapFactory();
+			factory = new OpenWeatherMapFactory(lat, lon);
 			break;
 		default:
 			factory = new ForecastIOFactory(lat, lon);

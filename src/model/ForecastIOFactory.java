@@ -38,8 +38,6 @@ public class ForecastIOFactory extends ForecastFactory {
 			logger.log(Level.WARNING, "Couldn't establish a connection with weather server at " + forecastAPIString);
 			return data;
 		}
-
-		System.out.println(json);
 		
 		JSONObject root = new JSONObject(json);
 		JSONObject observations = root.getJSONObject("hourly");

@@ -41,8 +41,6 @@ public class OpenWeatherMapFactory extends ForecastFactory {
 			return data;
 		}
 		
-		System.out.println(json);
-
 		JSONObject root = new JSONObject(json);
 		JSONArray entriesArray = root.getJSONArray("list");
 		

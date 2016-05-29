@@ -1,20 +1,17 @@
 package view;
 
+import controller.GraphToggleController;
 import interfaces.IWeatherSystemCallback;
 import model.WeatherDataPoint;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.category.SlidingCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.util.Date;
@@ -73,6 +70,7 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 		togglePane.add(rainToggle);
 
         // We need a scrollbar to translate the horizontal axis and view all available data.
+        //TODO: Move to controller
         scrollBar.addAdjustmentListener(new AdjustmentListener() {
             @Override
             public void adjustmentValueChanged(AdjustmentEvent e) {
@@ -122,71 +120,14 @@ public class WeatherStationDataGraph extends JFrame implements IWeatherSystemCal
 	}
 
 	private void initializeListeners() {
-		tempToggle.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CategoryPlot plot = historicalGraph.getCategoryPlot();
+		GraphToggleController controller = new GraphToggleController(historicalGraph);
 
-				CategoryItemRenderer renderer = plot.getRenderer();
-				renderer.setSeriesVisible(0, !renderer.isSeriesVisible(0));
-				renderer.setSeriesVisibleInLegend(0, true, false);
-			}
-		});
-
-		appTempToggle.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CategoryPlot plot = historicalGraph.getCategoryPlot();
-
-				CategoryItemRenderer renderer = plot.getRenderer();
-				renderer.setSeriesVisible(1, !renderer.isSeriesVisible(1));
-				renderer.setSeriesVisibleInLegend(1, true, false);
-			}
-		});
-
-		dewPointToggle.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CategoryPlot plot = historicalGraph.getCategoryPlot();
-
-				CategoryItemRenderer renderer = plot.getRenderer();
-				renderer.setSeriesVisible(2, !renderer.isSeriesVisible(2));
-				renderer.setSeriesVisibleInLegend(2, true, false);
-			}
-		});
-
-		wSpdKtsToggle.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CategoryPlot plot = historicalGraph.getCategoryPlot();
-
-				CategoryItemRenderer renderer = plot.getRenderer();
-				renderer.setSeriesVisible(3, !renderer.isSeriesVisible(3));
-				renderer.setSeriesVisibleInLegend(3, true, false);
-			}
-		});
-
-		wSpdKmhToggle.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CategoryPlot plot = historicalGraph.getCategoryPlot();
-
-				CategoryItemRenderer renderer = plot.getRenderer();
-				renderer.setSeriesVisible(4, !renderer.isSeriesVisible(4));
-				renderer.setSeriesVisibleInLegend(4, true, false);
-			}
-		});
-
-		rainToggle.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CategoryPlot plot = historicalGraph.getCategoryPlot();
-
-				CategoryItemRenderer renderer = plot.getRenderer();
-				renderer.setSeriesVisible(5, !renderer.isSeriesVisible(5));
-				renderer.setSeriesVisibleInLegend(5, true, false);
-			}
-		});
+		tempToggle.addActionListener(controller);
+		appTempToggle.addActionListener(controller);
+		dewPointToggle.addActionListener(controller);
+		wSpdKtsToggle.addActionListener(controller);
+		wSpdKmhToggle.addActionListener(controller);
+		rainToggle.addActionListener(controller);
 	}
 
 	@Override

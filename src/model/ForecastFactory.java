@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public abstract class ForecastFactory {
 	
-	String lat, lon;
+	protected String lat, lon;
 	
 	protected Date date;
 	protected String summary;

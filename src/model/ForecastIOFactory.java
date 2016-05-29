@@ -39,8 +39,10 @@ public class ForecastIOFactory extends ForecastFactory {
 			return data;
 		}
 
+		System.out.println(json);
+		
 		JSONObject root = new JSONObject(json);
-		JSONObject observations = root.getJSONObject("daily");
+		JSONObject observations = root.getJSONObject("hourly");
 		JSONArray entriesArray = observations.getJSONArray("data");
 
 		Iterator<Object> entriesItr = entriesArray.iterator();
@@ -57,7 +59,8 @@ public class ForecastIOFactory extends ForecastFactory {
 			summary = entry.optString("summary");
 
 			// Temperatures and humidity
-			temp = (float)entry.optDouble("temperature");
+			temp = (float)(entry.optDouble("temperature"));
+			
 			relHum = (int)(entry.optDouble("humidity")*100);
 
 			// Wind & gust

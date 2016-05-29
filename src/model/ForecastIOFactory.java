@@ -9,15 +9,12 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ForecastIOFactory implements ForecastFactory {
+public class ForecastIOFactory extends ForecastFactory {
 
 	public static Logger logger = Logger.getLogger("Forecast IO Factory");
-	
-	String lat, lon;
 
 	public ForecastIOFactory(String lat, String lon) {
-		this.lat = lat;
-		this.lon = lon;
+		super(lat, lon);
 	}
 
 	@Override
@@ -56,19 +53,19 @@ public class ForecastIOFactory implements ForecastFactory {
 
 			//Summary
 			long unixTime = entry.optLong("time");
-			Date date = new Date(unixTime*1000L);
-			String summary = entry.optString("summary");
+			date = new Date(unixTime*1000L);
+			summary = entry.optString("summary");
 
 			// Temperatures and humidity
-			float temp = (float)entry.optDouble("temp");
-			int relHum = (int)(entry.optDouble("humidity")*100);
+			temp = (float)entry.optDouble("temp");
+			relHum = (int)(entry.optDouble("humidity")*100);
 
 			// Wind & gust
-			int windDir = (int)entry.optDouble("windBearing");
-			float windSpeedKmh = (float)(entry.optDouble("windSpeed")* MPH_2_KMH);
+			windDir = (int)entry.optDouble("windBearing");
+			windSpeedKmh = (float)(entry.optDouble("windSpeed")* MPH_2_KMH);
 
 			// Pressure
-			float pressure = (float)entry.optDouble("pressure");
+			pressure = (float)entry.optDouble("pressure");
 			
 			ForecastDataPoint dataPoint = new ForecastDataPoint(date, summary, temp, relHum, windDir, 
 					windSpeedKmh, pressure);

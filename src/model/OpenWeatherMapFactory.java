@@ -10,13 +10,10 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class OpenWeatherMapFactory implements ForecastFactory {
+public class OpenWeatherMapFactory extends ForecastFactory {
 	
-	String lat, lon;
-
 	public OpenWeatherMapFactory(String lat, String lon) {
-		this.lat = lat;
-		this.lon = lon;
+		super(lat, lon);
 	}
 
 	@Override
@@ -59,21 +56,21 @@ public class OpenWeatherMapFactory implements ForecastFactory {
 	
 			//Summary
 			long unixTime = entry.optLong("dt");
-			Date date = new Date(unixTime*1000L);
-			String summary = entry.getJSONArray("weather").getJSONObject(0).optString("main");
+			date = new Date(unixTime*1000L);
+			summary = entry.getJSONArray("weather").getJSONObject(0).optString("main");
 			
 			// Temperatures and humidity
 			JSONObject main = entry.getJSONObject("main");
-			float temp = (float)main.optDouble("temp");
-			int relHum = (main.optInt("humidity"));
+			temp = (float)main.optDouble("temp");
+			relHum = (main.optInt("humidity"));
 
 			// Wind & gust
 			JSONObject wind = entry.getJSONObject("wind");
-			int windDir = (int)wind.optDouble("deg");
-			float windSpeedKmh = (float)(wind.optDouble("speed"));
+			windDir = (int)wind.optDouble("deg");
+			windSpeedKmh = (float)(wind.optDouble("speed"));
 
 			// Pressure
-			float pressure = (float)main.optDouble("pressure");
+			pressure = (float)main.optDouble("pressure");
 			
 			ForecastDataPoint dataPoint = new ForecastDataPoint(date, summary, temp, relHum, windDir, 
 					windSpeedKmh, pressure);

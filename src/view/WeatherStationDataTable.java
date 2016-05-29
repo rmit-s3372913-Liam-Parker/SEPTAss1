@@ -14,8 +14,8 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
 
     private WeatherStation station;
 
-    private JPanel historical;
-    private JPanel forecast;
+    private JList historical;
+    private JList forecast;
 
     public WeatherStationDataTable(WeatherStation station)
     {
@@ -25,7 +25,7 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
         JPanel content = new JPanel();
 
         // Setup forecast pane
-        forecast = new JPanel();
+        forecast = new JList();
         JPanel forecastPanel = new JPanel(new BorderLayout());
         JLabel forecastTitle = new JLabel("Forecast Data:");
         forecastTitle.setVerticalTextPosition(JLabel.CENTER);
@@ -33,10 +33,8 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
         forecastPanel.add(forecastTitle, BorderLayout.NORTH);
         forecastPanel.add(forecast, BorderLayout.CENTER);
 
-        forecast.setBackground(new Color(110,255, 102,255));
-
         // Setup historical pane
-        historical = new JPanel();
+        historical = new JList();
         JPanel historicalPanel = new JPanel(new BorderLayout());
         JLabel historicalTitle = new JLabel("Historical Data:");
         historicalTitle.setVerticalTextPosition(JLabel.CENTER);
@@ -44,12 +42,10 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
         historicalPanel.add(historicalTitle, BorderLayout.NORTH);
         historicalPanel.add(historical, BorderLayout.CENTER);
 
-        forecast.setBackground(new Color(255, 98, 216,255));
-
         // Set content into main panel
         content.add(forecastPanel);
         content.add(historicalPanel);
-
+        content.setBackground(new Color(255, 0, 186,255));
         this.add(content);
 
         updateAll();
@@ -61,29 +57,40 @@ public class WeatherStationDataTable extends JPanel implements IWeatherSystemCal
         this.revalidate();
     }
 
+    /**
+     * Convenience method when users desire calling both table update functions.
+     */
     private void updateAll()
     {
         updateForecastTable();
         updateHistoricalTable();
     }
 
+    /**
+     * Updates the forecast JList with latest data model.
+     */
     private void updateForecastTable() {
         Map<Date, WeatherDataPoint> forecastEntries = station.getForecastDataPoints();
+        DefaultListModel model = new DefaultListModel<String>();
 
-        forecast.removeAll();
         for(Map.Entry<Date, WeatherDataPoint> entry : forecastEntries.entrySet()) {
-            forecast.add(new JLabel(entry.getValue().toString()));
+            model.addElement(entry.getValue().toString());
         }
+        forecast.setModel(model);
         forecast.repaint();
     }
 
+    /**
+     * Updates the historical JList with latest data model.
+     */
     private void updateHistoricalTable() {
         Map<Date, WeatherDataPoint> forecastEntries = station.getForecastDataPoints();
+        DefaultListModel model = new DefaultListModel<String>();
 
-        historical.removeAll();
         for(Map.Entry<Date, WeatherDataPoint> entry : forecastEntries.entrySet()) {
-            historical.add(new JLabel(entry.getValue().toString()));
+            model.addElement(entry.getValue().toString());
         }
+        historical.setModel(model);
         historical.repaint();
     }
 }

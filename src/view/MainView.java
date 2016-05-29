@@ -12,10 +12,14 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainView extends JFrame implements IJsonSerializable {
 	private static final long serialVersionUID = 1L;
 
+	public static Logger logger = Logger.getLogger("Main View");
+	
 	private static final String PROGRAM_TITLE = "Weather Application";
 
 	// Window sizing constants.
@@ -99,10 +103,13 @@ public class MainView extends JFrame implements IJsonSerializable {
 	 * class. TODO:
 	 */
 	private void AttachActionListeners() {
+		logger.entering("MainView","AttachActionListeners");
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				logger.entering("MainView", "windowClosing");
 				saveProgramState();
+				logger.log(Level.INFO, "The system has been saved and exited");
 				System.exit(0);
 			}
 		});
@@ -114,6 +121,7 @@ public class MainView extends JFrame implements IJsonSerializable {
 	 * program.
 	 */
 	private void loadProgramState() {
+		logger.entering("MainView","loadProgramState");
 		String windowStatesJson = "";
 
 		try {
@@ -128,6 +136,8 @@ public class MainView extends JFrame implements IJsonSerializable {
 			bufferedReader.close();
 
 		} catch (IOException e) {
+			logger.log(Level.WARNING, "Cannot read the window states " + WINDOW_STATES_JSON
+					+ ". The program will not execute correctly, replace Window States JSON file and try again!");
 			return;
 		}
 
@@ -141,6 +151,8 @@ public class MainView extends JFrame implements IJsonSerializable {
 	}
 
 	private void saveProgramState() {
+		
+		logger.entering("MainView","saveProgramState");
 		JSONArray windowArray = new JSONArray();
 		windowArray.put(SaveToJsonObject());
 		windowArray.put(leftPanel.SaveToJsonObject());
@@ -150,6 +162,8 @@ public class MainView extends JFrame implements IJsonSerializable {
 			writer.print(windowArray.toString());
 			writer.close();
 		} catch (FileNotFoundException e1) {
+			logger.log(Level.WARNING, "Cannot read the file WindowStates.json. The program "
+					+ "will not execute correctly, replace the file and try again!");
 		}
 	}
 

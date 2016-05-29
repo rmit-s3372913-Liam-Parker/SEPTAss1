@@ -29,11 +29,11 @@ public class StationFavoriteButtonController implements ActionListener {
 		if (temp == null) {
 			system.addFavoriteStation(station.getName());
 			button.setText("Unfavorite");
-			logger.log(Level.INFO, "Added a favourite" + station.getName());
+			logger.log(Level.INFO, "Added a favourite: " + station.getName());
 		} else {
 			system.removeFavoriteStation(station.getName());
 			button.setText("Favorite");
-			logger.log(Level.INFO, "Removed a favourite" + station.getName());
+			logger.log(Level.INFO, "Removed a favourite: " + station.getName());
 		}
 	}
 }
